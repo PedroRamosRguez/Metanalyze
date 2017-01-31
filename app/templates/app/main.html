@@ -1,0 +1,47 @@
+<form action="#">
+  <p>¿Elegir mismo fichero para algoritmo(s) seleccionado(s)?</p>
+  <p>
+    <input class="with-gap" name="group1" type="radio" id="Si"  />
+    <label for="Si">Si</label>
+  </p>
+  <p>
+    <input class="with-gap" name="group1" type="radio" id="No"  />
+    <label for="No">No</label>
+  </p>
+</form>
+<form action="#">
+  <div class="file-field input-field">
+    <div class="btn">
+      <span>File</span>
+      <input type="file" multiple>
+    </div>
+    <div class="file-path-wrapper">
+      <input class="file-path validate" type="text" placeholder="Upload one or more files">
+    </div>
+  </div>
+  <input type="text" name="nejecuciones" placeholder="Introduce numero de ejecuciones">
+</form>
+<p> holaaa soy yoloooo: {{data}}</p>
+<select>
+  <option value="" disabled selected>Seleccione test estadístico a usar</option>
+  {% for i in test%}
+    <option {{i}}>{{i}}</option>
+  {%endfor%}
+</select>
+<div class="row">
+  <div class="input-field center col s6">
+    <select multiple>
+      <option value="" disabled selected>Seleccione algoritmo a analizar</option>
+      {% for j in algoritmo%}
+        <option {{j}}>{{j}}</option>
+      {%endfor%}
+    </select>
+  </div>
+</div> 
+<script type="text/javascript">
+  
+
+
+</script>
+
+

@@ -10,7 +10,7 @@
     <main class="container center">
       <h1 class="center">MOSTRAR RESULTADOS AQUI</h1>
       <div class="container resultados">
-        <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod 
+        <!--<p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod 
         tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis 
         nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. 
         Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel 
@@ -27,23 +27,9 @@
         Est ei erat mucius quaeque. Ei his quas phaedrum, efficiantur mediocritatem ne sed, hinc oratio 
         blandit ei sed. Blandit gloriatur eam et. Brute noluisse per et, verear disputando neglegentur at 
         quo. Sea quem legere ei, unum soluta ne duo. Ludus complectitur quo te, ut vide autem homero pro. 
-        </p>
-        <div class="row" id="bottom">
-          <div class="input-field center col s6">
-            <select>
-              <option value="" disabled selected>Elige el test a realizar</option>
-              {% for i in d %}
-                <option {{i}}>{{i}}</option>
-              {%endfor%}
-            </select>
-            <select multiple>
-              <option value="" disabled selected>Elige los algoritmos a analizar</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
-          </div>
-        </div> 
+        </p>-->
+        
+        {% include "app/main.html" %}
       </div>   
     </main>
     <footer class="page-footer grey darken-3">
@@ -53,7 +39,7 @@
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script>
       $(".button-collapse").sideNav();
     </script>

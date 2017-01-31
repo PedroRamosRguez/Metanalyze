@@ -1,0 +1,24 @@
+{
+  "test": [
+    {
+        "id": 1,
+        "value": "Anova"
+    },
+    {
+        "id": 2,
+        "value": "Saphiro-wilk"
+    },
+    {
+        "id": 3,
+        "value": "Levene"
+    },
+    {
+        "id": 4,
+        "value": "Welch"
+    },
+    {
+        "id": 5,
+        "value": "Kruskal-Wallis"
+    }
+  ]
+}

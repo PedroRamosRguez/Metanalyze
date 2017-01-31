@@ -1,18 +1,67 @@
-
-{% load staticfiles %}
 <html>
   <head>
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="{% static 'materialize/bin/materialize.css' %}"  media="screen,projection"/>
+  <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
   </head>
   <body>
-    ...
+    <header>{% include "app/header.html"%}</header>
+    <main class="container center">
+      <h1 class="center">MOSTRAR RESULTADOS AQUI</h1>
+      <div class="container resultados">
+        <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod 
+        tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis 
+        nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. 
+        Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel 
+        illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui 
+        blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+        Expetenda tincidunt in sed, ex partem placerat sea, porro commodo ex eam. His putant aeterno 
+        interesset at. Usu ea mundi tincidunt, omnium virtute aliquando ius ex. Ea aperiri sententiae
+        duo. Usu nullam dolorum quaestio ei, sit vidit facilisis ea. Per ne impedit iracundia 
+        neglegentur. Consetetur neglegentur eum ut, vis animal legimus inimicus id.
+        His audiam deserunt in, eum ubique voluptatibus te. In reque dicta usu. Ne rebum dissentiet eam, 
+        vim omnis deseruisse id. Ullum deleniti vituperata at quo, insolens complectitur te eos, ea pri 
+        dico munere propriae. Vel ferri facilis ut, qui paulo ridens praesent ad. Possim alterum qui cu. 
+        Accusamus consulatu ius te, cu decore soleat appareat usu.
+        Est ei erat mucius quaeque. Ei his quas phaedrum, efficiantur mediocritatem ne sed, hinc oratio 
+        blandit ei sed. Blandit gloriatur eam et. Brute noluisse per et, verear disputando neglegentur at 
+        quo. Sea quem legere ei, unum soluta ne duo. Ludus complectitur quo te, ut vide autem homero pro. 
+        </p>
+        <div class="row" id="bottom">
+          <div class="input-field center col s6">
+            <select>
+              <option value="" disabled selected>Elige el test a realizar</option>
+              {% for i in d %}
+                <option {{i}}>{{i}}</option>
+              {%endfor%}
+            </select>
+            <select multiple>
+              <option value="" disabled selected>Elige los algoritmos a analizar</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+        </div> 
+      </div>   
+    </main>
+    <footer class="page-footer grey darken-3">
+      {% include "app/footer.html" %}
+    </footer>
     
     <!--Import jQuery before materialize.js-->
-    {% block footer %}
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="{% static 'materialize/bin/materialize.js' %}"></script>
-    {% endblock %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <script>
+      $(".button-collapse").sideNav();
+    </script>
+    <script type="text/javascript">
+       $(document).ready(function() {
+        $('select').material_select();
+       });
+    </script>
     ...
   </body>
 </html>

@@ -20,7 +20,7 @@
 </div>
 <div class="row"> 
   <div class="col s10">
-    <form action="#">
+    <form action="pruebatemplate/" method="post">
       <div class="mismoFichero">
         <p>¿Elegir mismo fichero para algoritmo(s) seleccionado(s)?</p>
         <p>
@@ -42,7 +42,11 @@
         </div>
       </div>
       <input type="text" id="nejecuciones" name="nejecuciones" placeholder="Introduzca número de ejecuciones a realizar">
-      <div class="file-field input-field" id = "ficheromultiple"></div>
+      <div id = "ficheromultiple"></div>
+      
+      <button class="btn waves-effect waves-light" type="submit" name="action">Enviar
+        <i class="material-icons right">send</i>
+      </button>
     </form>
    </div> 
 </div>  

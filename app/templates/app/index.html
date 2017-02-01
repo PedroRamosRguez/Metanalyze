@@ -9,91 +9,13 @@
     <header>{% include "app/header.html"%}</header>
     <main class="container center" id="principal">
       <h2 class="center">MOSTRAR NOMBRE Y LOGO AQUI</h1>
-      <div class="container resultados">
-        <!--<p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod 
-        tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis 
-        nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. 
-        Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel 
-        illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui 
-        blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
-        Expetenda tincidunt in sed, ex partem placerat sea, porro commodo ex eam. His putant aeterno 
-        interesset at. Usu ea mundi tincidunt, omnium virtute aliquando ius ex. Ea aperiri sententiae
-        duo. Usu nullam dolorum quaestio ei, sit vidit facilisis ea. Per ne impedit iracundia 
-        neglegentur. Consetetur neglegentur eum ut, vis animal legimus inimicus id.
-        His audiam deserunt in, eum ubique voluptatibus te. In reque dicta usu. Ne rebum dissentiet eam, 
-        vim omnis deseruisse id. Ullum deleniti vituperata at quo, insolens complectitur te eos, ea pri 
-        dico munere propriae. Vel ferri facilis ut, qui paulo ridens praesent ad. Possim alterum qui cu. 
-        Accusamus consulatu ius te, cu decore soleat appareat usu.
-        Est ei erat mucius quaeque. Ei his quas phaedrum, efficiantur mediocritatem ne sed, hinc oratio 
-        blandit ei sed. Blandit gloriatur eam et. Brute noluisse per et, verear disputando neglegentur at 
-        quo. Sea quem legere ei, unum soluta ne duo. Ludus complectitur quo te, ut vide autem homero pro. 
-        </p>-->
-        
+      <div class="container configuracion">
         {% include "app/main.html" %}
-      </div>   
+      </div> 
     </main>
     <footer class="page-footer grey darken-3">
       {% include "app/footer.html" %}
     </footer>
-    
-    <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-    <script>
-      $(".button-collapse").sideNav();
-    </script>
-    <script type="text/javascript">
-       $(document).ready(function() {
-        $('select').material_select();
-       });
-    </script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        console.log('entro...')
-        let i=0;
-        $("#seleccionfichero").css("display", "none");
-        $(".mismoFichero").click(function() {
-            if ($('#Si').is(':checked')) {
-              $("#seleccionfichero").css("display", "inherit");
-              $("#ficheromultiple").css("display", "none");
-            }else{
-              $("#seleccionfichero").css("display", "none");
-              $("#ficheromultiple").css("display", "inherit");
-              if($("#algoritmos").change){
-                
-                $("#ficheromultiple").css("display", "inherit");
-                let count = ($("#algoritmos :selected").length)-1;
-
-                console.log(count)
-                while(i<count){
-                  //añadir para que el div sea cerrado cuando yo diga...
-                  console.log("count vale :"+count);
-                  console.log($("#algoritmos :selected").length);
-                  console.log('soy el for: '+i);
-                  let divfichero = `<div class="btn"><span>File</span>
-                                          <input type="file">
-                                          </div>
-                                          <div class="file-path-wrapper">
-                                            <input class="file-path validate" type="text" placeholder="Selecciona el fichero para ejecutar las pruebas">
-                                          </div>`
-                  $("#ficheromultiple").append(divfichero);
-                  i+=1;
-                }
-              }
-              
-            }
-        });
-      });
-    </script>
-    <!--<div class="file-field input-field" id = "seleccionfichero">
-        <div class="btn">
-          <span>File</span>
-          <input type="file">
-        </div>
-        <div class="file-path-wrapper">
-          <input class="file-path validate" type="text" placeholder="Selecciona el fichero para ejecutar las pruebas">
-        </div>
-      </div>-->
+    {% include "app/scripts.html" %}
   </body>
 </html>

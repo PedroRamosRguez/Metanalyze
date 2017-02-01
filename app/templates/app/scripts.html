@@ -1,0 +1,52 @@
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+<!-- script para la barra de navegación en pantallas pequeñas-->
+<script>
+  $(".button-collapse").sideNav();
+</script>
+<!--Script de materialize para la carga del multiselect-->
+<script type="text/javascript">
+   $(document).ready(() =>{
+    $('select').material_select();
+   });
+</script>
+<!--Script con funciones Jquery para el manejo dinámico de los botones-->
+<script type="text/javascript">
+  $(document).ready(() =>{
+    $("#seleccionfichero").css("display", "none");
+    $("#ficheromultiple").css("display", "none");
+  })
+  $('.mismoFichero').change(() =>{
+    let i=0;
+    if($('#Si').is(':checked')){
+      $(".btnmultiple").remove()
+      $(".divfichero").remove()
+      $("#seleccionfichero").css("display", "inherit");
+      $("#ficheromultiple").css("display", "none");
+    }else{
+      $("#seleccionfichero").css("display", "none");
+      $("#ficheromultiple").css("display", "inherit");
+      let count = ($("#algoritmos :selected").length)-1;
+      while(i<count){
+        //añadir para que el div sea cerrado cuando yo diga...
+        console.log("count vale :"+count);
+        console.log($("#algoritmos :selected").length);
+        console.log('soy el for: '+i);
+        let divfichero = `<div class="file-field input-field btnmultiple${i}">
+                            <div class="btn "><span>File</span>
+                              <input type="file">
+                            </div>
+                            <div class="file-path-wrapper divfichero">
+                              <input class="file-path validate" type="text" placeholder="Selecciona el fichero para ejecutar las pruebas">
+                            </div>
+                          </div>`
+        $("#ficheromultiple").append(divfichero);
+        i+=1;
+      }
+    }
+  })
+</script>

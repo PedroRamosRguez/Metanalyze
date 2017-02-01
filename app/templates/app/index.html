@@ -50,35 +50,38 @@
     </script>
     <script type="text/javascript">
       $(document).ready(function() {
+        console.log('entro...')
+        let i=0;
         $("#seleccionfichero").css("display", "none");
         $(".mismoFichero").click(function() {
             if ($('#Si').is(':checked')) {
               $("#seleccionfichero").css("display", "inherit");
+              $("#ficheromultiple").css("display", "none");
             }else{
               $("#seleccionfichero").css("display", "none");
-              let count = ($("#algoritmos :selected").length)-1;
-              console.log(count)
-              for (let i=0;i < count; i++){
-                //añadir para que el div sea cerrado cuando yo diga...
-                console.log("count vale :"+count)
-                console.log('soy el for: '+i)
-                let divbtn = document.createElement("div");
-                divbtn.className = "file-field input-field"
-                let btn = document.createElement("div");
-                btn.className= "btn"
-                btn.setAttribute("id","soyiddd")
-                let span = document.createElement("span")
+              $("#ficheromultiple").css("display", "inherit");
+              if($("#algoritmos").change){
+                
+                $("#ficheromultiple").css("display", "inherit");
+                let count = ($("#algoritmos :selected").length)-1;
 
-                let t = document.createTextNode("File");
-                btn.appendChild(t);
-                let file = document.createElement("input")
-                file.setAttribute("type","file")
-                file.setAttribute("placeholder","esto es un placeholder")
-                //esto añade el boton...
-                document.getElementById("principal").appendChild(divbtn);
-                document.getElementById("principal").appendChild(btn);
-                document.getElementById("principal").appendChild(file);
+                console.log(count)
+                while(i<count){
+                  //añadir para que el div sea cerrado cuando yo diga...
+                  console.log("count vale :"+count);
+                  console.log($("#algoritmos :selected").length);
+                  console.log('soy el for: '+i);
+                  let divfichero = `<div class="btn"><span>File</span>
+                                          <input type="file">
+                                          </div>
+                                          <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" placeholder="Selecciona el fichero para ejecutar las pruebas">
+                                          </div>`
+                  $("#ficheromultiple").append(divfichero);
+                  i+=1;
+                }
               }
+              
             }
         });
       });

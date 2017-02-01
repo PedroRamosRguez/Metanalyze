@@ -7,8 +7,8 @@
   </head>
   <body>
     <header>{% include "app/header.html"%}</header>
-    <main class="container center">
-      <h1 class="center">MOSTRAR RESULTADOS AQUI</h1>
+    <main class="container center" id="principal">
+      <h2 class="center">MOSTRAR NOMBRE Y LOGO AQUI</h1>
       <div class="container resultados">
         <!--<p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod 
         tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis 
@@ -48,6 +48,49 @@
         $('select').material_select();
        });
     </script>
-    ...
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $("#seleccionfichero").css("display", "none");
+        $(".mismoFichero").click(function() {
+            if ($('#Si').is(':checked')) {
+              $("#seleccionfichero").css("display", "inherit");
+            }else{
+              $("#seleccionfichero").css("display", "none");
+              let count = ($("#algoritmos :selected").length)-1;
+              console.log(count)
+              for (let i=0;i < count; i++){
+                //añadir para que el div sea cerrado cuando yo diga...
+                console.log("count vale :"+count)
+                console.log('soy el for: '+i)
+                let divbtn = document.createElement("div");
+                divbtn.className = "file-field input-field"
+                let btn = document.createElement("div");
+                btn.className= "btn"
+                btn.setAttribute("id","soyiddd")
+                let span = document.createElement("span")
+
+                let t = document.createTextNode("File");
+                btn.appendChild(t);
+                let file = document.createElement("input")
+                file.setAttribute("type","file")
+                file.setAttribute("placeholder","esto es un placeholder")
+                //esto añade el boton...
+                document.getElementById("principal").appendChild(divbtn);
+                document.getElementById("principal").appendChild(btn);
+                document.getElementById("principal").appendChild(file);
+              }
+            }
+        });
+      });
+    </script>
+    <!--<div class="file-field input-field" id = "seleccionfichero">
+        <div class="btn">
+          <span>File</span>
+          <input type="file">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text" placeholder="Selecciona el fichero para ejecutar las pruebas">
+        </div>
+      </div>-->
   </body>
 </html>

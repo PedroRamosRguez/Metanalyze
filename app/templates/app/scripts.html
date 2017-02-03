@@ -39,15 +39,12 @@
       
       while(i<count){
         //añadir para que el div sea cerrado cuando yo diga...
-        console.log("count vale :"+count);
-        console.log($("#algoritmos :selected").length);
-        console.log('soy el for: '+i);
         let divfichero = `<div class="file-field input-field btnmultiple${i}">
                             <div class="btn "><span>File</span>
                               <input type="file">
                             </div>
                             <div class="file-path-wrapper divfichero">
-                              <input class="file-path validate" type="text" placeholder="Selecciona el fichero para ejecutar las pruebas">
+                              <input class="file-path validate" type="text" placeholder="Selecciona el fichero para ejecutar la prueba para ${$( "#algoritmos" ).val()[i]}">
                             </div>
                           </div>`
         $("#ficheromultiple").append(divfichero);

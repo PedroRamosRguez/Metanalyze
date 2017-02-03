@@ -21,16 +21,22 @@
     $("#ficheromultiple").css("display", "none");
   })
   $('.mismoFichero').change(() =>{
+    let count = ($("#algoritmos :selected").length)-1;
     let i=0;
+    let totalAlgorithm= (document.getElementById("algoritmos").length)-1
     if($('#Si').is(':checked')){
-      $(".btnmultiple").remove()
+      //elimina los botones creados
+      while(i<totalAlgorithm){
+        $(`.btnmultiple${i}`).remove();
+        i+=1;
+      }  
       $(".divfichero").remove()
       $("#seleccionfichero").css("display", "inherit");
       $("#ficheromultiple").css("display", "none");
     }else{
       $("#seleccionfichero").css("display", "none");
       $("#ficheromultiple").css("display", "inherit");
-      let count = ($("#algoritmos :selected").length)-1;
+      
       while(i<count){
         //añadir para que el div sea cerrado cuando yo diga...
         console.log("count vale :"+count);

@@ -1,14 +1,5 @@
 <div class="row" >
-  <div class="input-field center col s10">
-    <select id="test">
-      <option value="" disabled selected>Seleccione test estadístico a usar</option>
-      {% for i in test%}
-        <option {{i}}>{{i}}</option>
-      {%endfor%}
-    </select>
-  </div>
-</div>    
-<div class="row" >
+<!--
   <div class="input-field center col s10">
     <select multiple id="algoritmos">
       <option value="" disabled selected>Seleccione algoritmo a analizar</option>
@@ -16,41 +7,74 @@
         <option {{j}}>{{j}}</option>
       {%endfor%}
     </select>
-  </div>
-</div>
-<div class="row"> 
+  </div>-->
   <div class="col s10">
-    <form action="pruebatemplate/" method="post">
-      <div class="mismoFichero">
-        <p>¿Elegir mismo fichero para algoritmo(s) seleccionado(s)?</p>
-        <p>
-          <input class="with-gap" name="group1" type="radio" id="Si"  />
-          <label for="Si">Si</label>
-        </p>
-        <p>
-          <input class="with-gap" name="group1" type="radio" id="No"  />
-          <label for="No">No</label>
-        </p>
-      </div>  
-      <div class="file-field input-field" id = "seleccionfichero">
-        <div class="btn">
-          <span>File</span>
-          <input type="file">
-        </div>
-        <div class="file-path-wrapper">
-          <input class="file-path validate" type="text" placeholder="Selecciona el fichero para ejecutar las pruebas">
+    <form action="pruebatemplate/" method="post"onsubmit="return false;" >
+      <div class="row" >
+        <div class="input-field center col s10">
+          <input type="text" name="algoritmo" placeholder="Introduzca el nombre del algoritmo a insertar" id="algoritmo" oninput="addalgoritmo()">
+          <button class="btn waves-effect waves-light" type="submit" name="action" id="introduceAlgoritmo">
+            <i class="material-icons right">send</i>
+          </button>
+          <div class="file-field input-field" id = "ficheroPruebas">
+            <div class="btn">
+              <span>File</span>
+              <input type="file">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text" placeholder="Selecciona el fichero para ejecutar las pruebas">
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Enviar
+              <i class="material-icons right">send</i>
+            </button>
         </div>
       </div>
-      <div id = "ficheromultiple"></div>
-      <input type="text" id="nejecuciones" name="nejecuciones" placeholder="Introduzca número de ejecuciones a realizar">
-      
-      
-      <button class="btn waves-effect waves-light" type="submit" name="action">Enviar
-        <i class="material-icons right">send</i>
-      </button>
-    </form>
-   </div> 
-</div>  
-
+      <div class="row" >
+        <div class="input-field center col s10">
+          <select multiple id="test">
+            <option value="" disabled selected>Seleccione test estadístico</option>
+            {% for j in test%}
+              <option {{j}}>{{j}}</option>
+            {%endfor%}
+          </select>
+        </div>
+      </div>
+      <div class="row" >
+        <div class="input-field center col s8">
+          <input type="text" name="nInstancia" placeholder="probando input para lo del número de instancias..">
+          <input type="text" name="pruebainstancia" placeholder="probando lo de las n instancias..." id="pruebainstancia"
+          oninput ="compruebaInstancia()">
+          <button class="btn-floating waves-effect waves-light red" type="submit" name="action" id="introduceInstancia">
+            <i class="material-icons right">add</i>
+          </button>
+        </div>
+      </div>
+      <div class="row" >
+        <div class="col s10">
+          <div class="dataoutput">
+            <p>Elija el formato de salida de los datos</p>
+            <p>
+              <input class="with-gap" name="group1" type="radio" id="tabla"  />
+              <label for="tabla">Tabla</label>
+            </p>
+            <p>
+              <input class="with-gap" name="group1" type="radio" id="grafica"  />
+              <label for="grafica">Gráfica</label>
+            </p>
+            <p>
+              <input class="with-gap" name="group1" type="radio" id="tabla-grafica"  />
+              <label for="tabla-grafica">Tabla y gráfica</label>
+            </p>
+          </div>
+        </div>
+      </div>   
+      <div class="row" >
+        <div class="col s10">
+          <input type="text" id="nejecuciones" name="nejecuciones" placeholder="Introduzca el número de ejecuciones realizadas">
+        </div>
+      </div>    
+    </form> 
+  </div>
+</div>
 
 

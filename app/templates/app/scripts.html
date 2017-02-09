@@ -1,9 +1,13 @@
+
+<!--MIRAR CUANDO ESTO ESTE MEDIO TERMINADO LO DE LA CARPETA STATIC Y PONER LOS ARCHIVOS COMO .JS Y EN LOS 
+HTML DE INDEX, SOLO AÑADIR {% STATIC NOMBRE DEL SCRIPT...}
+
+-->
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-
 <!-- script para la barra de navegación en pantallas pequeñas-->
 <script>
   $(".button-collapse").sideNav();
@@ -14,7 +18,107 @@
     $('select').material_select();
    });
 </script>
+<script type="text/javascript">
+ $(document).ready(() =>{
+    $("#introduceAlgoritmo").css("display", "none");
+    $("#ficheroPruebas").css("display", "none");
+  })
+</script>
+<script type="text/javascript"> 
+
+  addalgoritmo = () =>{
+    let valor = document.getElementById("algoritmo").value;
+    //variable para que cuente la longitud del input introducido
+    let contador= document.getElementById("algoritmo").value.length;
+    console.log(contador)
+    if(contador !== 0){
+      $("#introduceAlgoritmo").css("display", "inherit");
+      document.getElementById("introduceAlgoritmo").innerHTML = "Introducir algoritmo: " + valor;
+    }else{
+      $("#introduceAlgoritmo").css("display", "none");
+      $("#ficheroPruebas").css("display", "none");
+    }
+    return valor
+  }
+</script>
+<script type="text/javascript">
+  const algoritmos=[]
+  $("#introduceAlgoritmo").click(() =>{
+    $('#introduceAlgoritmo').prop("disabled")
+    $("#ficheroPruebas").css("display", "inherit");
+    let algoritmoIntroducido = addalgoritmo()
+    //$("#algoritmo").val('')
+    //$("#introducealgoritmo").css("display", "none");
+    algoritmos.push(algoritmoIntroducido)
+    console.log(algoritmos)
+    console.log('introducido el algoritmo...')
+ }); 
+</script>
+
+<!--REGEX PARA CONTROLAR LAS INSTANCIAS DESDE 1 HASTA 99 PORQUE SINO SERÍAN MUCHAS INSTANCIAS.  
+      ^[1-9][0-9]{0,1}$
+-->
+<script type="text/javascript">
+  compruebaInstancia = () => {
+    let instancia = document.getElementById("pruebainstancia").value;
+    console.log(instancia)
+    if(instancia.match(/^[1-9][0-9]{0,1}$/)){
+      console.log('acepto...')
+    }else{
+      console.log('no acepto')
+    }
+  }
+</script>
+
+<!--AHORA LO QUE FALTA ES QUE AL DARLE AL BOTON DE INSERTAR LAS INSTANCIAS, APAREZCAN TANTOS INPUTS POR NUMERO DE
+INSTANCIAS AÑADIDAS... UNA VEZ HECHO, AL INSERTAR I DARLE AL BOTON AÑADIR, HACER DESAPARECER ESOS INPUTS...
+
+CONCRETAR DONDE GUARDAR LOS NOMBRES DE INSTANCIAS... LO MAS NORMAL SERIA PONERLO EN UN ARRAY PARA LUEGO COGER LOS 
+VALORES DESDE UN ARCHIVO .PY-->
+
+<!--
+<script type="text/javascript">
+  const algoritmos = ["1","111"]
+  $("#algoritmo").change(()=>{
+    let value = $("#algoritmo").val();
+    console.log('algoritmo cambio...')
+    console.log("el valor es: "+ value)
+    console.log("algoritmos antes de cambiar..")
+    console.log(algoritmos)
+    $("#introducealgoritmo").click(() =>{
+    //let algoritmos =[]
+      console.log("estoy al hacer click...")
+      let value = $("#algoritmo").val();
+      let i=0
+      let coincidencia = false;
+      for(i;i < algoritmos.size; i++){
+        console.log("iteracion:"+i)
+        //console.log(data)
+        //console.log(value)
+        if(value === algoritmos[i]){
+          coincidencia = true;
+          throw ("error ya existe ese algoritmo...")
+        }
+      console.log('esto es el for...') 
+      }  
+      if(coincidencia === false){
+        algoritmos.push(value)
+      }
+      console.log("algortimos al final "+ algoritmos)
+      
+      
+      //console.log("entre al click y voy a cambiar algoritmos...");
+    })
+    
+    
+  //console.log(algoritmos)
+    //algoritmos.push(value)
+    //console.log("algoritmos despues de cambiar...")
+    //console.log(algoritmos)
+    })
+</script>-->
 <!--Script con funciones Jquery para el manejo dinámico de los botones-->
+<!--
 <script type="text/javascript">
   $(document).ready(() =>{
     $("#seleccionfichero").css("display", "none");
@@ -52,4 +156,4 @@
       }
     }
   })
-</script>
+</script>-->

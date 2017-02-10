@@ -18,12 +18,18 @@ HTML DE INDEX, SOLO AÑADIR {% STATIC NOMBRE DEL SCRIPT...}
     $('select').material_select();
    });
 </script>
+<!--Script que oculta algunos elementos de la web cuando se carga...-->
 <script type="text/javascript">
  $(document).ready(() =>{
     $("#introduceAlgoritmo").css("display", "none");
     $("#ficheroPruebas").css("display", "none");
+    $("#spanPrueba").css("display", "none");
+    $("#introduceInstancia").hide();
   })
 </script>
+<!--Script para la introduccion de los nombres de algoritmos que el usuario quiera darle
+Además, una vez se inserta, y se le da al boton aparecerá el input para asignar fichero y 
+un botón para enviarlo a la base de datos o json pertinente...-->
 <script type="text/javascript"> 
 
   addalgoritmo = () =>{
@@ -55,105 +61,62 @@ HTML DE INDEX, SOLO AÑADIR {% STATIC NOMBRE DEL SCRIPT...}
  }); 
 </script>
 
-<!--REGEX PARA CONTROLAR LAS INSTANCIAS DESDE 1 HASTA 99 PORQUE SINO SERÍAN MUCHAS INSTANCIAS.  
-      ^[1-9][0-9]{0,1}$
--->
+<!--Script para comprobar que el numero de instancias es de 1-99 y muestra un mensaje tipo span 
+mostrando un error...-->
 <script type="text/javascript">
   compruebaInstancia = () => {
+
     let instancia = document.getElementById("pruebainstancia").value;
     console.log(instancia)
     if(instancia.match(/^[1-9][0-9]{0,1}$/)){
+      $("#spanPrueba").css("display", "none");
+      $("#pruebainstancia").css("color","inherit")
       console.log('acepto...')
+      $("#introduceInstancia").show();
     }else{
       console.log('no acepto')
+      $("#pruebainstancia").css("color","#FF0000")
+      $("#spanPrueba").css("display", "inherit");
+      $("#introduceInstancia").css("display", "none");
     }
   }
 </script>
+<!--Script para introducir el numero de instancias que tiene el problema
+ creará un input y un boton por cada n instancia introducida...
+ además, también quita la demostración del input de introducir un numero
+ de instancias al darle click..
 
-<!--AHORA LO QUE FALTA ES QUE AL DARLE AL BOTON DE INSERTAR LAS INSTANCIAS, APAREZCAN TANTOS INPUTS POR NUMERO DE
-INSTANCIAS AÑADIDAS... UNA VEZ HECHO, AL INSERTAR I DARLE AL BOTON AÑADIR, HACER DESAPARECER ESOS INPUTS...
-
-CONCRETAR DONDE GUARDAR LOS NOMBRES DE INSTANCIAS... LO MAS NORMAL SERIA PONERLO EN UN ARRAY PARA LUEGO COGER LOS 
-VALORES DESDE UN ARCHIVO .PY-->
-
-<!--
+-->
 <script type="text/javascript">
-  const algoritmos = ["1","111"]
-  $("#algoritmo").change(()=>{
-    let value = $("#algoritmo").val();
-    console.log('algoritmo cambio...')
-    console.log("el valor es: "+ value)
-    console.log("algoritmos antes de cambiar..")
-    console.log(algoritmos)
-    $("#introducealgoritmo").click(() =>{
-    //let algoritmos =[]
-      console.log("estoy al hacer click...")
-      let value = $("#algoritmo").val();
-      let i=0
-      let coincidencia = false;
-      for(i;i < algoritmos.size; i++){
-        console.log("iteracion:"+i)
-        //console.log(data)
-        //console.log(value)
-        if(value === algoritmos[i]){
-          coincidencia = true;
-          throw ("error ya existe ese algoritmo...")
-        }
-      console.log('esto es el for...') 
-      }  
-      if(coincidencia === false){
-        algoritmos.push(value)
-      }
-      console.log("algortimos al final "+ algoritmos)
-      
-      
-      //console.log("entre al click y voy a cambiar algoritmos...");
-    })
-    
-    
-  //console.log(algoritmos)
-    //algoritmos.push(value)
-    //console.log("algoritmos despues de cambiar...")
-    //console.log(algoritmos)
-    })
-</script>-->
-<!--Script con funciones Jquery para el manejo dinámico de los botones-->
-<!--
-<script type="text/javascript">
-  $(document).ready(() =>{
-    $("#seleccionfichero").css("display", "none");
-    $("#ficheromultiple").css("display", "none");
-  })
-  $('.mismoFichero').change(() =>{
-    let count = ($("#algoritmos :selected").length)-1;
-    let i=0;
-    let totalAlgorithm= (document.getElementById("algoritmos").length)-1
-    if($('#Si').is(':checked')){
-      //elimina los botones creados
-      while(i<totalAlgorithm){
-        $(`.btnmultiple${i}`).remove();
-        i+=1;
-      }  
-      $(".divfichero").remove()
-      $("#seleccionfichero").css("display", "inherit");
-      $("#ficheromultiple").css("display", "none");
-    }else{
-      $("#seleccionfichero").css("display", "none");
-      $("#ficheromultiple").css("display", "inherit");
-      
-      while(i<count){
-        //añadir para que el div sea cerrado cuando yo diga...
-        let divfichero = `<div class="file-field input-field btnmultiple${i}">
-                            <div class="btn "><span>File</span>
-                              <input type="file">
-                            </div>
-                            <div class="file-path-wrapper divfichero">
-                              <input class="file-path validate" type="text" placeholder="Selecciona el fichero para ejecutar la prueba para ${$( "#algoritmos" ).val()[i]}">
-                            </div>
-                          </div>`
-        $("#ficheromultiple").append(divfichero);
-        i+=1;
-      }
+  $("#introduceInstancia").click(() => {
+    console.log("di click...")
+    let nInstancia = document.getElementById("pruebainstancia").value;
+    console.log(nInstancia)
+    $("#pruebainstancia").css("display","none");
+    $("#introduceInstancia").css("display","none");
+    let i=1;
+    while(i <= nInstancia){
+      let inputInstancias = `<input type="text" name="nInstancia${i}" placeholder="Añadir instancia ${i}                      "id="instancia${i}"> 
+                             <button class="btn-floating waves-effect waves-light red" type="submit" name="action" id="btninstancia${i}" onclick="introduceInstancias(${i})">
+                               <i class="material-icons right">add</i>
+                             </button> `
+      $("#addInstancias").append(inputInstancias);
+      i+=1;
     }
+    i=1;
   })
-</script>-->
+</script>
+<!--Script para enviar los datos a base de datos o json o array con el nombre de las instancias-->
+<script type="text/javascript">
+   function introduceInstancias(i){
+    $(`#btninstancia${i}`).each(() => {
+      let input = document.getElementById(`instancia${i}`).value;
+      console.log(input)
+      console.log('le diii y soy el boton '+ i)
+      //cambiar a remove para ver si no borra datos..
+      $(`#btninstancia${i}`).css("display","none");
+      $(`#instancia${i}`).css("display","none");
+    })
+   }
+
+</script>

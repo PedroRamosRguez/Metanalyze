@@ -41,12 +41,14 @@
       </div>
       <div class="row" >
         <div class="input-field center col s8">
-          <input type="text" name="nInstancia" placeholder="probando input para lo del número de instancias..">
-          <input type="text" name="pruebainstancia" placeholder="probando lo de las n instancias..." id="pruebainstancia"
+          <input type="text" name="pruebainstancia" placeholder="Introduzca el número de instancias" id="pruebainstancia"
           oninput ="compruebaInstancia()">
+
+          <span id="spanPrueba">Error,el número de instancias debe estar comprendido entre 1-99</span>
           <button class="btn-floating waves-effect waves-light red" type="submit" name="action" id="introduceInstancia">
             <i class="material-icons right">add</i>
           </button>
+          <div id="addInstancias"></div>
         </div>
       </div>
       <div class="row" >

@@ -4,6 +4,6 @@
     $("#introduceAlgoritmo").hide()
     //$("#ficheroPruebas").css("display", "none");
     $("#ficheroPruebas").hide();
-    $("#spanPrueba").css("display", "none");
+    $("#spanErrorInstancia").css("display", "none");
     $("#introduceInstancia").hide();
   })

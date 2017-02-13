@@ -1,6 +1,6 @@
 /*Script para enviar los datos a base de datos o json o array con el nombre de las instancias*/
 
- function introduceinstancias(i){
+introduceInstancias = (i) => {
   $(`#btninstancia${i}`).each(() => {
     let input = document.getElementById(`instancia${i}`).value;
     console.log(input)
@@ -9,4 +9,4 @@
     $(`#btninstancia${i}`).css("display","none");
     $(`#instancia${i}`).css("display","none");
   })
- }
+}

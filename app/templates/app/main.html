@@ -9,22 +9,19 @@
     </select>
   </div>-->
   <div class="col s10">
-    <form action="pruebatemplate/" method="post"onsubmit="return false;" >
+    <form action="pruebatemplate/" method="post" onsubmit="return false;">
       <div class="row" >
         <div class="input-field center col s10">
           <input type="text" name="algoritmo" placeholder="Introduzca el nombre del algoritmo a insertar" id="algoritmo" oninput="addalgoritmo()">
-          <button class="btn waves-effect waves-light" type="submit" name="action" id="introduceAlgoritmo">
-            <i class="material-icons right">send</i>
-          </button>
           <div class="file-field input-field" id = "ficheroPruebas">
             <div class="btn">
               <span>File</span>
               <input type="file">
             </div>
-            <div class="file-path-wrapper">
-              <input class="file-path validate" type="text" placeholder="Selecciona el fichero para ejecutar las pruebas">
+            <div class="file-path-wrapper ">
+              <input class="file-path validate " type="text" placeholder="Selecciona el fichero para ejecutar las pruebas">
             </div>
-            <button class="btn waves-effect waves-light" type="submit" name="action">Enviar
+            <button class="btn waves-effect waves-light" type="submit" name="action" id="introduceAlgoritmo">
               <i class="material-icons right">send</i>
             </button>
         </div>
@@ -41,12 +38,12 @@
       </div>
       <div class="row" >
         <div class="input-field center col s8">
-          <input type="text" name="pruebainstancia" placeholder="Introduzca el número de instancias" id="pruebainstancia"
+          <input type="text" name="nInstancia" placeholder="Introduzca el número de instancias" id="nInstancia"
           oninput ="compruebaInstancia()">
 
           <span id="spanPrueba">Error,el número de instancias debe estar comprendido entre 1-99</span>
-          <button class="btn-floating waves-effect waves-light red" type="submit" name="action" id="introduceInstancia">
-            <i class="material-icons right">add</i>
+          <button class="btn waves-effect waves-light" type="submit" name="action" id="introduceInstancia">Añadir instancias
+            <i class="material-icons right ">send</i>
           </button>
           <div id="addInstancias"></div>
         </div>
@@ -74,7 +71,10 @@
         <div class="col s10">
           <input type="text" id="nejecuciones" name="nejecuciones" placeholder="Introduzca el número de ejecuciones realizadas">
         </div>
-      </div>    
+      </div>
+      <button class="btn waves-effect waves-light " type="submit" name="action" id="enviar">Enviar
+        <i class="material-icons right">send</i>
+      </button>    
     </form> 
   </div>
 </div>

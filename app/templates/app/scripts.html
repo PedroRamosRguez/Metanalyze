@@ -21,8 +21,9 @@ HTML DE INDEX, SOLO AÑADIR {% STATIC NOMBRE DEL SCRIPT...}
 <!--Script que oculta algunos elementos de la web cuando se carga...-->
 <script type="text/javascript">
  $(document).ready(() =>{
-    $("#introduceAlgoritmo").css("display", "none");
-    $("#ficheroPruebas").css("display", "none");
+    $("#introduceAlgoritmo").hide()
+    //$("#ficheroPruebas").css("display", "none");
+    $("#ficheroPruebas").hide();
     $("#spanPrueba").css("display", "none");
     $("#introduceInstancia").hide();
   })
@@ -38,26 +39,32 @@ un botón para enviarlo a la base de datos o json pertinente...-->
     let contador= document.getElementById("algoritmo").value.length;
     console.log(contador)
     if(contador !== 0){
-      $("#introduceAlgoritmo").css("display", "inherit");
+      $("#introduceAlgoritmo").show()
+      $("#ficheroPruebas").show();
       document.getElementById("introduceAlgoritmo").innerHTML = "Introducir algoritmo: " + valor;
     }else{
-      $("#introduceAlgoritmo").css("display", "none");
-      $("#ficheroPruebas").css("display", "none");
+      $("#introduceAlgoritmo").hide();
+      $("#ficheroPruebas").hide();
     }
     return valor
   }
 </script>
 <script type="text/javascript">
-  const algoritmos=[]
+  //const algoritmos=[]
   $("#introduceAlgoritmo").click(() =>{
     $('#introduceAlgoritmo').prop("disabled")
-    $("#ficheroPruebas").css("display", "inherit");
+    //$("#ficheroPruebas").css("display", "inherit");
     let algoritmoIntroducido = addalgoritmo()
     //$("#algoritmo").val('')
     //$("#introducealgoritmo").css("display", "none");
-    algoritmos.push(algoritmoIntroducido)
-    console.log(algoritmos)
-    console.log('introducido el algoritmo...')
+    //algoritmos.push(algoritmoIntroducido)
+    console.log(algoritmoIntroducido)
+    //console.log('introducido el algoritmo...')
+    alert('algoritmo introducido');
+    $("#introduceAlgoritmo").hide();
+    $("#ficheroPruebas").hide();
+    //faltaria poner lo de subir el algoritmo asociado a un fichero...
+    return(algoritmoIntroducido);
  }); 
 </script>
 
@@ -66,18 +73,18 @@ mostrando un error...-->
 <script type="text/javascript">
   compruebaInstancia = () => {
 
-    let instancia = document.getElementById("pruebainstancia").value;
+    let instancia = document.getElementById("nInstancia").value;
     console.log(instancia)
     if(instancia.match(/^[1-9][0-9]{0,1}$/)){
       $("#spanPrueba").css("display", "none");
-      $("#pruebainstancia").css("color","inherit")
+      $("#nInstancia").css("color","inherit")
       console.log('acepto...')
       $("#introduceInstancia").show();
     }else{
       console.log('no acepto')
-      $("#pruebainstancia").css("color","#FF0000")
+      $("#nInstancia").css("color","#FF0000")
       $("#spanPrueba").css("display", "inherit");
-      $("#introduceInstancia").css("display", "none");
+      $("#introduceInstancia").hide();
     }
   }
 </script>
@@ -90,14 +97,14 @@ mostrando un error...-->
 <script type="text/javascript">
   $("#introduceInstancia").click(() => {
     console.log("di click...")
-    let nInstancia = document.getElementById("pruebainstancia").value;
+    let nInstancia = document.getElementById("nInstancia").value;
     console.log(nInstancia)
-    $("#pruebainstancia").css("display","none");
+    $("#nInstancia").css("display","none");
     $("#introduceInstancia").css("display","none");
     let i=1;
     while(i <= nInstancia){
       let inputInstancias = `<input type="text" name="nInstancia${i}" placeholder="Añadir instancia ${i}                      "id="instancia${i}"> 
-                             <button class="btn-floating waves-effect waves-light red" type="submit" name="action" id="btninstancia${i}" onclick="introduceInstancias(${i})">
+                             <button class="btn-floating waves-effect waves-light grey darken-3" type="submit" name="action" id="btninstancia${i}" onclick="introduceInstancias(${i})">
                                <i class="material-icons right">add</i>
                              </button> `
       $("#addInstancias").append(inputInstancias);

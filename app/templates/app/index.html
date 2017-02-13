@@ -1,3 +1,4 @@
+{% load static %}
 <html>
   <head>
   <!--Import Google Icon Font-->
@@ -16,6 +17,18 @@
     <footer class="page-footer grey darken-3">
       {% include "app/footer.html" %}
     </footer>
-    {% include "app/scripts.html" %}
+    <!--{% include "app/scripts.html" %}-->
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <script type="text/javascript" src="{% static "js/navbar.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/multiSelect.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/cargaWeb.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/addAlgoritmo.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/insertaAlgoritmos.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/checkInstancia.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/addInstancia.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/insertaInstancia.js" %}"></script>
   </body>
 </html>

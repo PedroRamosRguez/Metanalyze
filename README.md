@@ -36,6 +36,7 @@ Para cargar los ficheros json, se utiliza un archivo .py para cada fichero Json 
 Esto permitirá decirle que use el context processors que se encuentra en la app de nuestro proyecto.
 
 * Añadir además en option
+
  ``` 
 OPTIONS': {
         'context_processors': [
@@ -47,9 +48,7 @@ OPTIONS': {
             'app.cargaJsonAlgoritmos.jsonAlgoritmo',
         ],
     },
-
 ```
-
 Para cargar los ficheros esttáticos `como css o archivos javascript` se realizó una configuración en el archivo **settings.py** del proyecto.
 La configuración realizada es la siguiente:
 

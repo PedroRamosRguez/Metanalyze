@@ -4,7 +4,7 @@
 $("#introduceAlgoritmo").click(() =>{
   $('#introduceAlgoritmo').prop("disabled")
   //$("#ficheroPruebas").css("display", "inherit");
-  let algoritmoIntroducido = addalgoritmo()
+  let algoritmoIntroducido = insertaAlgoritmo()
   //$("#algoritmo").val('')
   //$("#introducealgoritmo").css("display", "none");
   //algoritmos.push(algoritmoIntroducido)

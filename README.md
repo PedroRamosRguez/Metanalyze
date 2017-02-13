@@ -46,7 +46,9 @@ OPTIONS': {
             'app.cargaJsonTest.jsonTest',
             'app.cargaJsonAlgoritmos.jsonAlgoritmo',
         ],
-    },```
+    },
+
+```
 
 Para cargar los ficheros esttáticos `como css o archivos javascript` se realizó una configuración en el archivo **settings.py** del proyecto.
 La configuración realizada es la siguiente:

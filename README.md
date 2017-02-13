@@ -23,13 +23,9 @@ Para la realización de test unitario en la aplicación, sólo hay que añadir e
 
 ### TODO
 
-  '''
-    al seleccionar un algoritmo, comprobar si esta seleccionado y activar lo del archivo, 
-    si hay 2 algoritmos o mas poner radio button de decir si usa diferentes archivos, 
-    si dice si, seleccionar los archivos para  cada algoritmo,es decir, que añada tantos 
-    botones de formulario de archivos por algoritmo seleccionado  si pone no solo mostrar 
-    una entrada de fichero.
-  '''
+Comprobar si se guarda todo el contenido de los diferentes javascripts...
+Mirar lo del post request en DJANGO y en cada uno de los botones de insertar algoritmo, insertar instancia y demás,
+mirar algo para ver si se guarda o no.
 
 ### Información extra
 
@@ -51,3 +47,20 @@ OPTIONS': {
             'app.cargaJsonAlgoritmos.jsonAlgoritmo',
         ],
     },```
+
+Para cargar los ficheros esttáticos `como css o archivos javascript` se realizó una configuración en el archivo **settings.py** del proyecto.
+La configuración realizada es la siguiente:
+
+* Crear una carpeta llamada static dentro de la carpeta del proyecto `app/static/`
+
+* Añadir en setting.py la `STATIC_URL = '/static/'` que se realiza para poder cargar los ficheros que se encuentren en la carpeta **Static**
+
+* El siguiente paso es añadir el directorio de los ficheros estáticos, es decir, la ruta donde se cargarán esos ficheros que se encontrarán en la carpeta **static**. En este caso, la carpeta estará dentro del directorio de nuestra aplicación que hemos llamado app. Además, para poder realizar la carga de ficheros estáticos desde nuestras templates mediante el comando `{% load static %}` se debe poner la static root `STATIC_ROOT = os.path.join(BASE_DIR, 'app/staticfiles')` que cargará los ficheros estáticos mediante la ruta actual que se guarda en la variable `BASE_DIR` y se le añade la ruta `app/staticfiles`
+```
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'app/static'),
+)
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'app/staticfiles')
+
+```

@@ -4,7 +4,6 @@
  de instancias al darle click..
 
 */
-
 $("#introduceInstancia").click(() => {
   console.log("di click...")
   let nInstancia = document.getElementById("nInstancia").value;
@@ -19,6 +18,7 @@ $("#introduceInstancia").click(() => {
                            </button> `
     $("#addInstancias").append(inputInstancias);
     i+=1;
+    instancia.push(inputInstancias)
   }
   i=1;
 })

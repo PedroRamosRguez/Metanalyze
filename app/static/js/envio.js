@@ -1,3 +1,6 @@
+/*Sript para realizar el envío de la configuración del usuario al servidor mediante una petición ajax
+En la petición, se envían cada uno de los valores que el usuario introdujo en la pantalla de configuración.*/
+
 //fucion para obtener el csrtoken de django
 getCookie = (name) => {
   var cookieValue = null;
@@ -14,7 +17,7 @@ getCookie = (name) => {
   }
  return cookieValue;	
 }
-
+//función Jquery que obtiene los diferentes datos que el usuario introdujo y realiza la petición ajax.
 $("#enviar").click(function(e) {
 	//Prevent default submit. Must for Ajax post.Beginner's pit.
 	e.preventDefault();
@@ -23,18 +26,22 @@ $("#enviar").click(function(e) {
 	//console.log('le di al envio...')
 	let alg = getAlgoritmos();
 	let fich = getFicheros();
-	console.log(fich)
+	let instancias = getInstancias();
+	console.log($('.dataOutput:checked').val());
 	$.ajax({
 		type:"POST",
 		url: "pruebatemplate/",
 		data:{csrfmiddlewaretoken : csrftoken,
 			  algoritmo : alg,
 			  test : $('#test').val(),
-			  nInstancias : $('#nInstancia').val(),
+			  instancias : instancias,
+			  output : $('input[name=dataOutput]:checked').val(),
 			  nejecuciones : $('#nejecuciones').val(),
 			 },
+		//si la petición es exitosa realiza la redirección	 
 		success : function(data,textStatus){
 		  console.log('exito..');
+		  //hace posible la redirección a la vista pruebatemplate...
 		  window.location.href = 'pruebatemplate/';
 		 /* if(data.redirect){
 		  	console.log('hay redirect...')
@@ -44,6 +51,7 @@ $("#enviar").click(function(e) {
 		  }*/
 		  //console.log(data)
 		},
+		//en caso de que la petición sea errónea, muestra el error de manera detallada.
 		error : function(xhr,errmsg,err) {
 		  console.log('hubo un error')	
  		  console.log(xhr.status + ": " + xhr.responseText); // muestra mejor información del error 

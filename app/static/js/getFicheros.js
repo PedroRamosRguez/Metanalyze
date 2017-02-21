@@ -1,3 +1,4 @@
+/*Script para guardar en un array los ficheros que ha instroducido el usuario...*/
 const ficheros = []
 
   const fileInput = $("#fichero")
@@ -21,7 +22,7 @@ const ficheros = []
   });
   console.log('probando fuera...')
 
-function processFile(e) {
+processFile = (e) => {
     let file = e.target.result,
         results;
     if (file && file.length) {

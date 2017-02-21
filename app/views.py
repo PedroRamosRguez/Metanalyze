@@ -18,10 +18,10 @@ def pruebatemplate(request):
   elif request.method == 'POST':
     print (request.POST)
     alg = request.POST.getlist('algoritmo[]')
+    #bucle para mostrar los algoritmos que se introdujeron...
     for i in alg:
       print ('algoritmo:')
       print i 
     print ('es un post...')
-    print (request.POST.get('nejecuciones'))
-    print ('ahora iria los algoritmos')
+    #print (request.POST.get('nejecuciones'))
   return render(request,'app/pruebatemplate.html')

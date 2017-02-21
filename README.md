@@ -23,9 +23,7 @@ Para la realización de test unitario en la aplicación, sólo hay que añadir e
 
 ### TODO
 
-Comprobar si se guarda todo el contenido de los diferentes javascripts...
-Mirar lo del post request en DJANGO y en cada uno de los botones de insertar algoritmo, insertar instancia y demás,
-mirar algo para ver si se guarda o no.
+SE DEBE COMPROBAR QUE TIPO DE FORMATO QUIERE LA SALIDA DE DATOS (TABLA,GRÁFICO TABLA Y GRÁFICA). ADEMÁS, MIRAR LO DE PASAR EL FICHERO QUE ESO NO FUNCIONA BIEN... Y EN LO DE LAS INSTANCIAS MIRAR POR QUÉ NO RECOGE EL VALOR DE NUMERO DE INSTANCIAS RECOGIDAS...
 
 ### Información extra
 
@@ -65,3 +63,5 @@ STATICFILES_DIRS = (
 STATIC_ROOT = os.path.join(BASE_DIR, 'app/staticfiles')
 
 ```
+
+

@@ -6,4 +6,6 @@
     $("#ficheroPruebas").hide();
     $("#spanErrorInstancia").css("display", "none");
     $("#introduceInstancia").hide();
+    
+
   })

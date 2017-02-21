@@ -13,8 +13,8 @@ $("#introduceInstancia").click(() => {
   $("#introduceInstancia").css("display","none");
   let i=1;
   while(i <= nInstancia){
-    let inputInstancias = `<input type="text" name="nInstancia${i}" placeholder="Añadir instancia ${i}                      "id="instancia${i}"> 
-                           <button class="btn-floating waves-effect waves-light grey darken-3" type="submit" name="action" id="btninstancia${i}" onclick="introduceInstancias(${i})">
+    let inputInstancias = `<input type="text" name="nInstancia${i}" placeholder="Añadir instancia ${i}" id="instancia${i}"> 
+                           <button class="btn-floating waves-effect waves-light grey darken-3" type="button" name="action" id="btninstancia${i}" value=introduceAlgoritmo${i}" onclick="introduceInstancias(${i})">
                              <i class="material-icons right">add</i>
                            </button> `
     $("#addInstancias").append(inputInstancias);

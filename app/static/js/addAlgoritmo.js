@@ -8,11 +8,10 @@ $("#introduceAlgoritmo").click(() =>{
   //$("#algoritmo").val('')
   //$("#introducealgoritmo").css("display", "none");
   //algoritmos.push(algoritmoIntroducido)
-  console.log(algoritmoIntroducido)
+  //console.log(algoritmoIntroducido)
   //console.log('introducido el algoritmo...')
   alert('algoritmo introducido');
   $("#introduceAlgoritmo").hide();
   $("#ficheroPruebas").hide();
-  //faltaria poner lo de subir el algoritmo asociado a un fichero...
-  return(algoritmoIntroducido);
+  //return(algoritmoIntroducido);
 }); 

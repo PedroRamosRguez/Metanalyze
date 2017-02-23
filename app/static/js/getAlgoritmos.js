@@ -1,9 +1,9 @@
 /*Script para obtener los algoritmos que se han introducido por el usuario*/
-const algoritmos = []
+const algoritmos = [];
   $('#introduceAlgoritmo').click(() =>{
-    let alg = insertaAlgoritmo()
-    algoritmos.push(alg)
-    console.log(algoritmos)
+    let alg = insertaAlgoritmo();
+    algoritmos.push(alg);
+    console.log(algoritmos);
     $('#introduceAlgoritmo').hide();
     $('#ficheroPruebas').hide();
   });

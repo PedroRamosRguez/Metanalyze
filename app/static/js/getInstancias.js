@@ -2,13 +2,13 @@
 
 const instancias = []
 getInstancias = () => {
-  let ninstancias = $('#nInstancia').val()
+  let ninstancias = $('#nInstancia').val();
   //let instancia = introduceInstancias()
   let i =1;
   while (i <= ninstancias){
-    instancias.push($(`#instancia${i}`).val())
+    instancias.push($(`#instancia${i}`).val());
     i+=1;
   }
-  console.log(instancias)
-  return(instancias)
+  console.log(instancias);
+  return(instancias);
 }

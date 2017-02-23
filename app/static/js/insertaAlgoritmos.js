@@ -6,14 +6,14 @@ insertaAlgoritmo = () =>{
   let valor = document.getElementById('algoritmo').value;
   //variable para que cuente la longitud del input introducido
   let contador= document.getElementById('algoritmo').value.length;
-  console.log(contador)
+  console.log(contador);
   if(contador !== 0){
-    $('#introduceAlgoritmo').show()
+    $('#introduceAlgoritmo').show();
     $('#ficheroPruebas').show();
     document.getElementById('introduceAlgoritmo').innerHTML = 'Introducir algoritmo: ' + valor;
   }else{
     $('#introduceAlgoritmo').hide();
     $('#ficheroPruebas').hide();
   }
-  return valor
+  return valor;
 }

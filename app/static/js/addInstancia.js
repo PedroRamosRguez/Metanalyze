@@ -4,12 +4,12 @@
  de instancias al darle click..
 
 */
-$("#introduceInstancia").click(() => {
-  console.log("di click...")
-  let nInstancia = document.getElementById("nInstancia").value;
-  console.log(nInstancia)
-  $("#nInstancia").css("display","none");
-  $("#introduceInstancia").css("display","none");
+$('#introduceInstancia').click(() => {
+  //console.log("di click...");
+  let nInstancia = document.getElementById('nInstancia').value;
+  //console.log(nInstancia);
+  $('#nInstancia').css('display','none');
+  $('#introduceInstancia').css('display','none');
   let i=1;
   while(i <= nInstancia){
     let inputInstancias = `<input type="text" name="nInstancia${i}" placeholder="Añadir instancia ${i}" id="instancia${i}"> 
@@ -18,7 +18,6 @@ $("#introduceInstancia").click(() => {
                            </button> `
     $("#addInstancias").append(inputInstancias);
     i+=1;
-    instancia.push(inputInstancias)
   }
   i=1;
 })

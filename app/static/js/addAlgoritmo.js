@@ -2,16 +2,16 @@
 
 //const algoritmos=[]
 $("#introduceAlgoritmo").click(() =>{
-  $('#introduceAlgoritmo').prop("disabled")
+  $('#introduceAlgoritmo').prop('disabled');
   //$("#ficheroPruebas").css("display", "inherit");
-  let algoritmoIntroducido = insertaAlgoritmo()
+  let algoritmoIntroducido = insertaAlgoritmo();
   //$("#algoritmo").val('')
   //$("#introducealgoritmo").css("display", "none");
   //algoritmos.push(algoritmoIntroducido)
   //console.log(algoritmoIntroducido)
   //console.log('introducido el algoritmo...')
   alert('algoritmo introducido');
-  $("#introduceAlgoritmo").hide();
-  $("#ficheroPruebas").hide();
+  $('#introduceAlgoritmo').hide();
+  $('#ficheroPruebas').hide();
   //return(algoritmoIntroducido);
 }); 

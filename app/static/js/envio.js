@@ -29,8 +29,8 @@ $("#enviar").click(function(e) {
 	let instancias = getInstancias();
 	console.log($('.dataOutput:checked').val());
 	$.ajax({
-		type:"POST",
-		url: "pruebatemplate/",
+		type:'POST',
+		url: 'pruebatemplate/',
 		data:{csrfmiddlewaretoken : csrftoken,
 			  algoritmo : alg,
 			  test : $('#test').val(),
@@ -53,9 +53,9 @@ $("#enviar").click(function(e) {
 		},
 		//en caso de que la petición sea errónea, muestra el error de manera detallada.
 		error : function(xhr,errmsg,err) {
-		  console.log('hubo un error')	
+		  console.log('hubo un error');	
  		  console.log(xhr.status + ": " + xhr.responseText); // muestra mejor información del error 
  		}
-	})
+	});
   })
 

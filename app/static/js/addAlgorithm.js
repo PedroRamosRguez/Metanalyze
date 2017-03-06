@@ -33,7 +33,7 @@ insertAlgorithms= (i) => {
   //funcion de jquery para comprobar que se tiene un array de botones.  
   $(`#btnAlgorithm${i}`).each(() => {
     //Al darle al boton del algoritmo a configurar, se ponen los campos de texto escritos anteriormente vacíos
-    $('#algoritmo').val('');
+    $('#algorithm').val('');
     $('#nVariablesAlgorithm').val('');
     $(`#btnAlgorithm${i}`).css("display","none");
     $(`#algorithm${i}`).css("display","none");
@@ -48,8 +48,7 @@ insertAlgorithms= (i) => {
 /*Funcion que al darle click al botón de añadir el algoritmo con la configuración introducida por el usuario,
 oculta todos los campos y muestra un alert diciendo que el algoritmo ha sido introducido*/
 
-$("#introduceAlgoritmo").click(() =>{
-
+$("#introduceAlgorithm").click(() =>{
   alert('algoritmo introducido');
   $('#algorithmConfiguration').hide();
 }); 

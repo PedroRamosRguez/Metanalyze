@@ -1,11 +1,11 @@
 /*Script para obtener los algoritmos que se han introducido por el usuario*/
 const algoritmos = [];
-$('#introduceAlgoritmo').click(() =>{
+$('#introduceAlgorithm').click(() =>{
   let alg = configureAlgorithm();
   algoritmos.push(alg);
   console.log(algoritmos);
-  $('#introduceAlgoritmo').hide();
-  $('#ficheroPruebas').hide();
+  $('#introduceAlgorithm').hide();
+  $('#testFile').hide();
 });
 
 getAlgoritmos= () =>{

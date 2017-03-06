@@ -12,3 +12,4 @@ introduceInstancias = (i) => {
     $(`#instancia${i}`).css("display","none");
   })
 }
+

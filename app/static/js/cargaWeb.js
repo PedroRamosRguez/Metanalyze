@@ -5,7 +5,8 @@
     //$("#ficheroPruebas").css("display", "none");
     $('#ficheroPruebas').hide();
     $('#spanErrorInstancia').css('display', 'none');
+    $('#spanErrorAlgorithms').css('display', 'none');
     $('#introduceInstancia').hide();
-    
-
+ 	$('#insertAlgorithm').hide();
+ 	$('#algorithmConfiguration').hide();
   })

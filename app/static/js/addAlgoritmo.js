@@ -13,5 +13,7 @@ $("#introduceAlgoritmo").click(() =>{
   alert('algoritmo introducido');
   $('#introduceAlgoritmo').hide();
   $('#ficheroPruebas').hide();
+
+  $('#algorithmConfiguration').hide();
   //return(algoritmoIntroducido);
 }); 

@@ -35,11 +35,6 @@ insertAlgorithms= (i) => {
     //Al darle al boton del algoritmo a configurar, se ponen los campos de texto escritos anteriormente vacíos
     $('#algoritmo').val('');
     $('#nVariablesAlgorithm').val('');
-
-    
-    //console.log(algorithmName);
-    //console.log('le diii y soy el boton '+ i);
-    //cambiar a remove para ver si no borra datos..
     $(`#btnAlgorithm${i}`).css("display","none");
     $(`#algorithm${i}`).css("display","none");
     $('#algorithmConfiguration').show();
@@ -54,18 +49,7 @@ insertAlgorithms= (i) => {
 oculta todos los campos y muestra un alert diciendo que el algoritmo ha sido introducido*/
 
 $("#introduceAlgoritmo").click(() =>{
-  //$('#introduceAlgoritmo').prop('disabled');
-  //$("#ficheroPruebas").css("display", "inherit");
-  //let algoritmoIntroducido = configureAlgorithm();
-  //$("#algoritmo").val('')
-  //$("#introducealgoritmo").css("display", "none");
-  //algoritmos.push(algoritmoIntroducido)
-  //console.log(algoritmoIntroducido)
-  //console.log('introducido el algoritmo...')
-  alert('algoritmo introducido');
-  //$('#introduceAlgoritmo').hide();
-  //$('#ficheroPruebas').hide();
 
+  alert('algoritmo introducido');
   $('#algorithmConfiguration').hide();
-  //return(algoritmoIntroducido);
 }); 

@@ -15,7 +15,7 @@
           <div id="addAlgorithms">
             <div class="row" id="algorithmConfiguration">
               <div class="input-field center col s10" >
-                <input type="text" name="algoritmo" placeholder="Introduce the identificator for this algorithm" id="algoritmo" oninput="insertaAlgoritmo()">
+                <input type="text" name="algoritmo" placeholder="Introduce the identificator for this algorithm" id="algoritmo" oninput="configureAlgorithm()">
                 <div class="file-field input-field" id = "ficheroPruebas">
                   <div class="btn">
                     <span>File</span>
@@ -57,7 +57,7 @@
       <div class="row" >
         <div class="input-field center col s10">
           <select multiple id="test">
-            <option value="" disabled selected>Seleccione test estadístico</option>
+            <option value="" disabled selected>Select a statistic test</option>
             {% for i in test%}
               <option {{i}}>{{i}}</option>
             {%endfor%}
@@ -66,11 +66,11 @@
       </div>
       <div class="row" >
         <div class="input-field center col s8">
-          <input type="text" name="nInstancia" placeholder="Introduzca el número de instancias" id="nInstancia"
+          <input type="text" name="nInstancia" placeholder="Inserts the number of instances" id="nInstancia"
           oninput ="compruebaInstancia()" >
 
-          <span id="spanErrorInstancia">Error,el número de instancias debe estar comprendido entre 1-99</span>
-          <button class="btn waves-effect waves-light" type="button" name="action" id="introduceInstancia" value="introduceInstancia" >Añadir instancias
+          <span id="spanErrorInstancia">Error,the number of instances must be numeric value and be between 1-99</span>
+          <button class="btn waves-effect waves-light" type="button" name="action" id="introduceInstancia" value="introduceInstancia" >Add instances
             <i class="material-icons right ">send</i>
           </button>
           <div id="addInstancias"></div>
@@ -79,28 +79,28 @@
       <div class="row" >
         <div class="col s10">
           <div>
-            <p>Elija el formato de salida de los datos</p>
+            <p>Select a data output format</p>
             <p>
               <input class="with-gap dataOutput" name="group1" type="radio" id="tabla" value="tabla"/>
-              <label for="tabla">Tabla</label>
+              <label for="tabla">Table</label>
             </p>
             <p>
               <input class="with-gap dataOutput" name="group1" type="radio" id="grafica" value="grafica"/>
-              <label for="grafica">Gráfica</label>
+              <label for="grafica">Plot</label>
             </p>
             <p>
               <input class="with-gap dataOutput" name="group1" type="radio" id="tabla-grafica" value="tabla-grafica"/>
-              <label for="tabla-grafica">Tabla y gráfica</label>
+              <label for="tabla-grafica">Table and plot</label>
             </p>
           </div>
         </div>
       </div>   
       <div class="row" >
         <div class="col s10">
-          <input type="text" id="nejecuciones" name="nejecuciones" placeholder="Introduzca el número de ejecuciones realizadas">
+          <input type="text" id="nejecuciones" name="nejecuciones" placeholder="Insert the number of executions done">
         </div>
       </div>
-      <button class="btn waves-effect waves-light " type="submit" name="action" id="enviar">Enviar
+      <button class="btn waves-effect waves-light " type="submit" name="action" id="enviar">Send
         <i class="material-icons right">send</i>
       </button> 
     </form> 

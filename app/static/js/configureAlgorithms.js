@@ -2,7 +2,7 @@
 Además, una vez se inserta, y se le da al boton aparecerá el input para asignar fichero y 
 un botón para enviarlo a la base de datos o json pertinente...*/
 
-insertaAlgoritmo = () =>{
+configureAlgorithm = () =>{
   let valor = document.getElementById('algoritmo').value;
   //variable para que cuente la longitud del input introducido
   let contador= document.getElementById('algoritmo').value.length;
@@ -14,6 +14,6 @@ insertaAlgoritmo = () =>{
   }else{
     $('#introduceAlgoritmo').hide();
     $('#ficheroPruebas').hide();
-  }
+  }  
   return valor;
 }

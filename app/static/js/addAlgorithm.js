@@ -14,7 +14,7 @@ $('#insertAlgorithm').click(() => {
     let inputAlgorithms = 
     `<div class="row" >
        <div class="input-field  col s12">
-         <input type="text" name="nalgorithm${i}" placeholder="Add Algorithm ${i}" id="algorithm${i}">
+         <input type="text" disabled name="nalgorithm${i}" placeholder="Configure Algorithm ${i}" id="algorithm${i}">
          <button class="btn-floating waves-effect waves-light grey darken-3" type="button" name="action" id="btnAlgorithm${i}" value=introduceAlgoritmo${i}" onclick="insertAlgorithms(${i})">
           <i class="material-icons right">add</i>
        </div>
@@ -29,7 +29,6 @@ $('#insertAlgorithm').click(() => {
 /*Funcion que obtiene el nombre del algoritmo introducido por el usuario,elimina los valores de los inputs
 de configuracion de los algoritmos y muestra el div de configuracion del algoritmo*/
 insertAlgorithms= (i) => {
-  let algorithmName = document.getElementById(`algorithm${i}`).value;
   //funcion de jquery para comprobar que se tiene un array de botones.  
   $(`#btnAlgorithm${i}`).each(() => {
     //Al darle al boton del algoritmo a configurar, se ponen los campos de texto escritos anteriormente vacíos
@@ -39,9 +38,6 @@ insertAlgorithms= (i) => {
     $(`#algorithm${i}`).css("display","none");
     $('#algorithmConfiguration').show();
   })
-  
-  console.log(`soy el consolelog del final: ${algorithmName}`);
-  return (algorithmName)
 }
 
 

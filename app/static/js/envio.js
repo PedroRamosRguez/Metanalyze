@@ -26,7 +26,7 @@ $("#enviar").click(function(e) {
 	//console.log('le di al envio...')
 	let alg = getAlgoritmos();
 	let fich = getFicheros();
-	let instancias = getInstancias();
+	//let instancias = getInstancias();
 	console.log($('.dataOutput:checked').val());
 	$.ajax({
 		type:'POST',
@@ -34,7 +34,7 @@ $("#enviar").click(function(e) {
 		data:{csrfmiddlewaretoken : csrftoken,
 			  algoritmo : alg,
 			  test : $('#test').val(),
-			  instancias : instancias,
+			  //instancias : instancias,
 			  output : $('input[name=dataOutput]:checked').val(),
 			  nejecuciones : $('#nejecuciones').val(),
 			 },

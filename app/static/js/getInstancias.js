@@ -1,5 +1,5 @@
 /*Script para guardar en un array el conjunto de valores de las diferentes instancias introducidas...*/
-
+/*
 const instancias = []
 getInstancias = () => {
   let ninstancias = $('#nInstancia').val();
@@ -12,3 +12,4 @@ getInstancias = () => {
   console.log(instancias);
   return(instancias);
 }
+*/

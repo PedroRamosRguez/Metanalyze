@@ -18,7 +18,7 @@ getCookie = (name) => {
  return cookieValue;	
 }
 //función Jquery que obtiene los diferentes datos que el usuario introdujo y realiza la petición ajax.
-$("#enviar").click(function(e) {
+$("#send").click(function(e) {
 	//Prevent default submit. Must for Ajax post.Beginner's pit.
 	e.preventDefault();
 	//Prepare csrf token
@@ -36,7 +36,7 @@ $("#enviar").click(function(e) {
 			  test : $('#test').val(),
 			  //instancias : instancias,
 			  output : $('input[name=dataOutput]:checked').val(),
-			  nejecuciones : $('#nejecuciones').val(),
+			  nejecuciones : $('#nExecutions').val(),
 			 },
 		//si la petición es exitosa realiza la redirección	 
 		success : function(data,textStatus){

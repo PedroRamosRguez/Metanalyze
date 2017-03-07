@@ -19,6 +19,10 @@
             <div class="row" id="algorithmConfiguration">
               <div class="input-field center col s10" >
                 <input type="text" name="algoritmo" placeholder="Introduce the identificator for this algorithm" id="idAlgorithm" oninput="configureAlgorithm()">
+
+                <!--Aqui probar a poner lo del form en django con el input de tipo upload file con el 
+                nombre de la clase todo igual que en materialize e importarlo aqui -->
+
                 <div class="file-field input-field" id = "testFile">
                   <div class="btn">
                     <span>File</span>
@@ -61,12 +65,13 @@
         <div class="input-field center col s10">
           <select multiple id="test">
             <option value="" disabled selected>Select a statistic test</option>
-            {% for i in test%}
+            {% for i in test %}
               <option {{i}}>{{i}}</option>
             {%endfor%}
           </select>
         </div>
       </div>
+      <!--
       <div class="row" >
         <div class="input-field center col s8">
           <input type="text" name="nInstancia" placeholder="Inserts the number of instances" id="nInstancia"
@@ -78,22 +83,22 @@
           </button>
           <div id="addInstancias"></div>
         </div>
-      </div>
+      </div>-->
       <div class="row" >
         <div class="col s10">
           <div>
             <p>Select a data output format</p>
             <p>
-              <input class="with-gap dataOutput" name="group1" type="radio" id="tabla" value="tabla"/>
-              <label for="tabla">Table</label>
+              <input class="with-gap dataOutput" name="group1" type="radio" id="table" value="table"/>
+              <label for="table">Table</label>
             </p>
             <p>
-              <input class="with-gap dataOutput" name="group1" type="radio" id="grafica" value="grafica"/>
-              <label for="grafica">Plot</label>
+              <input class="with-gap dataOutput" name="group1" type="radio" id="plot" value="plot"/>
+              <label for="plot">Plot</label>
             </p>
             <p>
-              <input class="with-gap dataOutput" name="group1" type="radio" id="tabla-grafica" value="tabla-grafica"/>
-              <label for="tabla-grafica">Table and plot</label>
+              <input class="with-gap dataOutput" name="group1" type="radio" id="table-plot" value="table-plot"/>
+              <label for="table-plot">Table and plot</label>
             </p>
           </div>
         </div>
@@ -104,12 +109,22 @@
             <strong>EXECUTION</strong>
           </p>
           <input type="text" id="nObjetives" name="nObjetives" placeholder="Insert the number of objetives">
-          <input type="text" id="nejecuciones" name="nejecuciones" placeholder="Insert the number of executions done">
+          <input type="text" id="nExecutions" name="nExecutions" placeholder="Insert the number of executions done">
           <input type="text" id="step" name="step" placeholder="Insert the number of steps">
           <input type="text" id="stopCondition" name="stopCondition" placeholder="Insert the stop condition">
         </div>
       </div>
-      <button class="btn waves-effect waves-light " type="submit" name="action" id="enviar">Send
+      <div class="row" >
+        <div class="input-field center col s10">
+          <select multiple id="metric">
+            <option value="" disabled selected>Select a metric</option>
+            {% for i in metric %}
+              <option {{i}}>{{i}}</option>
+            {%endfor%}
+          </select>
+        </div>
+      </div>
+      <button class="btn waves-effect waves-light " type="submit" name="action" id="send">Send
         <i class="material-icons right">send</i>
       </button> 
     </form> 

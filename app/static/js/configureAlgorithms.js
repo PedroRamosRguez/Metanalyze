@@ -6,7 +6,7 @@ configureAlgorithm = () =>{
   let valor = document.getElementById('idAlgorithm').value;
   //variable para que cuente la longitud del input introducido
   let contador= document.getElementById('idAlgorithm').value.length;
-  console.log(contador);
+  //console.log(contador);
   if(contador !== 0){
     $('#introduceAlgorithm').show();
     $('#testFile').show();
@@ -14,6 +14,7 @@ configureAlgorithm = () =>{
   }else{
     $('#introduceAlgorithm').hide();
     $('#testFile').hide();
+    $('#introduceAlgorithm').hide();
   }  
   return valor;
 }

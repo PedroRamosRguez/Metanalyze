@@ -53,6 +53,7 @@ oculta todos los campos y muestra un alert diciendo que el algoritmo ha sido int
 
 
 let configAlgorithm ={algorithms:[]}
+let algorithmJson =''
 $("#introduceAlgorithm").click(() =>{
   alert('algoritmo introducido');
   $('#algorithmConfiguration').hide();
@@ -61,6 +62,12 @@ $("#introduceAlgorithm").click(() =>{
   configAlgorithm.algorithms.push({'algorithmName':algorithmName,'id':id,'nVariables':nVariables})
   console.log(configAlgorithm) 
   console.log(configAlgorithm.length)
-  json = JSON.stringify(configAlgorithm)
+  algorithmJson = JSON.stringify(configAlgorithm)
   console.log(json)
 }); 
+
+//función para obtener el json con los algoritmos y su configuración ingresada.
+getAlgorithms = () => {
+  return algorithmJson;
+}
+

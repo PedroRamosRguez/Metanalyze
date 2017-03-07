@@ -37,7 +37,7 @@ insertAlgorithms= (i) => {
     //Al darle al boton del algoritmo a configurar, se ponen los campos de texto escritos anteriormente vacíos
     $('#idAlgorithm').val('');
     $('#nVariablesAlgorithm').val('');
-    
+    $('#file').val('');
     //configAlgorithm.algorithms.push({'nameAlgorithm':nameAlgorithm})
     $(`#btnAlgorithm${i}`).css("display","none");
     $(`#algorithm${i}`).css("display","none");
@@ -63,7 +63,7 @@ $("#introduceAlgorithm").click(() =>{
   console.log(configAlgorithm) 
   console.log(configAlgorithm.length)
   algorithmJson = JSON.stringify(configAlgorithm)
-  console.log(json)
+  console.log(algorithmJson)
 }); 
 
 //función para obtener el json con los algoritmos y su configuración ingresada.

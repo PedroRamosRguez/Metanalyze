@@ -14,7 +14,7 @@ $('#insertAlgorithm').click(() => {
     let inputAlgorithms = 
     `<div class="row" >
        <div class="input-field  col s12">
-         <input type="text" disabled name="nalgorithm${i}" placeholder="Configure Algorithm ${i}" id="algorithm${i}">
+         <input type="text" name="nalgorithm${i}" placeholder="Insert the Algorithm Name ${i}" id="algorithm${i}">
          <button class="btn-floating waves-effect waves-light grey darken-3" type="button" name="action" id="btnAlgorithm${i}" value=introduceAlgoritmo${i}" onclick="insertAlgorithms(${i})">
           <i class="material-icons right">add</i>
        </div>
@@ -28,23 +28,39 @@ $('#insertAlgorithm').click(() => {
 
 /*Funcion que obtiene el nombre del algoritmo introducido por el usuario,elimina los valores de los inputs
 de configuracion de los algoritmos y muestra el div de configuracion del algoritmo*/
+
+let algorithmName ='';
 insertAlgorithms= (i) => {
   //funcion de jquery para comprobar que se tiene un array de botones.  
+  let algorithmI = document.getElementById(`algorithm${i}`).value;
   $(`#btnAlgorithm${i}`).each(() => {
     //Al darle al boton del algoritmo a configurar, se ponen los campos de texto escritos anteriormente vacíos
-    $('#algorithm').val('');
+    $('#idAlgorithm').val('');
     $('#nVariablesAlgorithm').val('');
+    
+    //configAlgorithm.algorithms.push({'nameAlgorithm':nameAlgorithm})
     $(`#btnAlgorithm${i}`).css("display","none");
     $(`#algorithm${i}`).css("display","none");
     $('#algorithmConfiguration').show();
   })
+ console.log(i)
+ algorithmName = algorithmI;
 }
 
 
 /*Funcion que al darle click al botón de añadir el algoritmo con la configuración introducida por el usuario,
 oculta todos los campos y muestra un alert diciendo que el algoritmo ha sido introducido*/
 
+
+let configAlgorithm ={algorithms:[]}
 $("#introduceAlgorithm").click(() =>{
   alert('algoritmo introducido');
   $('#algorithmConfiguration').hide();
+  let id = document.getElementById('idAlgorithm').value;
+  let nVariables =  document.getElementById('nVariablesAlgorithm').value;
+  configAlgorithm.algorithms.push({'algorithmName':algorithmName,'id':id,'nVariables':nVariables})
+  console.log(configAlgorithm) 
+  console.log(configAlgorithm.length)
+  json = JSON.stringify(configAlgorithm)
+  console.log(json)
 }); 

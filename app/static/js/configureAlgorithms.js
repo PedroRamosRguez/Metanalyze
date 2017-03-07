@@ -3,9 +3,9 @@ Además, una vez se inserta, y se le da al boton aparecerá el input para asigna
 un botón para enviarlo a la base de datos o json pertinente...*/
 
 configureAlgorithm = () =>{
-  let valor = document.getElementById('algorithm').value;
+  let valor = document.getElementById('idAlgorithm').value;
   //variable para que cuente la longitud del input introducido
-  let contador= document.getElementById('algorithm').value.length;
+  let contador= document.getElementById('idAlgorithm').value.length;
   console.log(contador);
   if(contador !== 0){
     $('#introduceAlgorithm').show();

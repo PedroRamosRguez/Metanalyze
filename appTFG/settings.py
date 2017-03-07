@@ -66,7 +66,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'app.loadJsonTest.jsonTest',
                 'app.loadJsonMetrics.jsonMetric',
-                #'app.cargaJsonAlgoritmos.jsonAlgoritmo',
             ],
         },
     },

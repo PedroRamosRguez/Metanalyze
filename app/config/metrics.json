@@ -2,7 +2,7 @@
   "metric": [
     {
         "id": 1,
-        "value": "hypervolume"
+        "value": "Hypervolume"
     }
   ]
 }

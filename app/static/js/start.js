@@ -3,6 +3,10 @@
  $(document).ready(() =>{
  	/*Función de Jquery de materialize para la carga del multiselect*/
  	$('select').material_select();
+
+ 	/* Función de Jquery para la barra de navegación en pantallas pequeñas*/
+	$('.button-collapse').sideNav();
+
     $('#introduceAlgoritmo').hide();
     //$("#ficheroPruebas").css("display", "none");
     $('#ficheroPruebas').hide();
@@ -11,8 +15,7 @@
     $('#introduceInstancia').hide();
  	$('#insertAlgorithm').hide();
  	$('#algorithmConfiguration').hide();
+ 	$('#metric').hide();
   })
-/* Función de Jquery para la barra de navegación en pantallas pequeñas*/
 
-$('.button-collapse').sideNav();
 

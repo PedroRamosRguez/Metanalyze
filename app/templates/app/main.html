@@ -83,12 +83,27 @@
       </div>
       <div class="row" >
         <div class="input-field center col s10">
-          <select multiple id="metric">
-            <option value="" disabled selected>Select a metric</option>
+          <p class="center">
+            <strong>BOUND SELECTION</strong>
+          </p>
+          <select multiple id="bound">
+            <option value="" disabled selected>Select the bound to be performed</option>
+            <option value="minimum">Minimum</option>
+            <option value="average">Average</option>
+            <option value="maximum">Maximum</option>
+          </select>
+        </div>
+        <div class="input-field center col s10" id="metric">
+          <p class="center">
+            <strong>METRIC SELECTION</strong>
+          </p>
+          <select multiple >
+            <option value="" disabled selected >Select a metric</option>
             {% for i in metric %}
               <option {{i}}>{{i}}</option>
             {%endfor%}
           </select>
+          
         </div>
       </div>
       <button class="btn waves-effect waves-light " type="submit" name="action" id="send">Send

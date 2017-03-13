@@ -1,8 +1,8 @@
 /*Script para guardar en un array los ficheros que ha instroducido el usuario...*/
 const ficheros = [];
 
-const fileInput = $('#fichero');
-$('#introduceAlgoritmo').click(() =>{
+const fileInput = $('#file');
+$('#introduceAlgorithm').click(() =>{
 let input = fileInput.get(0);
   // Create a reader object
   let reader = new FileReader();
@@ -17,8 +17,8 @@ let input = fileInput.get(0);
   }
   ficheros.push(reader);
   console.log(ficheros);
-  $('#introduceAlgoritmo').hide();
-  $('#ficheroPruebas').hide();
+  //$('#introduceAlgoritmo').hide();
+  //$('#ficheroPruebas').hide();
 });
 console.log('probando fuera...');
 

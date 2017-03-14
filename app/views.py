@@ -1,12 +1,15 @@
 
 # Create your views here.
-from django.http import HttpResponse,QueryDict
-from django.shortcuts import render,render_to_response
+from django.http import HttpResponse,HttpResponseRedirect
+from django.shortcuts import render
 import json
+from .forms import AlgorithmForm
+from .models import Algorithms
 #from .forms import ContactForm
 #en el index carga el json.. mirar para hacerlo desde funcion y tal...(seria facil solo seria importar output y listo)
 def index(request):
-  return render(request,'app/index.html')
+  form = AlgorithmForm() 
+  return render(request,'app/index.html',{'form': form})
 def pruebita(request):
   return HttpResponse("esto es pruebitaaaa")
 
@@ -25,3 +28,4 @@ def pruebatemplate(request):
     print ('es un post...')
     #print (request.POST.get('nejecuciones'))
   return render(request,'app/pruebatemplate.html')
+

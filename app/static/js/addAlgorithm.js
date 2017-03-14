@@ -60,9 +60,9 @@ $("#introduceAlgorithm").click(() =>{
   let id = document.getElementById('idAlgorithm').value;
   let nVariables =  document.getElementById('nVariablesAlgorithm').value;
   configAlgorithm.algorithms.push({'algorithmName':algorithmName,'id':id,'nVariables':nVariables})
-  console.log(configAlgorithm) 
+  console.log(configAlgorithm.algorithms) 
   console.log(configAlgorithm.length)
-  algorithmJson = JSON.stringify(configAlgorithm)
+  algorithmJson = JSON.stringify(configAlgorithm.algorithms)
   console.log(algorithmJson)
 }); 
 

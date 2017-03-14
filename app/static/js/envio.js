@@ -31,34 +31,34 @@ $("#send").click(function(e) {
 	console.log(fich)
 	//let instancias = getInstancias();
 	console.log($('.dataOutput:checked').val());
-	/*$.ajax({
+	$.ajax({
 		type:'POST',
 		url: 'pruebatemplate/',
 		data:{csrfmiddlewaretoken : csrftoken,
-			  algoritmo : alg,
-			  test : $('#test').val(),
+			  parametros : alg2,
+			  //test : $('#test').val(),
 			  //instancias : instancias,
-			  output : $('input[name=dataOutput]:checked').val(),
-			  nejecuciones : $('#nExecutions').val(),
+			  //output : $('input[name=dataOutput]:checked').val(),
+			  //nejecuciones : $('#nExecutions').val(),
 			 },
 		//si la petición es exitosa realiza la redirección	 
 		success : function(data,textStatus){
 		  console.log('exito..');
 		  //hace posible la redirección a la vista pruebatemplate...
 		  window.location.href = 'pruebatemplate/';
-		 /* if(data.redirect){
+		  /*if(data.redirect){
 		  	console.log('hay redirect...')
 		  	
 		  }else{
 		  	console.log('no hay redirect..')
 		  }*/
 		  //console.log(data)*/
-		//},
+		},
 		//en caso de que la petición sea errónea, muestra el error de manera detallada.
-		/*error : function(xhr,errmsg,err) {
+		error : function(xhr,errmsg,err) {
 		  console.log('hubo un error');	
  		  console.log(xhr.status + ": " + xhr.responseText); // muestra mejor información del error 
  		}
-	});*/
+	});
   })
 

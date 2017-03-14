@@ -22,4 +22,5 @@ urlpatterns = [
   url(r'^pruebita/$', views.pruebita, name='pruebita'),
   url(r'^pruebatemplate/$', views.pruebatemplate, name='pruebatemplate'),
   url(r'^admin/', include(admin.site.urls)),
+  
 ]

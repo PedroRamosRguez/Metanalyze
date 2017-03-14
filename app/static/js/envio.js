@@ -24,11 +24,14 @@ $("#send").click(function(e) {
 	//Prepare csrf token
 	var csrftoken = getCookie('csrftoken');
 	//console.log('le di al envio...')
+	let alg2 = getAlgorithms();
+	console.log(alg2);
 	let alg = getAlgoritmos();
 	let fich = getFicheros();
+	console.log(fich)
 	//let instancias = getInstancias();
 	console.log($('.dataOutput:checked').val());
-	$.ajax({
+	/*$.ajax({
 		type:'POST',
 		url: 'pruebatemplate/',
 		data:{csrfmiddlewaretoken : csrftoken,
@@ -49,13 +52,13 @@ $("#send").click(function(e) {
 		  }else{
 		  	console.log('no hay redirect..')
 		  }*/
-		  //console.log(data)
-		},
+		  //console.log(data)*/
+		//},
 		//en caso de que la petición sea errónea, muestra el error de manera detallada.
-		error : function(xhr,errmsg,err) {
+		/*error : function(xhr,errmsg,err) {
 		  console.log('hubo un error');	
  		  console.log(xhr.status + ": " + xhr.responseText); // muestra mejor información del error 
  		}
-	});
+	});*/
   })
 

@@ -8,9 +8,7 @@
           <p class="center">
             <strong>ALGORITHMS-CONFIGURATIONS</strong>
           </p>
-          <input type="text" name="nAlgorithms" placeholder="Insert the number of algorithms" id="nAlgorithms"
-          oninput ="checkAlgorithm()" >
-
+          {{form.nAlgorithms}}
           <span id="spanErrorAlgorithms">Error,the number of algorithms must be numeric value and be between 1-10</span>
           <button class="btn waves-effect waves-light" type="button" name="action" id="insertAlgorithm" value="insertAlgorithm" >Add Algorithms
             <i class="material-icons right ">send</i>
@@ -18,29 +16,26 @@
           <div id="addAlgorithms">
             <div class="row" id="algorithmConfiguration">
               <div class="input-field center col s10" >
-                <input type="text" name="algoritmo" placeholder="Introduce the identificator for this algorithm" id="idAlgorithm" oninput="configureAlgorithm()">
-
-                <!--Aqui probar a poner lo del form en django con el input de tipo upload file con el 
-                nombre de la clase todo igual que en materialize e importarlo aqui -->
-
+                {{form.algorithm}}
                 <div class="file-field input-field" id = "testFile">
                   <div class="btn">
                     <span>File</span>
-                    <input type="file" id="file">
+                    {{form.file}}
                   </div>
                   <div class="file-path-wrapper ">
-                    <input class="file-path validate " type="text"  placeholder="Select file to run the test">
+                  {{form.fileName}}
                   </div>
-                </div>  
-                <input type="text" name="nVariablesAlgorithm" placeholder="Introduce the number of variables for this algorithm" id = "nVariablesAlgorithm">
-                <button class="btn waves-effect waves-light" type="button" name="action" id="introduceAlgorithm" >
-                  <i class="material-icons right">send</i>
-                </button>
-              </div> 
-            </div>   
+                </div>
+              </div>
+              {{form.nVariablesAlgorithm}}
+              <button class="btn waves-effect waves-light" type="button" action="" name="action" id="introduceAlgorithm" value="introduceAlgorithm">
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </div>  
+
       <div class="row" >
         <div class="input-field center col s10">
           <select multiple id="test">
@@ -55,18 +50,12 @@
         <div class="col s10">
           <div>
             <p>Select a data output format</p>
-            <p>
-              <input class="with-gap dataOutput" name="group1" type="radio" id="table" value="table"/>
-              <label for="table">Table</label>
-            </p>
-            <p>
-              <input class="with-gap dataOutput" name="group1" type="radio" id="plot" value="plot"/>
-              <label for="plot">Plot</label>
-            </p>
-            <p>
-              <input class="with-gap dataOutput" name="group1" type="radio" id="table-plot" value="table-plot"/>
-              <label for="table-plot">Table and plot</label>
-            </p>
+            {% for choice in form.dataOutput %}
+              <p>
+                <input name="{{ choice.name }}" type="radio" class="with-gap dataOutput" id="{{ choice.choice_value }}" value={{ choice.choice_value }}>
+                <label for="{{ choice.choice_value }}">{{ choice.choice_label }}</label>
+              </p>  
+            {% endfor %}
           </div>
         </div>
       </div>   
@@ -75,10 +64,10 @@
           <p class="center">
             <strong>EXECUTION</strong>
           </p>
-          <input type="text" id="nObjetives" name="nObjetives" placeholder="Insert the number of objetives">
-          <input type="text" id="nExecutions" name="nExecutions" placeholder="Insert the number of executions done">
-          <input type="text" id="step" name="step" placeholder="Insert the number of steps">
-          <input type="text" id="stopCondition" name="stopCondition" placeholder="Insert the stop condition">
+          {{form.nObjetives}}
+          {{form.nExecutions}}
+          {{form.step}}
+          {{form.stopCondition}}
         </div>
       </div>
       <div class="row" >
@@ -88,9 +77,9 @@
           </p>
           <select multiple id="bound">
             <option value="" disabled selected>Select the bound to be performed</option>
-            <option value="minimum">Minimum</option>
-            <option value="average">Average</option>
-            <option value="maximum">Maximum</option>
+            {% for choice in form.bound %}
+              <option value={{choice.choice_value}}>{{choice.choice_label}}</option>
+            {% endfor %}
           </select>
         </div>
         <div class="input-field center col s10" id="metric">

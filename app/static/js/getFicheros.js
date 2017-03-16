@@ -1,35 +1,20 @@
 /*Script para guardar en un array los ficheros que ha instroducido el usuario...*/
 const ficheros = [];
-
 const fileInput = $('#file');
 $('#introduceAlgorithm').click(() =>{
-let input = fileInput.get(0);
+//let input = fileInput.get(0);
   // Create a reader object
-  let reader = new FileReader();
-  if (input.files.length) {
-      let textFile = input.files[0];
-      // Read the file
-      reader.readAsText(textFile);
-      // When it's loaded, process it
-      $(reader).on('load', processFile);
-  } else {
-      alert('Please upload a file before continuing');
-  }
-  ficheros.push(reader);
-  console.log(ficheros);
-  //$('#introduceAlgoritmo').hide();
-  //$('#ficheroPruebas').hide();
+  //let reader = new FileReader();
+  let formData = new FormData();
+  console.log(formData)
+  //formData.append('file',$('#file')[0].files[0])
+  formData.append('file', $('#file')[0].files[0]);
+  //console.log(formData)
+  ficheros.push(formData)
+  //console.log(formData.getAll('file'))
+  //console.log(ficheros2)
 });
 console.log('probando fuera...');
-
-processFile = (e) => {
-  let file = e.target.result,
-    results;
-  if (file && file.length) {
-    //results = file.split("\n");
-    console.log(results);
-  }
-}
 
 getFicheros = () =>{
   return ficheros;

@@ -14,7 +14,7 @@ class AlgorithmForm(forms.Form):
     nAlgorithms = forms.CharField(widget = forms.TextInput(attrs = {'name':'nAlgorithms','id': 'nAlgorithms',
         'placeholder': 'Insert the number of algorithms', 'oninput': 'checkAlgorithm()'}),required=True)
               
-    algorithm = forms.CharField(widget = forms.TextInput(attrs={'id':'idAlgorithm',
+    idAlgorithm = forms.CharField(widget = forms.TextInput(attrs={'id':'idAlgorithm',
         'placeholder':'Introduce the identificator for this algorithm','oninput':'configureAlgorithm()'}),required=True)
     
     file = forms.FileField(widget=forms.FileInput(attrs = {'id':'file'}),required=True)

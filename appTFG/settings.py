@@ -39,6 +39,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'app'
 )
+MEDIA_ROOT = os.path.join(BASE_DIR,'app/media')
+MEDIA_URL = '/media/'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

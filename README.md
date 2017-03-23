@@ -5,6 +5,38 @@ Herramienta desarrollada mediante el framwork [Django](https://www.djangoproject
 ## Autor de la aplicación
 [Pedro Manuel Ramos Rodríguez](http://alu0100505078.github.io/)
 
+## Creación de un proyecto en Django.
+
+Para crear un proyecto en [Django](https://www.djangoproject.com/), lo primero que hay que realizar es el comando
+`$ django-admin startproject mysite` esto creará un directorio llamado mysite en el directorio actual con la siguiente configuración:
+```
+mysite/
+    manage.py
+    mysite/
+        __init__.py
+        settings.py
+        urls.py
+        wsgi.py
+
+```
+
+## Creación de una Aplicación en Django
+
+Una vez se ha creado el proyecto, se debe crear la aplicación a realizar. Para crearla, lo único que hay que hacer es escribir el comando `python manage.py startapp polls`. Esto creará la aplicación llamada **polls** con el arbol de directorios y ficheros siguiente:
+```polls/
+    __init__.py
+    admin.py
+    apps.py
+    migrations/
+        __init__.py
+    models.py
+    tests.py
+    views.py
+
+```   
+
+En caso de que no cree algún fichero o algún directorio, se deberá crear a mano.
+
 ## Ejecutar la APP
 
 Para la ejecución de la aplicación, hay que abrir una terminal y añadir el siguiente comando:
@@ -19,11 +51,6 @@ Para la realización de test unitario en la aplicación, sólo hay que añadir e
 
 `python manage.py test`
 
-
-
-### TODO
-
-SE DEBE COMPROBAR QUE TIPO DE FORMATO QUIERE LA SALIDA DE DATOS (TABLA,GRÁFICO TABLA Y GRÁFICA). ADEMÁS, MIRAR LO DE PASAR EL FICHERO QUE ESO NO FUNCIONA BIEN... Y EN LO DE LAS INSTANCIAS MIRAR POR QUÉ NO RECOGE EL VALOR DE NUMERO DE INSTANCIAS RECOGIDAS...
 
 ### Información extra
 
@@ -64,4 +91,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'app/staticfiles')
 
 ```
 
+Para la creación de la carpeta media y aceptar la subida de ficheros al servidor, hay que realizar una configuración previa dentro del proyecto en sí. La configuración realizada es la siguiente:
 
+```
+MEDIA_ROOT = os.path.join(BASE_DIR,'app/media')
+MEDIA_URL = '/media/'
+
+```
+
+### TODO
+
+Parsear los ficheros que llegan a la carpeta media del servidor. 
+Implementar los scripts para el parseo de los fichero y el futuro tratamiento de los datos.
+Implementar el hipervolumen, y mirar cómo se realizará el tratamiento de los datos para implementarlo.

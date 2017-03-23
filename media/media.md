@@ -1,0 +1,1 @@
+# Aqui irán los ficheros subidos por los usuarios que utilicen la app.

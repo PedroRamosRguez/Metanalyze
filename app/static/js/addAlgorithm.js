@@ -4,9 +4,7 @@ algoritmo introducido y su botón + que aparece. Además, se muestra el div con 
 Y una vez añadida la configuración del algoritmo, se desaparece la ventana de configuración del mismo.*/
 
 $('#insertAlgorithm').click(() => {
-  console.log("di click...");
   let nAlgorithms = document.getElementById('nAlgorithms').value;
-  console.log(nAlgorithms);
   $('#nAlgorithms').css('display','none');
   $('#insertAlgorithm').css('display','none');
   let i=1;
@@ -43,7 +41,6 @@ insertAlgorithms= (i) => {
     $(`#algorithm${i}`).css("display","none");
     $('#algorithmConfiguration').show();
   })
- console.log(i)
  algorithmName = algorithmI;
 }
 
@@ -55,15 +52,11 @@ oculta todos los campos y muestra un alert diciendo que el algoritmo ha sido int
 let configAlgorithm ={algorithms:[]}
 let algorithmJson =''
 $("#introduceAlgorithm").click(() =>{
-  alert('algoritmo introducido');
   $('#algorithmConfiguration').hide();
   let id = document.getElementById('idAlgorithm').value;
   let nVariables =  document.getElementById('nVariablesAlgorithm').value;
   configAlgorithm.algorithms.push({'algorithmName':algorithmName,'id':id,'nVariables':nVariables})
-  console.log(configAlgorithm.algorithms) 
-  console.log(configAlgorithm.length)
   algorithmJson = JSON.stringify(configAlgorithm.algorithms)
-  console.log(algorithmJson)
 }); 
 
 //función para obtener el json con los algoritmos y su configuración ingresada.

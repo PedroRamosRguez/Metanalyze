@@ -2,14 +2,12 @@
 mostrando un error...*/
 checkAlgorithm = () => {
   let nAlgorithms = document.getElementById('nAlgorithms').value;
-  console.log(nAlgorithms);
+  //comprueba mediante expresion regular si el numero de algoritmos esta entre 1-10
   if(nAlgorithms.match(/^([1-9]|10)$/)){
     $('#spanErrorAlgorithms').css('display', 'none');
     $('#nAlgorithms').css('color','inherit');
-    console.log('acepto...');
     $('#insertAlgorithm').show();
   }else{
-    console.log('no acepto');
     $('#nAlgorithms').css('color','#FF0000');
     $('#spanErrorAlgorithms').css('display', 'inherit');
     $('#insertAlgorithm').hide();

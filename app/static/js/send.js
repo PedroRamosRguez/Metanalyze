@@ -19,32 +19,20 @@ getCookie = (name) => {
 }
 //función Jquery que obtiene los diferentes datos que el usuario introdujo y realiza la petición ajax.
 $("#formulario").submit(() =>{
-	//Prevent default submit. Must for Ajax post.Beginner's pit.
-	//e.preventDefault();
 	//Prepare csrf token
 	var csrftoken = getCookie('csrftoken');
-	//console.log('le di al envio...')
 	let alg = getAlgorithms();
-	//console.log(alg);
 	let fich = getFicheros();
-	console.log(fich)
-	//console.log(fich.length)	
-	//let instancias = getInstancias();
-
-    let formData2 = new FormData();
-    formData2.append('csrfmiddlewaretoken',csrftoken)
-    formData2.append('x', alg)
-    console.log($('input[type=file]')[0].files[0])
+    let formData = new FormData();
+    formData.append('csrfmiddlewaretoken',csrftoken)
+    formData.append('x', alg)
+   //bucle para añadir el array de ficheros que se generen por cada algoritmo
     fich.forEach((item)=> {
 		for (var key of item.entries()) {
-        	console.log(key[0] + ', ' + key[1]);
-        	formData2.append(key[0],key[1])
+        	//console.log(key[0] + ', ' + key[1]);
+        	formData.append(key[0],key[1])
     	}
 	})
-    for (var key of formData2.entries()) {
-
-        console.log(key[0] + ', ' + key[1]);
-    }
 	$.ajax({
 		//hasta poner esto era funcionaba sin problemaaaasss
 		type:'POST',
@@ -53,26 +41,14 @@ $("#formulario").submit(() =>{
 		cache: false,
 		processData: false,
 		datatype: 'json',
-		data:formData2,
+		data:formData,
 		//si la petición es exitosa realiza la redirección	 
 		success : function(data,textStatus){
-		  console.log('exito..');
 		  //hace posible la redirección a la vista pruebatemplate...
-		  window.location.href = 'pruebatemplate/';
-		  /*if(data.redirect){
-		  	console.log('hay redirect...')
-		  	
-		  }else{
-		  	console.log('no hay redirect..')
-		  }*/
-		  //console.log(data)*/
-		  
+		  window.location.href = 'pruebatemplate/'; 
 		},
 		//en caso de que la petición sea errónea, muestra el error de manera detallada.
 		error : function(xhr,errmsg,err) {
-		  console.log(xhr)
-		  console.log(errmsg)
-	      console.log(err)
 		  console.log('hubo un error');	
  		  console.log(xhr.status + ": " + xhr.responseText); // muestra mejor información del error 
  		}

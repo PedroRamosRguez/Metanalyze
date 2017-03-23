@@ -12,7 +12,7 @@ configureAlgorithm = () =>{
     $('#testFile').show();
     document.getElementById('introduceAlgorithm').innerHTML = 'Introducir algoritmo: ' + valor;
   }else{
-    $('#introduceAlgorithm').hide();
+    //$('#introduceAlgorithm').hide();
     $('#testFile').hide();
     $('#introduceAlgorithm').hide();
   }  

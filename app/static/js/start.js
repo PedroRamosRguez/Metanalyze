@@ -6,10 +6,7 @@
 
  	/* Función de Jquery para la barra de navegación en pantallas pequeñas*/
 	$('.button-collapse').sideNav();
-
     $('#introduceAlgoritmo').hide();
-    //$("#ficheroPruebas").css("display", "none");
-    $('#ficheroPruebas').hide();
     $('#spanErrorInstancia').css('display', 'none');
     $('#spanErrorAlgorithms').css('display', 'none');
     $('#introduceInstancia').hide();

@@ -25,7 +25,16 @@ $("#formulario").submit(() =>{
 	let fich = getFicheros();
     let formData = new FormData();
     formData.append('csrfmiddlewaretoken',csrftoken)
-    formData.append('x', alg)
+    formData.append('nAlgoritmos',document.getElementById('nAlgorithms').value)
+    formData.append('algoritmos', alg)
+    formData.append('test',$('#test').val())
+    formData.append('dataOutput',$('input[name=dataOutput]:checked').val())
+    formData.append('nObjetives',document.getElementById('nObjetives').value)
+    formData.append('nExecutions',document.getElementById('nExecutions').value)
+    formData.append('step',document.getElementById('step').value)
+    formData.append('stopCondition',document.getElementById('stopCondition').value)
+    formData.append('bound',$('#bound').val())
+    formData.append('metric',$('#metric').val())
    //bucle para añadir el array de ficheros que se generen por cada algoritmo
     fich.forEach((item)=> {
 		for (var key of item.entries()) {

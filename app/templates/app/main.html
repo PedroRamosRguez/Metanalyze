@@ -82,11 +82,11 @@
             {% endfor %}
           </select>
         </div>
-        <div class="input-field center col s10" id="metric">
+        <div class="input-field center col s10" id="selectMetric">
           <p class="center">
             <strong>METRIC SELECTION</strong>
           </p>
-          <select multiple >
+          <select multiple id="metric" >
             <option value="" disabled selected >Select a metric</option>
             {% for i in metric %}
               <option {{i}}>{{i}}</option>

@@ -12,7 +12,7 @@
     $('#introduceInstancia').hide();
  	$('#insertAlgorithm').hide();
  	$('#algorithmConfiguration').hide();
- 	$('#metric').hide();
+ 	$('#selectMetric').hide();
   })
 
 

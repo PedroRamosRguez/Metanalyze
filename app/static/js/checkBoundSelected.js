@@ -3,9 +3,9 @@ el limite a calcular (minimo,maximo y media). */
 $('#bound').change(() => {
   if($('#bound').val().length > 0){
 	//console.log('hay algo seleccionado')
-	 	$('#metric').show();
+	 	$('#selectMetric').show();
   }else{
-    $('#metric').hide();
+    $('#selectMetric').hide();
 	//console.log('no hay algo seleccionado')
   }
 })

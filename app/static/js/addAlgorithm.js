@@ -41,6 +41,7 @@ insertAlgorithms= (i) => {
     $(`#algorithm${i}`).css("display","none");
     $('#algorithmConfiguration').show();
   })
+  
  algorithmName = algorithmI;
 }
 

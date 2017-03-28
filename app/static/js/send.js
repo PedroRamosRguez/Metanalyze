@@ -26,7 +26,7 @@ $("#formulario").submit(() =>{
     let formData = new FormData();
     formData.append('csrfmiddlewaretoken',csrftoken)
     formData.append('nAlgoritmos',document.getElementById('nAlgorithms').value)
-    formData.append('algoritmos', alg)
+    formData.append('algoritmos',alg)// JSON.stringify(alg))
     formData.append('test',$('#test').val())
     formData.append('dataOutput',$('input[name=dataOutput]:checked').val())
     formData.append('nObjetives',document.getElementById('nObjetives').value)
@@ -36,12 +36,18 @@ $("#formulario").submit(() =>{
     formData.append('bound',$('#bound').val())
     formData.append('metric',$('#metric').val())
    //bucle para añadir el array de ficheros que se generen por cada algoritmo
-    fich.forEach((item)=> {
+    fich.forEach(item => {
 		for (var key of item.entries()) {
         	//console.log(key[0] + ', ' + key[1]);
         	formData.append(key[0],key[1])
     	}
 	})
+	/*alg.forEach(item =>{
+		formData.append('algoritmos[]','algorithmName':item.algorithmName)
+	})/*
+	/*configAlgorithm.algorithms.forEach(item =>{
+    	console.log(item)
+  	})*/
 	$.ajax({
 		//hasta poner esto era funcionaba sin problemaaaasss
 		type:'POST',

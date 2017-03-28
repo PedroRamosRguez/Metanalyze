@@ -2,7 +2,8 @@
 # Create your views here.
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render
-import json,os
+from pprint import pprint
+import json,os,ast
 from .forms import AlgorithmForm
 from .models import Algorithms,Configuration
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,13 +23,12 @@ def pruebatemplate(request):
   else:
     #print (form.fileName)
     print ('es un post de pruebatemplate...')
-    print (request.POST)
+    print request.POST.get('algoritmos')
+    #print type(request.POST.get('algoritmos'))
+    #print (request.POST['algoritmos'][0])
+    #print (request.POST)
     print (request.FILES)
-    print (request.FILES.getlist('file'))
-   
-    #metodo para recorrer los archivos subidos y guardarlos en la carpeta media
-    #este metodo y sus bucles son directamente de la documentacion
-
+    #los prints van aqui...
     #hacer un try para que en caso de que no llegue file no haga nada...
     for count, x in enumerate(request.FILES.getlist('file')):
       def process(f):
@@ -36,9 +36,8 @@ def pruebatemplate(request):
           for chunk in f.chunks():
             destination.write(chunk)
       process(x)
-    configuration = Configuration()
-    print ('estoy antes de configuration')
-    print(configuration)
+    #print ('estoy antes de configuration')
+    #print(configuration)
     #para introducir el test o los tests que se realicen, se debe hacer un json.dumps()
     #configuration.nObjetives = request.POST.getlist('')
     return HttpResponse('archivos subidos...')

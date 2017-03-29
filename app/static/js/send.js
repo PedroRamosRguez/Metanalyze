@@ -29,7 +29,7 @@ $("#formulario").submit(() =>{
     formData.append('algorithms',JSON.stringify(alg))
     formData.append('test',$('#test').val())
     formData.append('dataOutput',$('input[name=dataOutput]:checked').val())
-    formData.append('nObjetives',document.getElementById('nObjetives').value)
+    formData.append('nObjectives',document.getElementById('nObjectives').value)
     formData.append('nExecutions',document.getElementById('nExecutions').value)
     formData.append('step',document.getElementById('step').value)
     formData.append('stopCondition',document.getElementById('stopCondition').value)

@@ -27,8 +27,8 @@ class AlgorithmForm(forms.Form):
 
     dataOutput = forms.ChoiceField(widget=forms.RadioSelect(attrs = {'class': 'with-gap dataOutput'}),choices=CHOICES_dataOutput, required=True)
     
-    nObjetives = forms.CharField(widget = forms.TextInput(attrs= {'id': 'nObjetives','name': 'nObjetives',
-        'placeholder': 'Insert the number of objetives'}),required=True)
+    nObjectives = forms.CharField(widget = forms.TextInput(attrs= {'id': 'nObjectives','name': 'nObjetives',
+        'placeholder': 'Insert the number of objectives'}),required=True)
 
     nExecutions = forms.CharField(widget = forms.TextInput(attrs= {'id': 'nExecutions','name': 'nExecutions',
         'placeholder': 'Insert the number of executions done'}),required=True)

@@ -6,7 +6,7 @@ class Algorithms(models.Model):
   nAlgorithms = models.CharField(max_length = 100) #Numero de algoritmos
   algorithm = models.CharField(max_length = 100)   #Nombre del algoritmo
   idAlgorithm = models.CharField(max_length = 100) #Guarda el identificador que se le de al algoritmo. Ej: NSGA2_90_6_5
-  file = models.FileField()                        #Fichero adjunto a cada algoritmo insertado
+  #file = models.FileField()                        #Fichero adjunto a cada algoritmo insertado
   fileName = models.CharField(max_length = 100)    #Nombre del fichero adjunto
   nvariablesAlgorithm = models.CharField(max_length = 100) # Numero de variables que posee el algoritmo a analizar.
   

@@ -12,7 +12,7 @@ class AlgorithmForm(forms.Form):
         ('maximum', 'Maximum'),
     )
     nAlgorithms = forms.CharField(widget = forms.TextInput(attrs = {'name':'nAlgorithms','id': 'nAlgorithms',
-        'placeholder': 'Insert the number of algorithms', 'oninput': 'checkAlgorithm()'}),required=False)
+        'placeholder': 'Insert the number of algorithms', 'oninput': 'checkAlgorithm()'}),required=True)
               
     idAlgorithm = forms.CharField(widget = forms.TextInput(attrs={'id':'idAlgorithm',
         'placeholder':'Introduce the identificator for this algorithm','oninput':'configureAlgorithm()'}),required=False)

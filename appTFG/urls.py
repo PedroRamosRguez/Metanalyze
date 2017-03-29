@@ -19,7 +19,6 @@ from app import views
 urlpatterns = [
 
 	url(r'^$', views.index, name='index'), # para no poner /algo en el index principal
-  url(r'^pruebita/$', views.pruebita, name='pruebita'),
   url(r'^pruebatemplate/$', views.pruebatemplate, name='pruebatemplate'),
   url(r'^admin/', include(admin.site.urls)),
   

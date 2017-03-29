@@ -1,4 +1,0 @@
-esto es una prueba
-de la carga
-de un fichero
-de texto...

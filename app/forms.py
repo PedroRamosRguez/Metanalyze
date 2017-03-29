@@ -12,18 +12,18 @@ class AlgorithmForm(forms.Form):
         ('maximum', 'Maximum'),
     )
     nAlgorithms = forms.CharField(widget = forms.TextInput(attrs = {'name':'nAlgorithms','id': 'nAlgorithms',
-        'placeholder': 'Insert the number of algorithms', 'oninput': 'checkAlgorithm()'}),required=True)
+        'placeholder': 'Insert the number of algorithms', 'oninput': 'checkAlgorithm()'}),required=False)
               
     idAlgorithm = forms.CharField(widget = forms.TextInput(attrs={'id':'idAlgorithm',
-        'placeholder':'Introduce the identificator for this algorithm','oninput':'configureAlgorithm()'}),required=True)
+        'placeholder':'Introduce the identificator for this algorithm','oninput':'configureAlgorithm()'}),required=False)
     
-    file = forms.FileField(widget=forms.FileInput(attrs = {'id':'file'}),required=True)
+    file = forms.FileField(widget=forms.FileInput(attrs = {'id':'file'}),required=False)
     
     fileName = forms.CharField(widget=forms.TextInput(attrs = {'class':'file-path validate',
-        'placeholder':'Select file to run the test'}),required=True)
+        'placeholder':'Select file to run the test'}),required=False)
 
     nVariablesAlgorithm = forms.CharField(widget=forms.TextInput(attrs = {'id':'nVariablesAlgorithm',
-        'name':'nVariablesAlgorithm','placeholder':'Introduce the number of variables for this algorithm'}),required=True)
+        'name':'nVariablesAlgorithm','placeholder':'Introduce the number of variables for this algorithm'}),required=False)
 
     dataOutput = forms.ChoiceField(widget=forms.RadioSelect(attrs = {'class': 'with-gap dataOutput'}),choices=CHOICES_dataOutput, required=True)
     

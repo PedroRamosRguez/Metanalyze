@@ -3,3 +3,5 @@
 
 # SQLite3 database
 *.sqlite3
+
+migrations/

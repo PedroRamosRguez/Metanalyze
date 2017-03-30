@@ -37,10 +37,24 @@ def pruebatemplate(request):
       process(x)
     if form.is_valid:
       print('formulario valido se procede a insertar al modelo')
-      algorithmModel = Algorithms
-      config = Configuration
+      algorithmModel = Algorithms.objects.create()
+      config = Configuration()
       print(form.is_valid())
       print(form.cleaned_data)
+      print (form.cleaned_data['nAlgorithms'])
+      print algorithmModel
+      #algorithmModel.nAlgorithms = form.cleaned_data['nAlgorithms']
+      for i,item in enumerate(dictAlgorithms):
+        print ('estoy en el for de dictionario de algoritmos...')
+        print i
+        print item
+        
+        #aqui insertar en el modelo el filename
+        algorithmModel.algorithm = item['algorithmName']
+        algorithmModel.idAlgorithms = item['id']
+        #algorithmModel.fileName = fileNames[i]
+        algorithmModel.nVariables = item['nVariables']
+        algorithmModel.save()
       #para introducir el test o los tests que se realicen, se debe hacer un json.dumps()
       #TODO
       '''

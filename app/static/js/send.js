@@ -42,6 +42,8 @@ $("#formulario").submit(() =>{
         	formData.append(key[0],key[1])
     	}
 	})
+	let prueba = []
+	prueba.push($('#bound').val())
 	$.ajax({
 		//hasta poner esto era funcionaba sin problemaaaasss
 		type:'POST',

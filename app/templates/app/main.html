@@ -77,9 +77,9 @@
           </p>
           <select multiple id="bound">
             <option value="" disabled selected>Select the bound to be performed</option>
-            {% for choice in form.bound %}
-              <option value={{choice.choice_value}}>{{choice.choice_label}}</option>
-            {% endfor %}
+            {% for i in bound %}
+              <option {{i}}>{{i}}</option>
+            {%endfor%}
           </select>
         </div>
         <div class="input-field center col s10" id="selectMetric">

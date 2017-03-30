@@ -20,65 +20,49 @@ def pruebatemplate(request):
     #print (form.fileName)
     print ('es un post de pruebatemplate...')
     #print request.POST
+    #print (request.FILES)
     form = AlgorithmForm(request.POST)
     #convierte a array de diccionarios los valores que se obtienen.
     dictAlgorithms= ast.literal_eval(request.POST.get('algorithms'))
-    print (request.FILES)
     #array para guardar el nombre de los ficheros que se suban para insertarlos al modelo.
     fileNames = []
-    #sube los ficheros a la carpeta media
-    #hacer un try para que en caso de que no llegue file no haga nada...
-    for count, x in enumerate(request.FILES.getlist('file')):
-      def process(f):
-        with open(os.path.join(BASE_DIR, 'media/')+ str(f),'wb+')as destination:
-          for chunk in f.chunks():
-            destination.write(chunk)
-      filesNames.append = x
-      process(x)
     if form.is_valid:
       print('formulario valido se procede a insertar al modelo')
-      algorithmModel = Algorithms.objects.create()
-      config = Configuration()
-      print(form.is_valid())
-      print(form.cleaned_data)
-      print (form.cleaned_data['nAlgorithms'])
-      print algorithmModel
+      #sube los ficheros a la carpeta media
+      #hacer un try para que en caso de que no llegue file no haga nada...
+      for count, x in enumerate(request.FILES.getlist('file')):
+        def process(f):
+          with open(os.path.join(BASE_DIR, 'media/')+ str(f),'wb+')as destination:
+            for chunk in f.chunks():
+              destination.write(chunk)
+        fileNames.append(x)
+        process(x)
+      #PONER LA CREACION DEL MODELO DE CONFIGURACION EN UN METODO
+      config = Configuration.objects.create()
+      config.nAlgorithms = form.cleaned_data['nAlgorithms']
+      config.nObjectives = form.cleaned_data['nObjectives']
+      config.nExecutions = form.cleaned_data['nExecutions']
+      config.step = form.cleaned_data['step']
+      config.stopCondition = form.cleaned_data['stopCondition']
+      config.dataOutput = form.cleaned_data['dataOutput']
+      config.bound = request.POST['bound']
+      config.test = request.POST['test']
+      config.metric = request.POST['metric']
+      config.save()
+      
+      #config.metric = request.POST['metric']
       #algorithmModel.nAlgorithms = form.cleaned_data['nAlgorithms']
       for i,item in enumerate(dictAlgorithms):
-        print ('estoy en el for de dictionario de algoritmos...')
-        print i
-        print item
-        
-        #aqui insertar en el modelo el filename
+        #PONER LA CREACION DEL MODELO DE LOS ALGORITMOS EN UN METODO
+        algorithmModel = Algorithms.objects.create()
         algorithmModel.algorithm = item['algorithmName']
-        algorithmModel.idAlgorithms = item['id']
-        #algorithmModel.fileName = fileNames[i]
-        algorithmModel.nVariables = item['nVariables']
+        algorithmModel.idAlgorithm = item['id']
+        algorithmModel.fileName = fileNames[i]
+        algorithmModel.nVariablesAlgorithm = item['nVariables']
         algorithmModel.save()
-      #para introducir el test o los tests que se realicen, se debe hacer un json.dumps()
-      #TODO
-      '''
-        hacer un bucle que dependiendo del numero de algoritmos que se inserte (form.cleaned_data[nAlgorithms])
-        crear un objeto del modelo e insertar los datos al modelo. Tener en cuenta que los algoritmos tambien hay
-        que recorrerlos (TENERLO EN CUENTA)
-        para el fichero usar la posicion alctual en el vector de nombre de fichero que se creo anteriormente
-        al subir los ficheros a la carpeta media
-        al final de cada iteracion poner algorithmModel.save() y eso es como insertar un elemento en una
-        base de datos
-      '''
-      '''
-        Para crear el modelo de configuracion estandar es solo insertar a ese modelo los valores del 
-        form.cleaned_data[xxxx]
-        Al final poner configModel.save()  para guardar la confifuracion estandar para los algoritmos.
-      '''
-      '''
-        Todo el tema de los modelos se hace para que cuando se vayan a tratar los datos, sea mas facil
-        acceder a los datos y no tener que realizar conversiones de diccionario a lista, etc.
-      '''
-      
-
     else:
       print('estoy en el else...')
+      #mostrar un render de error 500
       #mostrar algun error o algo..
     
     return HttpResponse('archivos subidos...')

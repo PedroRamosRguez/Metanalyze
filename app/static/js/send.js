@@ -27,14 +27,14 @@ $("#formulario").submit(() =>{
     formData.append('csrfmiddlewaretoken',csrftoken)
     formData.append('nAlgorithms',document.getElementById('nAlgorithms').value)
     formData.append('algorithms',JSON.stringify(alg))
-    formData.append('test',$('#test').val())
+    formData.append('test',JSON.stringify($('#test').val()))
     formData.append('dataOutput',$('input[name=dataOutput]:checked').val())
     formData.append('nObjectives',document.getElementById('nObjectives').value)
     formData.append('nExecutions',document.getElementById('nExecutions').value)
     formData.append('step',document.getElementById('step').value)
     formData.append('stopCondition',document.getElementById('stopCondition').value)
-    formData.append('bound',$('#bound').val())
-    formData.append('metric',$('#metric').val())
+    formData.append('bound',JSON.stringify($('#bound').val()))
+    formData.append('metric',JSON.stringify($('#metric').val()))
    //bucle para añadir el array de ficheros que se generen por cada algoritmo
     fich.forEach(item => {
 		for (var key of item.entries()) {

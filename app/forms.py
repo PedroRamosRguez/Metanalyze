@@ -6,11 +6,6 @@ class AlgorithmForm(forms.Form):
         ('plot', 'Plot'),
         ('table-plot', 'Table and Plot'),
     )
-    CHOICES_bound = (
-        ('minimum', 'Minimum'),
-        ('average', 'Average'),
-        ('maximum', 'Maximum'),
-    )
     nAlgorithms = forms.CharField(widget = forms.TextInput(attrs = {'name':'nAlgorithms','id': 'nAlgorithms',
         'placeholder': 'Insert the number of algorithms', 'oninput': 'checkAlgorithm()'}),required=True)
               
@@ -38,5 +33,3 @@ class AlgorithmForm(forms.Form):
 
     stopCondition = forms.CharField(widget = forms.TextInput(attrs= {'id': 'stopCondition','name': 'stopCondition',
         'placeholder': 'Insert the stop condition'}),required=True)
-
-    bound = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple(),choices=CHOICES_bound,required=True)

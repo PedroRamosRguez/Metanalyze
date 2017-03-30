@@ -1,0 +1,13 @@
+{
+  "bound": [
+    {
+        "value": "Minimum"
+    },
+    {
+        "value": "Average"
+    },
+    {
+        "value": "Maximum"
+    }
+  ]
+}

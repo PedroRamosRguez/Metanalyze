@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'
+    'app',
 )
 MEDIA_ROOT = os.path.join(BASE_DIR,'app/media')
 MEDIA_URL = '/media/'

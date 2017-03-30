@@ -28,8 +28,8 @@ def pruebatemplate(request):
     fileNames = []
     if form.is_valid():
       print('formulario valido se procede a insertar al modelo')
-      print(form.is_valid())
-      print(form.cleaned_data)
+      #print(form.is_valid())
+      #print(form.cleaned_data)
       #sube los ficheros a la carpeta media
       #hacer un try para que en caso de que no llegue file no haga nada...
       for count, x in enumerate(request.FILES.getlist('file')):
@@ -64,12 +64,12 @@ def pruebatemplate(request):
         algorithmModel.fileName = fileNames[i]
         algorithmModel.nVariablesAlgorithm = item['nVariables']
         algorithmModel.save()
+      return HttpResponse('archivos subidos...')
     else:
       print('estoy en el else...')
-      print (form.is_valid())
       #mostrar un render de error 500
       #mostrar algun error o algo..
     
-    return HttpResponse('archivos subidos...')
+    
   return render(request,'app/pruebatemplate.html')
 

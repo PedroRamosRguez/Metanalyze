@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-
+# Mirar el paquete jsonfield para la insercion de valores en el modelo tipo json
 class Algorithms(models.Model):
   
   algorithm = models.CharField(max_length = 100)   #Nombre del algoritmo

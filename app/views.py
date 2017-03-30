@@ -26,8 +26,10 @@ def pruebatemplate(request):
     dictAlgorithms= ast.literal_eval(request.POST.get('algorithms'))
     #array para guardar el nombre de los ficheros que se suban para insertarlos al modelo.
     fileNames = []
-    if form.is_valid:
+    if form.is_valid():
       print('formulario valido se procede a insertar al modelo')
+      print(form.is_valid())
+      print(form.cleaned_data)
       #sube los ficheros a la carpeta media
       #hacer un try para que en caso de que no llegue file no haga nada...
       for count, x in enumerate(request.FILES.getlist('file')):
@@ -53,6 +55,8 @@ def pruebatemplate(request):
       #config.metric = request.POST['metric']
       #algorithmModel.nAlgorithms = form.cleaned_data['nAlgorithms']
       for i,item in enumerate(dictAlgorithms):
+        print i
+        print item
         #PONER LA CREACION DEL MODELO DE LOS ALGORITMOS EN UN METODO
         algorithmModel = Algorithms.objects.create()
         algorithmModel.algorithm = item['algorithmName']
@@ -62,6 +66,7 @@ def pruebatemplate(request):
         algorithmModel.save()
     else:
       print('estoy en el else...')
+      print (form.is_valid())
       #mostrar un render de error 500
       #mostrar algun error o algo..
     

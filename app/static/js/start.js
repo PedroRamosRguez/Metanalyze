@@ -12,7 +12,8 @@
     $('#introduceInstancia').hide();
  	$('#insertAlgorithm').hide();
  	$('#algorithmConfiguration').hide();
- 	$('#selectMetric').hide();
+ 	//$('#selectMetric').hide();
+ 	$('#selectBound').hide();
   })
 
 

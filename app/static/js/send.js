@@ -47,7 +47,7 @@ $("#formulario").submit(() =>{
 	$.ajax({
 		//hasta poner esto era funcionaba sin problemaaaasss
 		type:'POST',
-		url : 'pruebatemplate/',
+		url : '/',
 		contentType:false,
 		cache: false,
 		processData: false,
@@ -55,6 +55,7 @@ $("#formulario").submit(() =>{
 		data:formData,
 		//si la petición es exitosa realiza la redirección	 
 		success : function(data,textStatus){
+			console.log('exito')
 		  //hace posible la redirección a la vista pruebatemplate...
 		  window.location.href = 'pruebatemplate/'; 
 		},

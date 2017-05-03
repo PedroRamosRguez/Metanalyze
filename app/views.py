@@ -4,8 +4,11 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render
 from django.core.files import File
 import json,os,ast
+import createModels as cModels
+import uploadFiles as uFiles
 from .forms import AlgorithmForm
-from .models import Algorithms,Configuration
+#from .models import Algorithms,Configuration
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def index(request):
   
@@ -23,37 +26,18 @@ def index(request):
       #sube los ficheros a la carpeta media
       #hacer un try para que en caso de que no llegue file no haga nada...
       for count, x in enumerate(request.FILES.getlist('file')):
-        def process(f):
-          with open(os.path.join(BASE_DIR, 'media/')+ str(f),'wb+')as destination:
-            for chunk in f.chunks():
-              destination.write(chunk)
         fileNames.append(x)
-        process(x)
-      #PONER LA CREACION DEL MODELO DE CONFIGURACION EN UN METODO
-      config = Configuration.objects.create()
-      config.nAlgorithms = form.cleaned_data['nAlgorithms']
-      config.nObjectives = form.cleaned_data['nObjectives']
-      config.nExecutions = form.cleaned_data['nExecutions']
-      config.step = form.cleaned_data['step']
-      config.stopCondition = form.cleaned_data['stopCondition']
-      config.dataOutput = form.cleaned_data['dataOutput']
-      config.bound = request.POST['bound']
-      config.test = request.POST['test']
-      config.metric = request.POST['metric']
-      config.save()
-      
+        uFiles.process(BASE_DIR,x)
+      #llama al metodo de crear el modelo de configuracion
+      cModels.modelConfiguration(form,request)
       #config.metric = request.POST['metric']
       #algorithmModel.nAlgorithms = form.cleaned_data['nAlgorithms']
       for i,item in enumerate(dictAlgorithms):
-        print i
-        print item
+        #print i
+        #print item
+        #llama al metodo para crear 
+        cModels.modelAlgorithm(item,fileNames[i])
         #PONER LA CREACION DEL MODELO DE LOS ALGORITMOS EN UN METODO
-        algorithmModel = Algorithms.objects.create()
-        algorithmModel.algorithm = item['algorithmName']
-        algorithmModel.idAlgorithm = item['id']
-        algorithmModel.fileName = fileNames[i]
-        algorithmModel.nVariablesAlgorithm = item['nVariables']
-        algorithmModel.save()
       #return HttpResponse('archivos subidos...')
       return HttpResponseRedirect('/pruebatemplate/')
     else:
@@ -62,7 +46,7 @@ def index(request):
       #mostrar algun error o algo..'''
     
   else:
-    print 'es un get de index'
+    #print 'es un get de index'
     form = AlgorithmForm()
   return render(request,'app/index.html',{'form': form})
 

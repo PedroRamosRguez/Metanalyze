@@ -1,6 +1,6 @@
 
 # Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render
 from django.core.files import File
 import json,os,ast
@@ -8,19 +8,9 @@ from .forms import AlgorithmForm
 from .models import Algorithms,Configuration
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def index(request):
-  form = AlgorithmForm()
-  return render(request,'app/index.html',{'form': form})
-
-def pruebatemplate(request):
-  if request.method == 'GET':
-    print 'es un get de pruebatemplate...'
-    #print (request.GET.get('nejecuciones',None))
-    #print (request.GET.get())
-  else:
-    #print (form.fileName)
-    print ('es un post de pruebatemplate...')
-    #print request.POST
-    #print (request.FILES)
+  
+  if request.method == 'POST':
+    print 'es un post de index..'
     form = AlgorithmForm(request.POST)
     #convierte a array de diccionarios los valores que se obtienen.
     dictAlgorithms= ast.literal_eval(request.POST.get('algorithms'))
@@ -64,12 +54,26 @@ def pruebatemplate(request):
         algorithmModel.fileName = fileNames[i]
         algorithmModel.nVariablesAlgorithm = item['nVariables']
         algorithmModel.save()
-      return HttpResponse('archivos subidos...')
+      #return HttpResponse('archivos subidos...')
+      return HttpResponseRedirect('/pruebatemplate/')
     else:
       print('estoy en el else...')
       #mostrar un render de error 500
-      #mostrar algun error o algo..
+      #mostrar algun error o algo..'''
     
+  else:
+    print 'es un get de index'
+    form = AlgorithmForm()
+  return render(request,'app/index.html',{'form': form})
+
+def pruebatemplate(request):
+  if request.method == 'GET':
+    print 'es un get de pruebatemplate...'
+    #hacer lo de obtener los graficos y las tablas...
+    #print (request.GET.get('nejecuciones',None))
+    #print (request.GET.get())
+  else:
+    print 'seria un post de pruebatemplate'
     
   return render(request,'app/pruebatemplate.html')
 

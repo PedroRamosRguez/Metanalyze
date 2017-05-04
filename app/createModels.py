@@ -12,11 +12,10 @@ def modelConfiguration(form,request):
 	config.bound = request.POST['bound']
 	config.test = request.POST['test']
 	config.metric = request.POST['metric']
-	config.save()
+	return config.id
 #metodo que crea el modelo para cada algoritmo introducido
-def modelAlgorithm(item,fileName):
-	print 'entre a modelalgorithm'
-	algorithmModel = Algorithms.objects.create()
+def modelAlgorithm(item,fileName,idConfiguration):
+	algorithmModel = Algorithms.objects.create(configuration_id=idConfiguration)
 	algorithmModel.algorithm = item['algorithmName']
 	algorithmModel.idAlgorithm = item['id']
 	algorithmModel.fileName = fileName

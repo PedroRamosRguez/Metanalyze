@@ -138,3 +138,13 @@ INSTALLED_APPS = (
 Parsear los ficheros que llegan a la carpeta media del servidor. 
 Implementar los scripts para el parseo de los fichero y el futuro tratamiento de los datos.
 Implementar el hipervolumen, y mirar cómo se realizará el tratamiento de los datos para implementarlo.
+
+Cosas a insertar en requeriments.txt
+django-jchart
+numpy
+pandas
+re
+collections
+tarfile
+os
+ast

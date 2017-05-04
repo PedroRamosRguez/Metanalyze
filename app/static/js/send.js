@@ -47,7 +47,7 @@ $("#formulario").submit(() =>{
 	$.ajax({
 		//hasta poner esto era funcionaba sin problemaaaasss
 		type:'POST',
-		url : '/',
+		url : 'pruebatemplate/',
 		contentType:false,
 		cache: false,
 		processData: false,

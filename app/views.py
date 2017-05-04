@@ -19,8 +19,13 @@ from charts import BubbleChart
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def index(request):
+  form = AlgorithmForm()
+  return render(request,'app/index.html',{'form': form})
+
+def pruebatemplate(request):
+  #variable para obtener el id de configuracion de los algoritmos
   if request.method == 'POST':
-    print 'es un post de index..'
+    print 'es un post de pruebatemplate..'
     form = AlgorithmForm(request.POST)
     #convierte a array de diccionarios los valores que se obtienen.
     dictAlgorithms= ast.literal_eval(request.POST.get('algorithms'))
@@ -36,35 +41,31 @@ def index(request):
         uFiles.process(BASE_DIR,x)
       #llama al metodo de crear el modelo de configuracion
       idConfiguration = cModels.modelConfiguration(form,request)
+      print 'esto es idconfiguration'
+      print idConfiguration
       #config.metric = request.POST['metric']
       #algorithmModel.nAlgorithms = form.cleaned_data['nAlgorithms']
       for i,item in enumerate(dictAlgorithms):
-        #print i
-        #print item
+        print i
+        print item
         #llama al metodo para crear 
         cModels.modelAlgorithm(item,fileNames[i],idConfiguration)
         #PONER LA CREACION DEL MODELO DE LOS ALGORITMOS EN UN METODO
       #return HttpResponse('archivos subidos...')
-      return HttpResponseRedirect('/pruebatemplate/')
+
+      parse.parse(idConfiguration)
+      return HttpResponse('archivos subidos...')
     else:
       print('estoy en el else...')
       #mostrar un render de error 500
       #mostrar algun error o algo..'''
     
   else:
-    #print 'es un get de index'
-    form = AlgorithmForm()
-  return render(request,'app/index.html',{'form': form})
-
-def pruebatemplate(request):
-  if request.method == 'GET':
     print 'es un get de pruebatemplate...'
-    parse.parse()
-    #hacer lo de obtener los graficos y las tablas...
-  else:
-    print 'seria un post de pruebatemplate'
+    
     
   return render(request,'app/pruebatemplate.html')
+
 
 
 

@@ -58,7 +58,7 @@ def pruebatemplate(request):
     else:
       print('estoy en el else...')
       #mostrar un render de error 500
-      #mostrar algun error o algo..'''
+      #mostrar algun error o algo..
     
   else:
     print 'es un get de pruebatemplate...'

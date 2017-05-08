@@ -1,9 +1,10 @@
 import os,tarfile,re,collections
+import numpy as np
+import pandas as pd
 from django.apps import apps
 from django.db.models import get_app, get_models
 from .models import Algorithms,Configuration
-import numpy as np
-import pandas as pd
+from hv import HyperVolume
 
 def parse(idConfiguration):
 	BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -127,8 +128,6 @@ def parse(idConfiguration):
 	while counter < int(getConfiguration.nObjectives):
 		referencePoint.append(0)
 		counter +=1
-	maxStepValue = 0
-	maxExecutionValue = 0
 	print 'esto es referencePoint '
 	print referencePoint
 	for k,v in sorted(dicAlg.iteritems()):
@@ -175,6 +174,38 @@ def parse(idConfiguration):
 
 	print 'punto de referencia:'			
 	print referencePoint
+	dictHvAlg = collections.defaultdict(dict)
+	#dicHvAlg = collections.defaultdict(dict)
+	#dictHv = dict()		#diccionario con los valores de hipervolumenes por paso y ejecucion
+	#dictHvAlg[0] = dict()
+	print (dictHvAlg)
+	for k,v in sorted(dicAlg.iteritems()):
+		print 'ESTO ES K Y V del hipervolumen'
+		print k
+		print v
+		dictHvAlg[str(k)] = dict()
+		for kk,vv in sorted(v.iteritems()):
+			print 'esto es kk y vv del hipervolumen'
+			print kk
+			print vv
+
+			print dictHvAlg
+			for kkk,vvv in sorted(vv.iteritems()):
+				print 'esto es kkk y vvv del hipervolumen'
+				print kkk
+				print vvv
+				if not kkk in dictHvAlg[str(k)].keys():
+					dictHvAlg[k][kkk] = []
+				hyperVolume = HyperVolume(referencePoint)
+				dictHvAlg[k][kkk].append(hyperVolume.compute(vvv))
+	print dictHvAlg
+	df = []
+	for k,v in sorted(dictHvAlg.iteritems()):
+		print k
+		print v
+		df.append(pd.DataFrame(v))
+	print 'fuera del for de creacion de dataframes'
+	print df
 				#buscar los hipervolumenes y los puntos de referencia en vvv y crear un unico diccionario de diccionario por algoritmos de hipervolumenes
 
 	#algDict = dict()		#crea un diccionario de algoritmos.

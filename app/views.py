@@ -14,7 +14,7 @@ from bokeh.resources import CDN
 from bokeh.models import Range1d
 from bokeh.embed import components
 #libreria de graficos charts
-from charts import BubbleChart
+from charts import BubbleChart,PolarChart
 #from .models import Algorithms,Configuration
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -133,6 +133,6 @@ def simple_chart(request):
 #ejemplo de un grafico de la documentacion de jchart
 def jchart(request):
   return render(request, 'app/jchart.html', {
-      'bubble_chart': BubbleChart,
+      'bubble_chart': BubbleChart,'polar_chart':PolarChart,
   })
    

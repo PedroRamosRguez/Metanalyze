@@ -16,3 +16,20 @@ class BubbleChart(Chart):
                         data=data,
                         backgroundColor='#FF6384',
                         hoverBackgroundColor='#FF6384')]
+class PolarChart(Chart):
+    chart_type = 'polarArea'
+
+    def get_labels(self, **kwargs):
+        return ["Red", "Green", "Yellow", "Grey", "Blue"]
+
+    def get_datasets(self, **kwargs):
+        return [DataSet(label="My DataSet",
+                        data=[11, 16, 7, 3, 14],
+                        backgroundColor=[
+                            "#FF6384",
+                            "#4BC0C0",
+                            "#FFCE56",
+                            "#E7E9ED",
+                            "#36A2EB"
+                        ])
+                ]

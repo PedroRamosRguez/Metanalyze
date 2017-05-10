@@ -1,4 +1,4 @@
-from .models import Algorithms,Configuration,ChartsModel
+from .models import Algorithms,Configuration,ChartsModel,MinAvgMaxChartModel,MinChartModel,AvgChartModel,MaxChartModel
 #metodo que crea el modelo de la configuracion de los algoritmos
 def modelConfiguration(form,request):
 	#PONER LA CREACION DEL MODELO DE CONFIGURACION EN UN METODO
@@ -27,3 +27,25 @@ def modelCharts(idConfiguration,listValues):
 	chartModel = ChartsModel.objects.create(configuration_id=idConfiguration)
 	chartModel.listValues = listValues
 	chartModel.save()
+
+def modelMinAvgMaxCharts(idConfiguration,listValues):
+	minAvgMaxChartModel = MinAvgMaxChartModel.objects.create(configuration_id=idConfiguration)
+	minAvgMaxChartModel.listValues = listValues
+	minAvgMaxChartModel.save()
+
+def modelMinCharts(idConfiguration,listValues):
+	minChartModel = MinChartModel.objects.create(configuration_id=idConfiguration)
+	minChartModel.listValues = listValues
+	minChartModel.save()
+
+def modelAvgCharts(idConfiguration,listValues):
+	avgChartModel = AvgChartModel.objects.create(configuration_id=idConfiguration)
+	avgChartModel.listValues = listValues
+	avgChartModel.save()
+
+def modelMaxCharts(idConfiguration,listValues):
+	maxChartModel = MaxChartModel.objects.create(configuration_id=idConfiguration)
+	maxChartModel.listValues = listValues
+	maxChartModel.save()
+
+

@@ -1,12 +1,11 @@
 import os,tarfile,re,collections
 import numpy as np
 import pandas as pd
+import createModels as cModels
 from django.apps import apps
 from django.db.models import get_app, get_models
 from .models import Algorithms,Configuration,ChartsModel
 from hv import HyperVolume
-from charts import BubbleChart,PolarChart,ScatterLineChart
-pruebaimport = ''
 
 def parse(idConfiguration):
 	BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -231,7 +230,59 @@ def parse(idConfiguration):
 			#print chartList
 		#algList.append(stepList)
 		chartList.append(algList)
-	return chartList
+	#comprobar en la configuracion que bound selecciono...
+	cModels.modelCharts(idConfiguration,chartList)
+	df2 = []
+	dfMin = []
+	dfAvg = []
+	dfMax = []
+	for i,v in enumerate(df):
+		print i
+		print v
+		df2.append(pd.DataFrame(v.min(),columns=['Min']))
+		dfMin.append(pd.DataFrame(v.min(),columns=['Min']))
+		df2[i]['Average']=v.mean()
+		df2[i]['Max'] = v.max()
+		#df2['Average']=df.mean()
+		dfAvg.append(pd.DataFrame(v.mean(),columns=['Avg']))
+		dfMax.append(pd.DataFrame(v.max(),columns=['Max']))
+		#df2['Max']=df.max()
+	'''df2 = pd.DataFrame(df.min(),columns=['Min'])
+	df2['Average']=df.mean()
+	df2['Max']=df.max()'''
+	print 'print de los dataframes de min max y avg y el total...'
+	print df2
+	print dfMin
+	print dfAvg
+	print dfMax
+	#pasar a diccionario cada dataframe
+	#idConfiguration
+	#cModels.modelMinAvgMaxCharts()
+	modeList = []
+	for i,v in enumerate(df2):
+		#print v.to_dict()
+		modeList.append(v.to_dict())
+	print 'esto es la lista de dataframes...'
+	print modeList
+	print len(modeList)
+	cModels.modelMinAvgMaxCharts(idConfiguration,modeList)
+	modeList = []
+	for i,v in enumerate(dfMin):
+		#print v.to_dict()
+		modeList.append(v.to_dict())
+	cModels.modelMinCharts(idConfiguration,modeList)
+	modeList = []
+	for i,v in enumerate(dfAvg):
+		#print v.to_dict()
+		modeList.append(v.to_dict())
+	cModels.modelAvgCharts(idConfiguration,modeList)
+
+	modeList = []
+	for i,v in enumerate(dfMax):
+		#print v.to_dict()
+		modeList.append(v.to_dict())
+	cModels.modelMaxCharts(idConfiguration,modeList)
+	#cModels.modelCharts(idConfiguration,objeto)
 
 	#prueba.get_datasets(pruebita)
 

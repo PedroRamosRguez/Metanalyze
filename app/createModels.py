@@ -1,4 +1,4 @@
-from .models import Algorithms,Configuration
+from .models import Algorithms,Configuration,ChartsModel
 #metodo que crea el modelo de la configuracion de los algoritmos
 def modelConfiguration(form,request):
 	#PONER LA CREACION DEL MODELO DE CONFIGURACION EN UN METODO
@@ -23,3 +23,7 @@ def modelAlgorithm(item,fileName,idConfiguration):
 	algorithmModel.nVariablesAlgorithm = item['nVariables']
 	algorithmModel.save()
 
+def modelCharts(idConfiguration,listValues):
+	chartModel = ChartsModel.objects.create(configuration_id=idConfiguration)
+	chartModel.listValues = listValues
+	chartModel.save()

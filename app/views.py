@@ -14,15 +14,16 @@ from bokeh.resources import CDN
 from bokeh.models import Range1d
 from bokeh.embed import components
 #libreria de graficos charts
-from charts import BubbleChart,PolarChart
-#from .models import Algorithms,Configuration
+from charts import BubbleChart,PolarChart,ScatterLineChart,TimeSeriesChart
 
+#from .models import Algorithms,Configuration
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def index(request):
   form = AlgorithmForm()
   return render(request,'app/index.html',{'form': form})
 
 def pruebatemplate(request):
+ 
   #variable para obtener el id de configuracion de los algoritmos
   if request.method == 'POST':
     print 'es un post de pruebatemplate..'
@@ -40,6 +41,7 @@ def pruebatemplate(request):
         fileNames.append(x)
         uFiles.process(BASE_DIR,x)
       #llama al metodo de crear el modelo de configuracion
+      global idConfiguration
       idConfiguration = cModels.modelConfiguration(form,request)
       print 'esto es idconfiguration'
       print idConfiguration
@@ -53,17 +55,20 @@ def pruebatemplate(request):
         #PONER LA CREACION DEL MODELO DE LOS ALGORITMOS EN UN METODO
       #return HttpResponse('archivos subidos...')
 
-      parse.parse(idConfiguration)
+      objeto = parse.parse(idConfiguration)
+      print 'ESTO ES EL CONTENIDO DE OBJETO:'
+      print objeto
+      cModels.modelCharts(idConfiguration,objeto)
       return HttpResponse('archivos subidos...')
     else:
       print('estoy en el else...')
       #mostrar un render de error 500
       #mostrar algun error o algo..
-    
   else:
     print 'es un get de pruebatemplate...'
-    
-    
+    return render(request, 'app/jchart.html', {
+      'bubble_chart': BubbleChart,'polar_chart':PolarChart,'scatter_chart':ScatterLineChart,'time_chart':TimeSeriesChart
+  })
   return render(request,'app/pruebatemplate.html')
 
 
@@ -132,7 +137,12 @@ def simple_chart(request):
 
 #ejemplo de un grafico de la documentacion de jchart
 def jchart(request):
+  '''pruebita=parse.parse.chartList
+  prueba = ScatterLineChart(pruebita)
+  print prueba.get_datasets(pruebita)'''
+
+  #prueba.get_datasets(prueba1)
   return render(request, 'app/jchart.html', {
-      'bubble_chart': BubbleChart,'polar_chart':PolarChart,
+      'bubble_chart': BubbleChart,'polar_chart':PolarChart,'scatter_chart':ScatterLineChart,'time_chart':TimeSeriesChart
   })
    

@@ -8,13 +8,8 @@ import createModels as cModels
 import uploadFiles as uFiles
 import parsefiles as parse
 from .forms import AlgorithmForm
-#libreria de graficos bokeh
-from bokeh.plotting import figure
-from bokeh.resources import CDN
-from bokeh.models import Range1d
-from bokeh.embed import components
 #libreria de graficos charts
-from charts import BubbleChart,PolarChart,ScatterLineChart,TimeSeriesChart
+from charts import MinChart
 
 #from .models import Algorithms,Configuration
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -55,10 +50,8 @@ def pruebatemplate(request):
         #PONER LA CREACION DEL MODELO DE LOS ALGORITMOS EN UN METODO
       #return HttpResponse('archivos subidos...')
 
-      objeto = parse.parse(idConfiguration)
-      print 'ESTO ES EL CONTENIDO DE OBJETO:'
-      print objeto
-      cModels.modelCharts(idConfiguration,objeto)
+      parse.parse(idConfiguration)
+      
       return HttpResponse('archivos subidos...')
     else:
       print('estoy en el else...')
@@ -67,7 +60,8 @@ def pruebatemplate(request):
   else:
     print 'es un get de pruebatemplate...'
     return render(request, 'app/jchart.html', {
-      'bubble_chart': BubbleChart,'polar_chart':PolarChart,'scatter_chart':ScatterLineChart,'time_chart':TimeSeriesChart
+      #'bubble_chart': BubbleChart,'polar_chart':PolarChart,'scatter_chart':ScatterLineChart,'time_chart':TimeSeriesChart,
+      'min_chart':MinChart
   })
   return render(request,'app/pruebatemplate.html')
 

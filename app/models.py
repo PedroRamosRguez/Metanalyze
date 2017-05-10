@@ -52,3 +52,19 @@ class ListField(models.TextField):
 class ChartsModel(models.Model):
     listValues = ListField()
     configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)
+
+class MinAvgMaxChartModel(models.Model):
+  listValues = ListField()
+  configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)
+
+class MinChartModel(models.Model):
+  listValues = ListField()
+  configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)
+
+class AvgChartModel(models.Model):
+  listValues = ListField()
+  configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)
+
+class MaxChartModel(models.Model):
+  listValues = ListField()
+  configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)

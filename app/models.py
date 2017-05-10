@@ -1,5 +1,5 @@
 from django.db import models
-
+import ast
 # Create your models here.
 class Configuration(models.Model):
   nAlgorithms = models.CharField(max_length = 100) #Numero de algoritmos
@@ -20,3 +20,35 @@ class Algorithms(models.Model):
   fileName = models.CharField(max_length = 100)    #Nombre del fichero adjunto
   nVariablesAlgorithm = models.CharField(max_length = 100) # Numero de variables que posee el algoritmo a analizar.
   configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)
+
+
+
+class ListField(models.TextField):
+    __metaclass__ = models.SubfieldBase
+    description = "Stores a python list"
+
+    def __init__(self, *args, **kwargs):
+        super(ListField, self).__init__(*args, **kwargs)
+
+    def to_python(self, value):
+        if not value:
+            value = []
+
+        if isinstance(value, list):
+            return value
+
+        return ast.literal_eval(value)
+
+    def get_prep_value(self, value):
+        if value is None:
+            return value
+
+        return unicode(value)
+
+    def value_to_string(self, obj):
+        value = self._get_val_from_obj(obj)
+        return self.get_db_prep_value(value)
+
+class ChartsModel(models.Model):
+    listValues = ListField()
+    configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)

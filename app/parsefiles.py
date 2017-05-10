@@ -3,8 +3,10 @@ import numpy as np
 import pandas as pd
 from django.apps import apps
 from django.db.models import get_app, get_models
-from .models import Algorithms,Configuration
+from .models import Algorithms,Configuration,ChartsModel
 from hv import HyperVolume
+from charts import BubbleChart,PolarChart,ScatterLineChart
+pruebaimport = ''
 
 def parse(idConfiguration):
 	BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -199,6 +201,7 @@ def parse(idConfiguration):
 				hyperVolume = HyperVolume(referencePoint)
 				dictHvAlg[k][kkk].append(hyperVolume.compute(vvv))
 	print dictHvAlg
+	#pasar como argumento al grafico los valores del diccionario...
 	df = []
 	for k,v in sorted(dictHvAlg.iteritems()):
 		print k
@@ -206,7 +209,33 @@ def parse(idConfiguration):
 		df.append(pd.DataFrame(v))
 	print 'fuera del for de creacion de dataframes'
 	print df
-				#buscar los hipervolumenes y los puntos de referencia en vvv y crear un unico diccionario de diccionario por algoritmos de hipervolumenes
+	print 'AHORA SERIA EL FOR DE DICTHVALG CON K Y V'
+	chartList =[]
+	for k,v in sorted(dictHvAlg.iteritems()):
+		print 'ESTO ES K Y V'
+		print k
+		print v
+		algList = []
+		for step,val in sorted(v.iteritems()):
+			print 'ESTO ES STEP Y VAL:'
+			print step
+			print val
+			#stepList=[]
+			for i,value in enumerate(val):
+				print 'ESTO ES I Y VALUE'
+				print i
+				print value
+				algList.append({'x':str(step),'y':str(value)})
+			#print 'esto es step list y charlist'
+			#print stepList
+			#print chartList
+		#algList.append(stepList)
+		chartList.append(algList)
+	return chartList
+
+	#prueba.get_datasets(pruebita)
+
+				#buscar los hipervolumennes y los puntos de referencia en vvv y crear un unico diccionario de diccionario por algoritmos de hipervolumenes
 
 	#algDict = dict()		#crea un diccionario de algoritmos.
 	#executionDict = dict([x, algDict] for x in range(configuration.nExecutions)) #crea un numero de diccionarios igual a el numero de ejecuciones realizadas.

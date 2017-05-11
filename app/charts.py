@@ -22,17 +22,17 @@ class MinChart(Chart):
                 'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
                 'rgba(255, 159, 64, 1)']
-        backgroundColor = [
+        '''backgroundColor = [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
                 'rgba(153, 102, 255, 0.2)',
                 'rgba(255, 159, 64, 0.2)'
-            ]
+            ]'''
         for i,v in enumerate(data_scatter):
-            chartReturned.append(DataSet(type='line',label='MinAlgorithm'+str(i+1),showLine=True,data=v, 
-                borderColor=borderColor[i],backgroundColor=backgroundColor[i]))
+            chartReturned.append(DataSet(type='line',label='MinAlgorithm'+str(i+1),showLine=False,data=v, 
+                borderColor=borderColor[i]))#,backgroundColor=backgroundColor[i]))
         return chartReturned
 
     def get_labels(self,*args, **kwargs):
@@ -62,17 +62,17 @@ class AvgChart(Chart):
                 'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
                 'rgba(255, 159, 64, 1)']
-        backgroundColor = [
+        '''backgroundColor = [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
                 'rgba(153, 102, 255, 0.2)',
                 'rgba(255, 159, 64, 0.2)'
-            ]
+            ]'''
         for i,v in enumerate(data_scatter):
-            chartReturned.append(DataSet(type='line',label='AvgAlgorithm'+str(i+1),showLine=True,data=v, 
-                borderColor=borderColor[i],backgroundColor=backgroundColor[i]))
+            chartReturned.append(DataSet(type='line',label='AvgAlgorithm'+str(i+1),showLine=False,data=v, 
+                borderColor=borderColor[i]))#,backgroundColor=backgroundColor[i]))
         return chartReturned
 
     def get_labels(self,*args, **kwargs):
@@ -102,19 +102,19 @@ class MaxChart(Chart):
                 'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
                 'rgba(255, 159, 64, 1)']
-        backgroundColor = [
+        '''backgroundColor = [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
                 'rgba(153, 102, 255, 0.2)',
                 'rgba(255, 159, 64, 0.2)'
-            ]
+            ]'''
         print 'esto es data_scatter'
         print data_scatter
         for i,v in enumerate(data_scatter):
-            chartReturned.append(DataSet(type='line',label='MaxAlgorithm'+str(i+1),showLine=True,data=v, 
-                borderColor=borderColor[i],backgroundColor=backgroundColor[i]))
+            chartReturned.append(DataSet(type='line',label='MaxAlgorithm'+str(i+1),showLine=False,data=v, 
+                borderColor=borderColor[i]))#,backgroundColor=backgroundColor[i]))
         return chartReturned
 
     def get_labels(self,*args, **kwargs):
@@ -170,7 +170,7 @@ class MinAvgMaxChart(Chart):
                 'rgba(124,252,0,1)',
                 'rgba(0,139,139,1)'
                 ]
-        backgroundColor = [
+        '''backgroundColor = [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',
@@ -183,14 +183,14 @@ class MinAvgMaxChart(Chart):
                 'rgba(47,79,79,0.2)',
                 'rgba(0,100,0,0.2)',
                 'rgba(220,20,60,0.2)'
-            ]
+            ]'''
         selectColor = 0
         for i,v in enumerate(dataList):
             print len(v)
             for ii,vv in enumerate(v):
                 print vv
-                chartReturned.append(DataSet(type='line',label=str(chartLabels[ii])+'Algorithm'+str(i+1),showLine=True,data=vv, 
-                borderColor=borderColor[selectColor],backgroundColor=backgroundColor[selectColor]))
+                chartReturned.append(DataSet(type='line',label=str(chartLabels[ii])+'Algorithm'+str(i+1),showLine=False,data=vv, 
+                borderColor=borderColor[selectColor]))#,backgroundColor=backgroundColor[selectColor]))
                 selectColor +=1
         #print chartReturned
         

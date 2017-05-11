@@ -9,7 +9,7 @@ import uploadFiles as uFiles
 import parsefiles as parse
 from .forms import AlgorithmForm
 #libreria de graficos charts
-from charts import MinChart
+from charts import MinChart,AvgChart,MaxChart,MinAvgMaxChart
 
 #from .models import Algorithms,Configuration
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -61,7 +61,7 @@ def pruebatemplate(request):
     print 'es un get de pruebatemplate...'
     return render(request, 'app/jchart.html', {
       #'bubble_chart': BubbleChart,'polar_chart':PolarChart,'scatter_chart':ScatterLineChart,'time_chart':TimeSeriesChart,
-      'min_chart':MinChart
+      'minavgmax_chart':MinAvgMaxChart,'min_chart':MinChart,'avg_chart':AvgChart,'max_chart':MaxChart
   })
   return render(request,'app/pruebatemplate.html')
 

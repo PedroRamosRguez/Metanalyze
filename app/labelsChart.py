@@ -12,5 +12,7 @@ def labels(datos):
                 #print iii
                 #print vvv
                 listValues.append(str(iii))
+                listValues.sort(key=int)
     labelsChart= listValues
+    #labelsChart.sort(key=lambda x:(int(x['x'])))
     return labelsChart

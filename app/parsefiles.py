@@ -39,13 +39,14 @@ def parse(idConfiguration):
 		print type(fileName)
 		fileList = []  #lista donde se guardara la lista de ficheros que tenga ese tarfile o zipfile. (ESTP SERA UNA LISTA DE LISTAS)
 		#meter esto es una funcion
-		if re.search(r'^\w+\s*\d*\.{1}tar\.{1}gz$',fileName):
+		#if re.search(r'^\w+\s*\d*\.{1}tar\.{1}gz$',fileName):
+		if re.search(r'^[\w+\s*]+\.{1}tar\.{1}gz$',fileName):
 			print 'el fichero es un tar.gz'
 			tar = tarfile.open(dir+str(fileName),'r:gz')
 			for member in tar.getmembers():
 				fileList.append(member)
 			files[i] = fileList 
-		elif re.search(r'^\w+\s*\d*\.{1}tar$',fileName):
+		elif re.search(r'^[\w+\s*]+\.{1}tar$',fileName):
 			print 'el fichero es un tar'
 			tar = tarfile.open(dir+str(fileName))
 			for member in tar.getmembers():
@@ -64,9 +65,11 @@ def parse(idConfiguration):
 			#print j
 			#print 'esto es el nombre del fichero'
 			#print file.name
-			pattern = re.search('\d+',os.path.splitext(file.name)[0])
+			pattern = re.search('\d+$',os.path.splitext(file.name)[0])
 			index = pattern.start()
-			sortedByFilename = sorted(fileList,key=lambda name:int(os.path.splitext(name.name)[0][index:]))
+			#print (int(os.path.splitext(name.name)[0][index]))
+			#sortedByFilename = sorted(fileList,key=lambda name:int(os.path.splitext(name.name)[0][index:]))
+			sortedByFilename = sorted(fileList,key=lambda name:int(os.path.splitext(name.name)[0][index:]))#eliminado el dospuntos
 			print 'esto es sortedByfilename'
 			print (sortedByFilename)
 		files[i] = sortedByFilename
@@ -86,9 +89,15 @@ def parse(idConfiguration):
 				print 'estoy aqui..'
 				print line
 				#aqui lee el paso..
-				if re.search('^[#]?\s*\w+\s*\d+\n',line):
+				if re.search('^[#]?\s*\w+\s*\d+\n+',line):
 					step = re.sub('^[#]?\s*[a-zA-Z]+\s*','',str(line)).rstrip()
 					
+					if not step in dicAlg[str(i)][str(j)].keys():
+						dicAlg[str(i)][str(j)][step]=[]
+				#se detecta que el paso venga dado de la manera 200(200)\n,200 (200)\n y se elimina la parte del parentesis
+				elif re.search('^\d+\s*\(\d+\)\n+',line):
+					print 'esto lee el paso...'
+					step = re.sub('\(\d+\)\n+','',str(line))
 					if not step in dicAlg[str(i)][str(j)].keys():
 						dicAlg[str(i)][str(j)][step]=[]
 				#aqui lee las soluciones..
@@ -99,14 +108,27 @@ def parse(idConfiguration):
 				#SI EL PASO ESTA ENTRE LAS CLAVES DEL DICCIONARIO, SE CREA UN ARRAY ON LAS SOLUCIONES Y SOLO SE COGE
 				#LAS SOLUCIONES DE LOS OBJETIVOS DEPENDIENDO DEL NUMERO DE OBJETIVOS QUE SE HAYA INSERTADO.
 #=============================================================================================================================
-					if step in dicAlg[str(i)][str(j)].keys():
+					if Data[0] == -1.0:
+						print 'no debe leer esto..'
+					if step in dicAlg[str(i)][str(j)].keys() and Data[0]!= -1.0:
 						print 'esto lee las soluciones'
 						solution = []
 						print dicAlg[str(i)][str(j)][step]
+						print 'esto es index objetivos %s'%str(indexObjectives)
+						print Data
+						print type(Data)
+						print Data[0]
 						while indexObjectives < 0:
+							print 'estoy en el while...'
+							print solution
+							print Data
+							print Data[indexObjectives]
 							solution.append(Data[indexObjectives])
 							indexObjectives +=1
+						print 'sali del while...'
 						dicAlg[str(i)][str(j)][step].append(solution)
+
+				print dicAlg
 	print dicAlg
 	#sortDictAlg = sorted(dicAlg.keys(),key=lambda x:str(x))
 	'''for k,v in dicAlg.iteritems():

@@ -79,7 +79,7 @@ class AvgChart(Chart):
                 'rgba(255, 159, 64, 1)']
         for i,v in enumerate(data_scatter):
             chartReturned.append(DataSet(type='line',label='AvgAlgorithm'+str(i+1),showLine=True,data=v, 
-                borderColor=borderColor[i]))#,backgroundColor=backgroundColor[i]))
+                borderColor=borderColor[i],fill=False))#,backgroundColor=backgroundColor[i]))
         return chartReturned
 
     def get_labels(self,*args, **kwargs):
@@ -118,7 +118,7 @@ class MaxChart(Chart):
         print data_scatter
         for i,v in enumerate(data_scatter):
             chartReturned.append(DataSet(type='line',label='MaxAlgorithm'+str(i+1),showLine=True,data=v, 
-                borderColor=borderColor[i]))#,backgroundColor=backgroundColor[i]))
+                borderColor=borderColor[i],fill=False))#,backgroundColor=backgroundColor[i]))
         return chartReturned
 
     def get_labels(self,*args, **kwargs):
@@ -178,7 +178,7 @@ class MinAvgMaxChart(Chart):
                 print len(vv)
                 print chartLabels[ii]
                 chartReturned.append(DataSet(type='line',label=str(chartLabels[ii])+'Algorithm'+str(i+1),showLine=True,data=vv, 
-                borderColor=borderColor[selectColor]))#,backgroundColor=backgroundColor[selectColor]))
+                borderColor=borderColor[selectColor],fill=False))#,backgroundColor=backgroundColor[selectColor]))
                 selectColor +=1
         return chartReturned
     def get_labels(self,*args, **kwargs):

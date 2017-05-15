@@ -22,8 +22,6 @@ urlpatterns = [
 
 	url(r'^$', views.index, name='index'), # para no poner /algo en el index principal
   url(r'^pruebatemplate/$', views.pruebatemplate, name='pruebatemplate'),
-  url(r'^simple_chart/$', views.simple_chart, name="simple_chart"),#esta es de ejemplo
-  url(r'^jchart/$', views.jchart, name='bubble_chart'),#esta es de ejemplo
   url(r'^admin/', include(admin.site.urls)),
   
 ]

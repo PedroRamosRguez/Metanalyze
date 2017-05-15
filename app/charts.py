@@ -49,7 +49,6 @@ class MinChart(Chart):
         dataModel = MinChartModel.objects.filter().latest('id')
         data = dataModel.listValues
         labelsChart=labels(data)
-        print labelsChart
         return labelsChart
 
 class AvgChart(Chart):
@@ -114,8 +113,6 @@ class MaxChart(Chart):
                 'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
                 'rgba(255, 159, 64, 1)']
-        print 'esto es data_scatter'
-        print data_scatter
         for i,v in enumerate(data_scatter):
             chartReturned.append(DataSet(type='line',label='MaxAlgorithm'+str(i+1),showLine=True,data=v, 
                 borderColor=borderColor[i],fill=False))#,backgroundColor=backgroundColor[i]))
@@ -145,13 +142,16 @@ class MinAvgMaxChart(Chart):
         print 'estoy en getdatasets...'
         dataModel = MinAvgMaxChartModel.objects.filter().latest('id')
         data = dataModel.listValues
-
         print data
+        print len(data)
+        #print 'esto es la lista de valores del minavgmaxchartmodel'
+        #print data
+        #print len(data)
         #data_scatter = dataset(data)
         chartLabels = data[0].keys()
         chartLabels.sort()
-        print 'esto es charlabels:'
-        print chartLabels
+        #print 'esto es charlabels:'
+        #print chartLabels
         dataList=datasetMinAvgMax(data)
         data_scatter = []
         chartReturned = []
@@ -171,12 +171,12 @@ class MinAvgMaxChart(Chart):
         selectColor = 0
         print 'esto es data list antes del ultimos for..'
         for i,v in enumerate(dataList):
-            print len(v)
+            #print len(v)
             for ii,vv in enumerate(v):
-                print 'este es el ultimo for..'
-                print vv
-                print len(vv)
-                print chartLabels[ii]
+                #print 'este es el ultimo for..'
+                #print vv
+                #print len(vv)
+                #print chartLabels[ii]
                 chartReturned.append(DataSet(type='line',label=str(chartLabels[ii])+'Algorithm'+str(i+1),showLine=True,data=vv, 
                 borderColor=borderColor[selectColor],fill=False))#,backgroundColor=backgroundColor[selectColor]))
                 selectColor +=1
@@ -187,6 +187,4 @@ class MinAvgMaxChart(Chart):
         data = dataModel.listValues
         
         labelsChart=labels(data)
-        print 'esto es labelscharts:'
-        print labelsChart
         return labelsChart 

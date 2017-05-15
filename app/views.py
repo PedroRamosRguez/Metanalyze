@@ -59,8 +59,8 @@ def pruebatemplate(request):
       #mostrar algun error o algo..
   else:
     print 'es un get de pruebatemplate...'
-    '''return render(request, 'app/jchart.html', {
+    return render(request, 'app/jchart.html', {
       #'bubble_chart': BubbleChart,'polar_chart':PolarChart,'scatter_chart':ScatterLineChart,'time_chart':TimeSeriesChart,
       'minavgmax_chart':MinAvgMaxChart,'min_chart':MinChart,'avg_chart':AvgChart,'max_chart':MaxChart
-    })'''
+    })
   return render(request,'app/pruebatemplate.html') 

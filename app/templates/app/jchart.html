@@ -1,0 +1,73 @@
+<!--<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+</script>
+
+{{ chart.as_html }}-->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Experiments Results</title>
+	<!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  	<!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
+</head>
+<body>
+	<div class="container center">
+		<div id="min_chart">
+			<div class="row" >
+  				<div class="col s12">
+					{{min_chart.as_html}}
+				</div>
+				<!--<button class="btn waves-effect waves-light" type="button" name="action" id="saveMinChart-btn">
+					<i class="material-icons right">Save</i>
+				</button>-->
+				<button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveMinChart-btn">
+                	<i class="material-icons right">send</i>Save Minimum Bound Chart
+              	</button>
+			</div>
+		</div>
+		<div>
+			<div class="row" >
+  				<div class="col s12">
+					{{avg_chart.as_html}}
+				</div>
+				<button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveAvgChart-btn">
+                	<i class="material-icons right">send</i>Save Average Bound Chart
+              	</button>
+			</div>
+		</div>
+		<div>
+			<div class="row" >
+  				<div class="col s12">
+					{{max_chart.as_html}}
+				</div>
+				<button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveMaxChart-btn">
+                	<i class="material-icons right">send</i>Save Maximum Bound Chart
+              	</button>
+			</div>
+		</div>
+		<div>
+			<div class="row" >
+  				<div class="col s12">
+					{{minavgmax_chart.as_html}}
+				</div>
+				<button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveMinAvgMaxChart-btn">
+                	<i class="material-icons right">send</i>Save Minimum/Average/Maximum Bound Chart
+              	</button>
+			</div>
+		</div>
+	</div>
+	<!--Import jQuery before materialize.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+	<script src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"/>
+	<script src="js/canvas-to-blob.min.js"></script>
+	<script type="text/javascript" src="{% static "js/saveChart.js" %}"></script>
+</body>
+</html>
+

@@ -1,6 +1,6 @@
 import tarfile,re
 import numpy as np
-def extrae(tar,i,dicAlg,member,getConfiguration):
+def parseFiles(tar,i,dicAlg,member,getConfiguration):
 	print 'entre... y esto es member'
 	print member
 	for j,file in enumerate(member):

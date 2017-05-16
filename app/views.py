@@ -3,6 +3,7 @@
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render,render_to_response
 from django.core.files import File
+from collections import OrderedDict
 import os,ast
 import createModels as cModels
 import uploadFiles as uFiles
@@ -63,36 +64,40 @@ def pruebatemplate(request):
     print 'es un get de pruebatemplate...'
     dataModel = MinAvgMaxChartModel.objects.filter().latest('id')
     data = dataModel.listValues
+    '''for key, value in sorted(docs_info.items()): # Note the () after items!
+      print(key, value)'''
+    #sorted(x.items(), key=lambda pair: pair[1], reverse=True)
+    #print data[1].items()
     df = []
-    print data
-    for i,v in enumerate(data):
-      #print i
-      #print v
-      test = pd.DataFrame(v)
-      #print test.index
-      #print type(test.index)
-      '''print test
-      indices = test.index.values
-      indices2 = []
-      for i,j in enumerate(indices):
-        indices2.append(int(j))
-      #print indices2
-      indices2.sort()
-      #print indices2
-      test.index = indices2
-      print test
-      #print 'esto es test2'
-      #print test2'''
-      #print test
-      #print test
-      df.append(test)
-    #df.sort()
+    #si la key tiene min,max o average...
+    #HACER ESTO EN UNA FUNCION... CON UN BUCLE
+    datAverage = data[0]['Average'].items()
+    sortedbyKeys = sorted(datAverage, key=lambda tup: tup[1],reverse=True)
+    print sortedbyKeys
+    df = pd.DataFrame(sortedbyKeys)
+    df.columns=['0','Average']
+    df = df.drop('0', 1)
+    datMax = data[0]['Max'].items()
+    sortedbyKeys2 = sorted(datMax, key=lambda tup: tup[1],reverse=True)
+    dfMax = pd.DataFrame(sortedbyKeys2)
+    dfMax.columns=['0','Max']
+    dfMax = dfMax.drop('0', 1)
+    print dfMax
     
-    print df
-    html_table = df[0].to_html(index=False)
+    datMin = data[0]['Min'].items()
+    sortedbyKeys3 = sorted(datMin, key=lambda tup: tup[1],reverse=True)
+    dfMin = pd.DataFrame(sortedbyKeys3)
+    dfMin.columns=['0','Min']
+    dfMin = dfMin.drop('0', 1)
+    df['Max'] = dfMax 
+    df['Min'] = dfMin
+    #dfMax.append(pd.DataFrame(v.max(),columns=['Max']))
+    #df.sort()
+    #print df
+    html_table = df.to_html(index=False)
     #print json
-    '''return render(request, 'app/jchart.html', {
+    return render(request, 'app/jchart.html', {
       #'bubble_chart': BubbleChart,'polar_chart':PolarChart,'scatter_chart':ScatterLineChart,'time_chart':TimeSeriesChart,
       'minavgmax_chart':MinAvgMaxChart,'min_chart':MinChart,'avg_chart':AvgChart,'max_chart':MaxChart
-    })'''
+    })
   return render(request,'app/jchart.html',{'html_table':html_table}) 

@@ -1,13 +1,15 @@
 
 # Create your views here.
 from django.http import HttpResponse,HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render,render_to_response
 from django.core.files import File
 import os,ast
 import createModels as cModels
 import uploadFiles as uFiles
 import parsefiles as parse
+import pandas as pd
 from .forms import AlgorithmForm
+from .models import ChartsModel,MinAvgMaxChartModel,MinChartModel,AvgChartModel,MaxChartModel
 #libreria de graficos charts
 from charts import MinChart,AvgChart,MaxChart,MinAvgMaxChart
 
@@ -59,8 +61,38 @@ def pruebatemplate(request):
       #mostrar algun error o algo..
   else:
     print 'es un get de pruebatemplate...'
-    return render(request, 'app/jchart.html', {
+    dataModel = MinAvgMaxChartModel.objects.filter().latest('id')
+    data = dataModel.listValues
+    df = []
+    print data
+    for i,v in enumerate(data):
+      #print i
+      #print v
+      test = pd.DataFrame(v)
+      #print test.index
+      #print type(test.index)
+      '''print test
+      indices = test.index.values
+      indices2 = []
+      for i,j in enumerate(indices):
+        indices2.append(int(j))
+      #print indices2
+      indices2.sort()
+      #print indices2
+      test.index = indices2
+      print test
+      #print 'esto es test2'
+      #print test2'''
+      #print test
+      #print test
+      df.append(test)
+    #df.sort()
+    
+    print df
+    html_table = df[0].to_html(index=False)
+    #print json
+    '''return render(request, 'app/jchart.html', {
       #'bubble_chart': BubbleChart,'polar_chart':PolarChart,'scatter_chart':ScatterLineChart,'time_chart':TimeSeriesChart,
       'minavgmax_chart':MinAvgMaxChart,'min_chart':MinChart,'avg_chart':AvgChart,'max_chart':MaxChart
-    })
-  return render(request,'app/pruebatemplate.html') 
+    })'''
+  return render(request,'app/jchart.html',{'html_table':html_table}) 

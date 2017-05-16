@@ -117,9 +117,9 @@ def parse(idConfiguration):
 	dfMax = maxDataFrame(df)
 	print 'print de los dataframes de min max y avg y el total...'
 	print dfMinAvgMax
-	print dfMin
-	print dfAvg
-	print dfMax
+	#print dfMin
+	#print dfAvg
+	#print dfMax
 	setMinAvgMaxChart(dfMinAvgMax,idConfiguration)
 	setMinChart(dfMin,idConfiguration)
 	setAvgChart(dfAvg,idConfiguration)

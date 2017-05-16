@@ -142,8 +142,6 @@ class MinAvgMaxChart(Chart):
         print 'estoy en getdatasets...'
         dataModel = MinAvgMaxChartModel.objects.filter().latest('id')
         data = dataModel.listValues
-        print data
-        print len(data)
         #print 'esto es la lista de valores del minavgmaxchartmodel'
         #print data
         #print len(data)

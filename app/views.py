@@ -13,7 +13,7 @@ from .forms import AlgorithmForm
 from .models import ChartsModel,MinAvgMaxChartModel,MinChartModel,AvgChartModel,MaxChartModel
 #libreria de graficos charts
 from charts import MinChart,AvgChart,MaxChart,MinAvgMaxChart
-
+from setDataframes import sortAvgDictToDataframe,sortMaxDictToDataframe,sortMinDictToDataframe
 #from .models import Algorithms,Configuration
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def index(request):
@@ -71,33 +71,32 @@ def pruebatemplate(request):
     df = []
     #si la key tiene min,max o average...
     #HACER ESTO EN UNA FUNCION... CON UN BUCLE
-    datAverage = data[0]['Average'].items()
-    sortedbyKeys = sorted(datAverage, key=lambda tup: tup[1],reverse=True)
-    print sortedbyKeys
-    df = pd.DataFrame(sortedbyKeys)
-    df.columns=['0','Average']
-    df = df.drop('0', 1)
-    datMax = data[0]['Max'].items()
-    sortedbyKeys2 = sorted(datMax, key=lambda tup: tup[1],reverse=True)
-    dfMax = pd.DataFrame(sortedbyKeys2)
-    dfMax.columns=['0','Max']
-    dfMax = dfMax.drop('0', 1)
-    print dfMax
-    
-    datMin = data[0]['Min'].items()
-    sortedbyKeys3 = sorted(datMin, key=lambda tup: tup[1],reverse=True)
-    dfMin = pd.DataFrame(sortedbyKeys3)
-    dfMin.columns=['0','Min']
-    dfMin = dfMin.drop('0', 1)
-    df['Max'] = dfMax 
-    df['Min'] = dfMin
+    for i,v in enumerate(data):
+      print i
+      #condicion de mirar en la lista de bounds escogidos...(si esta avg se hace)
+      dataFrame = pd.DataFrame()
+      dfAverage = sortAvgDictToDataframe(data[i]['Average'].items())
+      dfMax = sortMaxDictToDataframe(data[i]['Max'].items())
+      dfMin = sortMinDictToDataframe(data[i]['Min'].items())
+      dataFrame['Average'] = dfAverage
+      dataFrame['Max'] = dfMax 
+      dataFrame['Min'] = dfMin
+      df.append(dataFrame)
     #dfMax.append(pd.DataFrame(v.max(),columns=['Max']))
     #df.sort()
     #print df
-    html_table = df.to_html(index=False)
+    html_table =[]
+    for i,v in enumerate(df):
+      html_df = df[i].to_html(index=False)
+      html_table.append(html_df)
+
+    print html_table[0]
+    print len(html_table)
+    nombre_algoritmo = ['algoritmo1','algoritmos2']
+    algorithmTable = zip(nombre_algoritmo,html_table,)
     #print json
-    return render(request, 'app/jchart.html', {
+    '''return render(request, 'app/jchart.html', {
       #'bubble_chart': BubbleChart,'polar_chart':PolarChart,'scatter_chart':ScatterLineChart,'time_chart':TimeSeriesChart,
       'minavgmax_chart':MinAvgMaxChart,'min_chart':MinChart,'avg_chart':AvgChart,'max_chart':MaxChart
-    })
-  return render(request,'app/jchart.html',{'html_table':html_table}) 
+    })'''
+  return render(request,'app/jchart.html',{'algorithmTable':algorithmTable}) 

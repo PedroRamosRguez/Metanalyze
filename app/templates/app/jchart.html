@@ -61,7 +61,10 @@
 			</div>
 		</div>
 		<div>
- 			{{ html_table | safe }}
+		{% for algorithm,table in algorithmTable %}
+			{{algorithm}} <!--utilizar un encabezado con estilo...-->
+ 			{{ table | safe }}
+		{%endfor%}
 		</div>
 	</div>
 	<!--Import jQuery before materialize.js-->

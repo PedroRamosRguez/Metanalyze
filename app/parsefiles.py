@@ -1,11 +1,11 @@
-import os,tarfile,re,collections
+import os,tarfile,zipfile,re,collections
 import createModels as cModels
 from django.apps import apps
 from django.db.models import get_app, get_models
 from .models import Algorithms,Configuration,ChartsModel
 from hv import HyperVolume
 from sortFiles import sortFiles
-from parse import parseFiles
+from parse import parseFiles,parseZipFiles
 from referencePoint import referencePointInit,referencePointCalculation
 from setChartModels import setChart,setMinAvgMaxChart,setMinChart,setAvgChart,setMaxChart
 from setDataframes import mainDataFrame,minAvgMaxDataFrame,minDataFrame,avgDataFrame,maxDataFrame
@@ -55,11 +55,6 @@ def parse(idConfiguration):
 			sortedByFilename = sortFiles(fileList)
 			fileSorted.append(sortedByFilename)
 			for j,member in enumerate(fileSorted):
-				print 'esto es j y member'
-				print j
-				print member
-				print 'len de member %d'%int(len(member))
-				print tar
 				dictionary = parseFiles(tar,i,dicAlg,member,getConfiguration)
 
 		elif re.search(r'^[\w+\s*]+\.{1}tar$',fileName):
@@ -71,14 +66,12 @@ def parse(idConfiguration):
 			fileSorted.append(sortedByFilename)
 			
 			for j,member in enumerate(fileSorted):
-				print 'esto es i y member'
-				print j
-				print member
-				print 'len de member %d'%int(len(member))
-				print tar
 				dictionary = parseFiles(tar,i,dicAlg,member,getConfiguration)
 		else:
 			print 'el fichero es .zip'
+			zf = zipfile.ZipFile(dir+str(fileName),'r')
+			fileList = zf.namelist()
+			dictionary = parseZipFiles(zf,i,dicAlg,fileList,getConfiguration)
 		fileSorted = []
 		dicAlg = dictionary
 		print 'print no peto la igualacion'

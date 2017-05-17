@@ -128,11 +128,6 @@ INSTALLED_APPS = (
     admin.site.register(nombreModelo2)
     ```
 
-
-
-
-
-
 ### TODO
 
 Parsear los ficheros que llegan a la carpeta media del servidor. 

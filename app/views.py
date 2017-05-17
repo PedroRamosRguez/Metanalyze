@@ -10,10 +10,10 @@ import uploadFiles as uFiles
 import parsefiles as parse
 import pandas as pd
 from .forms import AlgorithmForm
-from .models import ChartsModel,MinAvgMaxChartModel,MinChartModel,AvgChartModel,MaxChartModel
+from .models import  Algorithms,Configuration,ChartsModel,MinAvgMaxChartModel,MinChartModel,AvgChartModel,MaxChartModel
 #libreria de graficos charts
 from charts import MinChart,AvgChart,MaxChart,MinAvgMaxChart
-from setDataframes import sortAvgDictToDataframe,sortMaxDictToDataframe,sortMinDictToDataframe
+from setDataframes import sortAvgDataframe,sortMaxDataframe,sortMinDataframe
 #from .models import Algorithms,Configuration
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def index(request):
@@ -21,7 +21,6 @@ def index(request):
   return render(request,'app/index.html',{'form': form})
 
 def pruebatemplate(request):
- 
   #variable para obtener el id de configuracion de los algoritmos
   if request.method == 'POST':
     print 'es un post de pruebatemplate..'
@@ -61,42 +60,52 @@ def pruebatemplate(request):
       #mostrar un render de error 500
       #mostrar algun error o algo..
   else:
-    print 'es un get de pruebatemplate...'
     dataModel = MinAvgMaxChartModel.objects.filter().latest('id')
-    data = dataModel.listValues
-    '''for key, value in sorted(docs_info.items()): # Note the () after items!
-      print(key, value)'''
-    #sorted(x.items(), key=lambda pair: pair[1], reverse=True)
-    #print data[1].items()
-    df = []
-    #si la key tiene min,max o average...
-    #HACER ESTO EN UNA FUNCION... CON UN BUCLE
-    for i,v in enumerate(data):
-      print i
-      #condicion de mirar en la lista de bounds escogidos...(si esta avg se hace)
-      dataFrame = pd.DataFrame()
-      dfAverage = sortAvgDictToDataframe(data[i]['Average'].items())
-      dfMax = sortMaxDictToDataframe(data[i]['Max'].items())
-      dfMin = sortMinDictToDataframe(data[i]['Min'].items())
-      dataFrame['Average'] = dfAverage
-      dataFrame['Max'] = dfMax 
-      dataFrame['Min'] = dfMin
-      df.append(dataFrame)
-    #dfMax.append(pd.DataFrame(v.max(),columns=['Max']))
-    #df.sort()
-    #print df
-    html_table =[]
-    for i,v in enumerate(df):
-      html_df = df[i].to_html(index=False)
-      html_table.append(html_df)
-
-    print html_table[0]
-    print len(html_table)
-    nombre_algoritmo = ['algoritmo1','algoritmos2']
-    algorithmTable = zip(nombre_algoritmo,html_table,)
-    #print json
-    '''return render(request, 'app/jchart.html', {
-      #'bubble_chart': BubbleChart,'polar_chart':PolarChart,'scatter_chart':ScatterLineChart,'time_chart':TimeSeriesChart,
-      'minavgmax_chart':MinAvgMaxChart,'min_chart':MinChart,'avg_chart':AvgChart,'max_chart':MaxChart
-    })'''
-  return render(request,'app/jchart.html',{'algorithmTable':algorithmTable}) 
+    getConfiguration = Configuration.objects.filter().latest('id')
+    algorithm_names = []
+    getAlgorithms = Algorithms.objects.filter(configuration__id=getConfiguration.id).values().distinct()
+    for i in range(int(getConfiguration.nAlgorithms)):
+      algorithm_names.append(getAlgorithms[i]['algorithm'])
+    if 'table' in str(getConfiguration.dataOutput):
+      data = dataModel.listValues
+      df = []
+      for i,v in enumerate(data):
+        #condicion de mirar en la lista de bounds escogidos...(si esta avg se hace)
+        dataFrame = pd.DataFrame()
+        if 'Average' in str(getConfiguration.bound):
+          dfAverage = sortAvgDataframe(data[i]['Average'].items())
+          dataFrame['Average'] = dfAverage
+        if 'Max' in str(getConfiguration.bound):
+          dfMax = sortMaxDataframe(data[i]['Max'].items())
+          dataFrame['Max'] = dfMax 
+        if 'Min' in str(getConfiguration.bound):
+          dfMin = sortMinDataframe(data[i]['Min'].items())
+          dataFrame['Min'] = dfMin
+        df.append(dataFrame)
+      html_table =[]
+      for i,v in enumerate(df):
+        html_df = df[i].to_html(index=False)
+        html_table.append(html_df)
+      algorithmTable = zip(algorithm_names,html_table,)
+    dicChart = {}
+    if len(getConfiguration.bound) == 3:
+      dicChart['minavgmax_chart'] = MinAvgMaxChart
+    if 'Min' in str(getConfiguration.bound):
+      dicChart['min_chart'] = MinChart
+    if 'Average' in str(getConfiguration.bound):
+      dicChart['avg_chart'] = AvgChart
+    if 'Max' in str(getConfiguration.bound):
+      dicChart['max_chart'] = MaxChart
+    if str(getConfiguration.dataOutput) =='plot':
+      print 'la salida es plot'
+      return render(request, 'app/jchart.html',dicChart)
+    elif str(getConfiguration.dataOutput) == 'table':
+      print 'la salida es tabla..'
+      return render(request,'app/jchart.html',{'algorithmTable':algorithmTable}) 
+    else:
+      print 'la salida es plot y tabla'
+      dicOutput = {}
+      dicOutput['dicChart'] = dicChart
+      dicOutput['algorithmTable'] = algorithmTable
+      return render(request, 'app/jchart.html',dicOutput)
+  return render(request,'app/jchart.html') 

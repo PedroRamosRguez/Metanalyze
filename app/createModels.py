@@ -2,6 +2,8 @@ from .models import Algorithms,Configuration,ChartsModel,MinAvgMaxChartModel,Min
 #metodo que crea el modelo de la configuracion de los algoritmos
 def modelConfiguration(form,request):
 	#PONER LA CREACION DEL MODELO DE CONFIGURACION EN UN METODO
+	print 'esto es request.post test'
+	print (request.POST['test'])
 	config = Configuration.objects.create()
 	config.nAlgorithms = form.cleaned_data['nAlgorithms']
 	config.nObjectives = form.cleaned_data['nObjectives']

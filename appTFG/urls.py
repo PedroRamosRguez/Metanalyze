@@ -21,7 +21,7 @@ from app import charts
 urlpatterns = [
 
 	url(r'^$', views.index, name='index'), # para no poner /algo en el index principal
-  url(r'^pruebatemplate/$', views.pruebatemplate, name='pruebatemplate'),
+  url(r'^results/$', views.results, name='results'),
   url(r'^admin/', include(admin.site.urls)),
   
 ]

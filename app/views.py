@@ -20,7 +20,7 @@ def index(request):
   form = AlgorithmForm()
   return render(request,'app/index.html',{'form': form})
 
-def pruebatemplate(request):
+def results(request):
   #variable para obtener el id de configuracion de los algoritmos
   if request.method == 'POST':
     print 'es un post de pruebatemplate..'
@@ -64,6 +64,7 @@ def pruebatemplate(request):
     getConfiguration = Configuration.objects.filter().latest('id')
     algorithm_names = []
     getAlgorithms = Algorithms.objects.filter(configuration__id=getConfiguration.id).values().distinct()
+    
     for i in range(int(getConfiguration.nAlgorithms)):
       algorithm_names.append(getAlgorithms[i]['algorithm'])
     if 'table' in str(getConfiguration.dataOutput):
@@ -87,25 +88,23 @@ def pruebatemplate(request):
         html_df = df[i].to_html(index=False)
         html_table.append(html_df)
       algorithmTable = zip(algorithm_names,html_table,)
-    dicChart = {}
+    dicOutput = {}
     if len(getConfiguration.bound) == 3:
-      dicChart['minavgmax_chart'] = MinAvgMaxChart
+      dicOutput['minavgmax_chart'] = MinAvgMaxChart
     if 'Min' in str(getConfiguration.bound):
-      dicChart['min_chart'] = MinChart
+      dicOutput['min_chart'] = MinChart
     if 'Average' in str(getConfiguration.bound):
-      dicChart['avg_chart'] = AvgChart
+      dicOutput['avg_chart'] = AvgChart
     if 'Max' in str(getConfiguration.bound):
-      dicChart['max_chart'] = MaxChart
+      dicOutput['max_chart'] = MaxChart
     if str(getConfiguration.dataOutput) =='plot':
       print 'la salida es plot'
-      return render(request, 'app/jchart.html',dicChart)
+      return render(request, 'app/results.html',dicOutput)
     elif str(getConfiguration.dataOutput) == 'table':
       print 'la salida es tabla..'
-      return render(request,'app/jchart.html',{'algorithmTable':algorithmTable}) 
+      return render(request,'app/results.html',{'algorithmTable':algorithmTable}) 
     else:
       print 'la salida es plot y tabla'
-      dicOutput = {}
-      dicOutput['dicChart'] = dicChart
       dicOutput['algorithmTable'] = algorithmTable
-      return render(request, 'app/jchart.html',dicOutput)
-  return render(request,'app/jchart.html') 
+      return render(request, 'app/results.html',dicOutput)
+  return render(request,'app/results.html') 

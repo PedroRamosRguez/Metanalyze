@@ -1,3 +1,17 @@
+$(document).ready(() =>{
+ 	if ($('.chart').get(0) == null){
+ 		$('#saveMinChart-btn').hide();
+ 	}
+ 	if($('.chart').get(1) == null){
+		$('#saveAvgChart-btn').hide();
+ 	}
+ 	if($('.chart').get(2) == null){
+		$('#saveMaxChart-btn').hide();
+ 	}
+ 	if($('.chart').get(3) == null){
+ 		$('#saveMinAvgMaxChart-btn').hide();
+ 	}
+  })
 //dibuja el fondo blanco para descargarlo en png.
 var backgroundColor = 'white';
 Chart.plugins.register({

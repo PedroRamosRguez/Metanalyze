@@ -92,14 +92,18 @@ def parse(idConfiguration):
 	print 'punto de referencia:'			
 	print referencePoint
 	dictHvAlg = collections.defaultdict(dict)
+	hyperVolumeList = []
 	for k,v in sorted(dicAlg.iteritems()):
 		dictHvAlg[str(k)] = dict()
+		hypervolumeAlgorithmList = []
 		for kk,vv in sorted(v.iteritems()):
 			for kkk,vvv in sorted(vv.iteritems()):
 				if not kkk in dictHvAlg[str(k)].keys():
 					dictHvAlg[k][kkk] = []
 				hyperVolume = HyperVolume(referencePoint[int(k)])
+				hypervolumeAlgorithmList.append(hyperVolume.compute(vvv))
 				dictHvAlg[k][kkk].append(hyperVolume.compute(vvv))
+		hyperVolumeList.append(hypervolumeAlgorithmList)
 	print dictHvAlg
 
 	#REALIZACION DE LOS DATAFRAME CON PANDAS DE LOS HIPERVOLUMENES POR PASO Y POR ALGORITMO.
@@ -107,7 +111,7 @@ def parse(idConfiguration):
 	print df
 	#CREACION DEL MODELO DE GRAFICOS
 	chartList = setChart(dictHvAlg)
-	print chartList
+	
 	cModels.modelCharts(idConfiguration,chartList)
 	#CREACION DE LOS DATAFRAMES DE MIN,AVG Y MAX
 	print 'llegue aqui..'
@@ -124,3 +128,10 @@ def parse(idConfiguration):
 	setMinChart(dfMin,idConfiguration)
 	setAvgChart(dfAvg,idConfiguration)
 	setMaxChart(dfMax,idConfiguration)
+	#print 'esto es la lista de hypervolumelist'
+	#algorithmModel.save()
+	print hyperVolumeList
+	print len(hyperVolumeList)
+	for i in range(int(getConfiguration.nAlgorithms)):
+		Algorithms.objects.filter(id=int(getAlgorithms[i]['id'])).update(hypervolumeValues=hyperVolumeList[i])
+	

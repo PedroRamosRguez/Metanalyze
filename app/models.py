@@ -45,11 +45,7 @@ class Algorithms(models.Model):
   fileName = models.CharField(max_length = 100)    #Nombre del fichero adjunto
   nVariablesAlgorithm = models.CharField(max_length = 100) # Numero de variables que posee el algoritmo a analizar.
   configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)
-
-
-
-
-
+  hypervolumeValues = ListField()
 class ChartsModel(models.Model):
     listValues = ListField()
     configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)

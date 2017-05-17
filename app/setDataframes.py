@@ -31,13 +31,13 @@ def maxDataFrame(df):
 		dfMax.append(pd.DataFrame(v.max(),columns=['Max']))
 	return dfMax
 
-def sortAvgDictToDataframe(dic):
+def sortAvgDataframe(dic):
 	sortedbyKeys = sorted(dic, key = lambda tup:tup[1],reverse=True)
 	df = pd.DataFrame(sortedbyKeys)
 	df.columns=['0','Average']
 	df = df.drop('0', 1)
 	return df
-def sortMaxDictToDataframe(dic):
+def sortMaxDataframe(dic):
 	sortedbyKeys = sorted(dic, key=lambda tup: tup[1],reverse=True)
 	df = pd.DataFrame(sortedbyKeys)
 	df.columns = ['0','Max']
@@ -45,7 +45,7 @@ def sortMaxDictToDataframe(dic):
 	return df
 
 
-def sortMinDictToDataframe(dic):
+def sortMinDataframe(dic):
 	sortedbyKeys = sorted(dic, key=lambda tup: tup[1],reverse=True)
 	df = pd.DataFrame(sortedbyKeys)
 	df.columns = ['0','Min']

@@ -9,7 +9,7 @@ from parse import parseFiles,parseZipFiles
 from referencePoint import referencePointInit,referencePointCalculation
 from setChartModels import setChart,setMinAvgMaxChart,setMinChart,setAvgChart,setMaxChart
 from setDataframes import mainDataFrame,minAvgMaxDataFrame,minDataFrame,avgDataFrame,maxDataFrame
-from statisticTest import shapiro,kruskalWallisTest
+from statisticTest import shapiroWilkTest,kruskalWallisTest,leveneTest,anovaTest,welchTest,pvalueMajor,pvalueMinor
 def parse(idConfiguration):
 	BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 	print BASE_DIR
@@ -134,22 +134,128 @@ def parse(idConfiguration):
 		algorithm_names.append(getAlgorithms[i]['algorithm'])
 	if 'Shapiro-wilk' in tests:
 		#retorna el pvalue 
-		shapiroWilk = shapiro(int(getConfiguration.nAlgorithms),hyperVolumeList)
+		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+		shapiroWilktest = pvalueMajor(shapiroWilk)
+		if shapiroWilktest == True:
+			print 'se distribuyen normalmente'
+		else:
+			print 'no se distribuye normalmente se pasaria a kruskal'
+
 	if 'Kruskal-Wallis' in tests:
+		print 'entre en kruskal'
+		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+		shapiroWilktest = pvalueminor(shapiroWilk)
+		if shapiroWilktest == True:
+			print 'no se distribuye normalemente se realizara el test de kruskal-wallis'
+			kruskalWallis = kruskalWallisTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+			print kruskalWallis
+			if kruskalWallis[0][1] <0.05:
+				print 'las medianas son iguales'
+			else:
+				print 'las medianas no son iguales.'
+		else:
+			print 'se distribuyen normalmente'
+	if 'Levene' in tests:
+		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+		shapiroWilktest = pvalueMajor(shapiroWilk)
+		if shapiroWilktest == True:
+			print 'se distribuyen normalmente se pasa a hacer levene'
+			levene = leveneTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+			if levene[0][1] >= 0.05:
+				print 'existe homogeneidad en las varianzas se podria pasar a realizar ANOVA'
+			else:
+				print 'no existe homogeneidad entre las varianzas'
+		else:
+			print 'no se distribuye normalmente se pasaria a kruskal'
+		
+	if 'Anova' in tests:
+		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+		shapiroWilktest = pvalueMajor(shapiroWilk)
+		if shapiroWilktest == True:
+			print 'se distribuyen normalmente se pasa a hacer levene'
+			levene = leveneTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+			if levene[0][1] >= 0.05:
+				print 'existe homogeneidad en las varianzas se podria pasar a realizar ANOVA'
+				anova = anovaTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+				if anova[0][1] < 0.05:
+					print 'existen diferencias significativas'
+				else:
+					print 'no existen diferencias significativas...'
+	if 'Welch' in tests:
+		print 'hacer welch...'
+		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+		shapiroWilktest = pvalueMajor(shapiroWilk)
+		if shapiroWilktest == True:
+			print 'se distribuyen normalmente se pasa a hacer levene'
+			levene = leveneTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+			if levene[0][1] < 0.05:
+				print 'no existe homogeneidad en las varianzas se realiza welch'
+				welch = welchTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+				if welch[0][1] < 0.05:
+					print 'se realiza anova...'
+					anova = anovaTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+					if anova[0][1] < 0.05:
+						print 'existen diferencias significativas'
+					else:
+						print 'no existen diferencias significativas...'
+			else:
+				print 'existe homogeneidad entre las varianzas'
+		else:
+			print 'no se distribuye normalmente se pasaria a kruskal'
+	'''if 'Kruskal-Wallis' in tests:
 		print 'entre en kruskal'
 		shapiroWilk = shapiro(int(getConfiguration.nAlgorithms),hyperVolumeList)
 		#si todos los pvalues son <0.05 se realiza el test de kruskal-wallis
-		def validPvalue(items):
-			return all(x <0.05 for x in items)
-		kruskal = validPvalue(shapiroWilk)
-		print kruskal
-		if kruskal == True:
+		shapiroWilktest = pvalueMinor(shapiroWilk)
+		print shapiroWilktest
+		if shapiroWilktest == True:
 			print 'entre al if kruskal=true'
 			kruskalWallis =  kruskalWallisTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
 			print kruskalWallis
+		else:
+			print 'se tiene una distribucion normal por tanto no se puede realizar kruskal wallis'
+	if 'Levene' in tests:
+		print 'seleccionado levene'
+		shapiroWilk = shapiro(int(getConfiguration.nAlgorithms),hyperVolumeList)
+		shapiroWilktest = pvalueMajor(shapiroWilk)
+		if shapiroWilktest == True:
+			print 'entre en lvntst true'
+			levene = leveneTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+			print levene
+		else:
+			print 'no se cumplre shapiroWilk'
+			pass
+	if 'Anova' in tests:
+		print 'seleccionado Anova...'
+		shapiroWilk = shapiro(int(getConfiguration.nAlgorithms),hyperVolumeList)
+		shapiroWilktest = pvalueMajor(shapiroWilk)
+		if shapiroWilktest == True:
+			print 'entre en lvntst true'
+			levene = leveneTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+			lvnTest = pvalueMajor(levene)
+			if lvnTest == True:
+				print 'p value >=0.05 se realizara anova...'
+				anova = anovaTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+			else:
+				print 'probabilidad >0.05 por tannto se realiza welch para luego hacer anova...'
+				welch = welchTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+				wlchtest = pvalueMinor(welch)
+				if wlchtest == True :
+					anova = anovaTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+		print anova
+	if 'Welch' in tests:
+		shapiroWilk = shapiro(int(getConfiguration.nAlgorithms),hyperVolumeList)
+		shapiroWilktest = pvalueMajor(shapiroWilk)
+		if shapiroWilktest == True:
+			print 'entre en lvntst true'
+			levene = leveneTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+			lvnTest = pvalueMinor(levene)
+			if lvnTest == True:
+				welch = welchTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+		print welch
+
 		#stats.kruskal(algoritmo1, algoritmo2)
-	print shapiroWilk
-	print asdasd
+	print shapiroWilk'''
 	#REALIZAR LOS TEST ESTADISTICOS...
 	'''ORDEN DE REALIZACION DE LOS TESTS...
 		1. SHAPIRO WILK

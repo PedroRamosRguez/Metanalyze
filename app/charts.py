@@ -1,6 +1,6 @@
 from jchart import Chart
 from jchart.config import Axes, DataSet, rgba,ScaleLabel,Tick,Title
-from .models import ChartsModel,MinAvgMaxChartModel,MinChartModel,AvgChartModel,MaxChartModel
+from .models import Configuration,Algorithms,ChartsModel,MinAvgMaxChartModel,MinChartModel,AvgChartModel,MaxChartModel
 from labelsChart import labels
 from dataSet import dataset,datasetMinAvgMax
 class MinChart(Chart):
@@ -21,6 +21,11 @@ class MinChart(Chart):
     
     
     def get_datasets(self,*args):
+        getConfiguration = Configuration.objects.filter().latest('id')
+        algorithm_names = []
+        getAlgorithms = Algorithms.objects.filter(configuration__id=getConfiguration.id).values().distinct()
+        for i in range(int(getConfiguration.nAlgorithms)):
+            algorithm_names.append(getAlgorithms[i]['algorithm'])
         dataModel = MinChartModel.objects.filter().latest('id')
         data = dataModel.listValues
         chartReturned = []
@@ -40,7 +45,7 @@ class MinChart(Chart):
                 'rgba(255, 159, 64, 0.2)'
             ]'''
         for i,v in enumerate(data_scatter):
-            chartReturned.append(DataSet(type='line',label='MinAlgorithm'+str(i+1),showLine=True,data=v, 
+            chartReturned.append(DataSet(type='line',label='Min'+' Algorithm '+str(algorithm_names[i]),showLine=True,data=v, 
                 borderColor=borderColor[i],fill=False))#,backgroundColor=backgroundColor[i]))
         return chartReturned
 
@@ -65,6 +70,11 @@ class AvgChart(Chart):
     responsive = True
     
     def get_datasets(self,*args):
+        getConfiguration = Configuration.objects.filter().latest('id')
+        algorithm_names = []
+        getAlgorithms = Algorithms.objects.filter(configuration__id=getConfiguration.id).values().distinct()
+        for i in range(int(getConfiguration.nAlgorithms)):
+            algorithm_names.append(getAlgorithms[i]['algorithm'])
         dataModel = AvgChartModel.objects.filter().latest('id')
         data = dataModel.listValues
         data_scatter = dataset(data)
@@ -77,7 +87,7 @@ class AvgChart(Chart):
                 'rgba(153, 102, 255, 1)',
                 'rgba(255, 159, 64, 1)']
         for i,v in enumerate(data_scatter):
-            chartReturned.append(DataSet(type='line',label='AvgAlgorithm'+str(i+1),showLine=True,data=v, 
+            chartReturned.append(DataSet(type='line',label='Avg'+' Algorithm '+str(algorithm_names[i]),showLine=True,data=v, 
                 borderColor=borderColor[i],fill=False))#,backgroundColor=backgroundColor[i]))
         return chartReturned
 
@@ -102,6 +112,11 @@ class MaxChart(Chart):
     responsive = True
     
     def get_datasets(self,*args):
+        getConfiguration = Configuration.objects.filter().latest('id')
+        algorithm_names = []
+        getAlgorithms = Algorithms.objects.filter(configuration__id=getConfiguration.id).values().distinct()
+        for i in range(int(getConfiguration.nAlgorithms)):
+            algorithm_names.append(getAlgorithms[i]['algorithm'])
         dataModel = MaxChartModel.objects.filter().latest('id')
         data = dataModel.listValues
         data_scatter = dataset(data)
@@ -114,7 +129,7 @@ class MaxChart(Chart):
                 'rgba(153, 102, 255, 1)',
                 'rgba(255, 159, 64, 1)']
         for i,v in enumerate(data_scatter):
-            chartReturned.append(DataSet(type='line',label='MaxAlgorithm'+str(i+1),showLine=True,data=v, 
+            chartReturned.append(DataSet(type='line',label='Max'+' Algorithm '+str(algorithm_names[i]),showLine=True,data=v, 
                 borderColor=borderColor[i],fill=False))#,backgroundColor=backgroundColor[i]))
         return chartReturned
 
@@ -140,6 +155,11 @@ class MinAvgMaxChart(Chart):
     
     def get_datasets(self,*args):
         print 'estoy en getdatasets...'
+        getConfiguration = Configuration.objects.filter().latest('id')
+        algorithm_names = []
+        getAlgorithms = Algorithms.objects.filter(configuration__id=getConfiguration.id).values().distinct()
+        for i in range(int(getConfiguration.nAlgorithms)):
+            algorithm_names.append(getAlgorithms[i]['algorithm'])
         dataModel = MinAvgMaxChartModel.objects.filter().latest('id')
         data = dataModel.listValues
         #print 'esto es la lista de valores del minavgmaxchartmodel'
@@ -175,7 +195,7 @@ class MinAvgMaxChart(Chart):
                 #print vv
                 #print len(vv)
                 #print chartLabels[ii]
-                chartReturned.append(DataSet(type='line',label=str(chartLabels[ii])+'Algorithm'+str(i+1),showLine=True,data=vv, 
+                chartReturned.append(DataSet(type='line',label=str(chartLabels[ii])+' Algorithm '+str(algorithm_names[i]),showLine=True,data=vv, 
                 borderColor=borderColor[selectColor],fill=False))#,backgroundColor=backgroundColor[selectColor]))
                 selectColor +=1
         return chartReturned

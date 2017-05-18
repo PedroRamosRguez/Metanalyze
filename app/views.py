@@ -2,22 +2,28 @@
 # Create your views here.
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render,render_to_response
+from django.core.servers.basehttp import FileWrapper
 from django.core.files import File
 from collections import OrderedDict
-import os,ast
+import os,ast,tarfile
 import createModels as cModels
 import uploadFiles as uFiles
 import parsefiles as parse
 import pandas as pd
+import subprocess
 from .forms import AlgorithmForm
 from .models import  Algorithms,Configuration,ChartsModel,MinAvgMaxChartModel,MinChartModel,AvgChartModel,MaxChartModel
 #libreria de graficos charts
 from charts import MinChart,AvgChart,MaxChart,MinAvgMaxChart
 from setDataframes import sortAvgDataframe,sortMaxDataframe,sortMinDataframe
+
 #from .models import Algorithms,Configuration
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+mediafolder = os.path.join(BASE_DIR, 'media/results/')
+
 def index(request):
   form = AlgorithmForm()
+  print mediafolder
   return render(request,'app/index.html',{'form': form})
 
 def results(request):
@@ -86,7 +92,21 @@ def results(request):
       html_table =[]
       for i,v in enumerate(df):
         html_df = df[i].to_html(index=False)
+        filename = os.path.join(mediafolder,'results'+str(algorithm_names[i])+'.tex')
+        template = r'''\documentclass[preview]{{standalone}}
+                    \usepackage{{booktabs}}
+                    \begin{{document}}
+                    {}
+                    \end{{document}}
+                    '''
+        with open(filename, 'wb') as f:
+          f.write(template.format(df[i].to_latex(index=False)))
+        subprocess.call(['pdflatex','-output-directory='+str(mediafolder),filename])
         html_table.append(html_df)
+      tFile = tarfile.open(str(mediafolder)+"/files.tar", 'w')
+      tFile.add(str(mediafolder),arcname='results')
+      #eliminar todos menos el tar...
+      #os.delete(join(str(mediafolder),r'^results\s*\w*.\w*'))
       algorithmTable = zip(algorithm_names,html_table,)
     dicOutput = {}
     if len(getConfiguration.bound) == 3:
@@ -108,3 +128,13 @@ def results(request):
       dicOutput['algorithmTable'] = algorithmTable
       return render(request, 'app/results.html',dicOutput)
   return render(request,'app/results.html') 
+
+
+def download(request):
+
+    print 'entre...'
+    filename = os.path.join(mediafolder,'files.tar')# Select your file here.                                
+    wrapper = FileWrapper(file(filename))
+    response = HttpResponse(wrapper, 'application/x-tar')
+    response['Content-Length'] = os.path.getsize(filename)
+    return response

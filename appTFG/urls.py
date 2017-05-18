@@ -22,6 +22,7 @@ urlpatterns = [
 
 	url(r'^$', views.index, name='index'), # para no poner /algo en el index principal
   url(r'^results/$', views.results, name='results'),
+  url(r'^download/$', views.download, name='download'),
   url(r'^admin/', include(admin.site.urls)),
   
 ]

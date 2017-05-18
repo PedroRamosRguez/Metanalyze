@@ -9,6 +9,7 @@ from parse import parseFiles,parseZipFiles
 from referencePoint import referencePointInit,referencePointCalculation
 from setChartModels import setChart,setMinAvgMaxChart,setMinChart,setAvgChart,setMaxChart
 from setDataframes import mainDataFrame,minAvgMaxDataFrame,minDataFrame,avgDataFrame,maxDataFrame
+from statisticTest import shapiro,kruskalWallisTest
 def parse(idConfiguration):
 	BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 	print BASE_DIR
@@ -114,9 +115,6 @@ def parse(idConfiguration):
 	dfMax = maxDataFrame(df)
 	print 'print de los dataframes de min max y avg y el total...'
 	print dfMinAvgMax
-	#print dfMin
-	#print dfAvg
-	#print dfMax
 	setMinAvgMaxChart(dfMinAvgMax,idConfiguration)
 	setMinChart(dfMin,idConfiguration)
 	setAvgChart(dfAvg,idConfiguration)
@@ -124,7 +122,46 @@ def parse(idConfiguration):
 	#print 'esto es la lista de hypervolumelist'
 	#algorithmModel.save()
 	print hyperVolumeList
-	print len(hyperVolumeList)
 	for i in range(int(getConfiguration.nAlgorithms)):
 		Algorithms.objects.filter(id=int(getAlgorithms[i]['id'])).update(hypervolumeValues=hyperVolumeList[i])
+	
+	#obtener los nombres de los algoritmos para crear un df con las comparaciones...
+	algorithm_names = []
+	tests = getConfiguration.test
+	print tests
+	print len(tests)
+	for i in range(int(getConfiguration.nAlgorithms)):
+		algorithm_names.append(getAlgorithms[i]['algorithm'])
+	if 'Shapiro-wilk' in tests:
+		#retorna el pvalue 
+		shapiroWilk = shapiro(int(getConfiguration.nAlgorithms),hyperVolumeList)
+	if 'Kruskal-Wallis' in tests:
+		print 'entre en kruskal'
+		shapiroWilk = shapiro(int(getConfiguration.nAlgorithms),hyperVolumeList)
+		#si todos los pvalues son <0.05 se realiza el test de kruskal-wallis
+		def validPvalue(items):
+			return all(x <0.05 for x in items)
+		kruskal = validPvalue(shapiroWilk)
+		print kruskal
+		if kruskal == True:
+			print 'entre al if kruskal=true'
+			kruskalWallis =  kruskalWallisTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+			print kruskalWallis
+		#stats.kruskal(algoritmo1, algoritmo2)
+	print shapiroWilk
+	print asdasd
+	#REALIZAR LOS TEST ESTADISTICOS...
+	'''ORDEN DE REALIZACION DE LOS TESTS...
+		1. SHAPIRO WILK
+			- . SI P<0.05 KRUSKAL-WALLIS
+			- . SI P>0.05 LEVENE
+		2.  SI LEVENE DA P>= 0.05 -> ANOVA
+			SI LEVENE DA P <0.05 -> WELCH
+		3. SI WELCH DA P <0.05 -> ANOVA
+	POR TANTO SI EL USUARIO INTRODUCE ANOVA, HAY QUE REALIZAR TODOS LOS TEST ANTERIORES
+	EN CASI DE QUE SELECCIONE LEVENE POR EJEMPLO, PUES SHAPIRO-WILK (P>=0.05) Y REALIZAR LEVENE'''
+
+
+	
+
 	

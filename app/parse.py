@@ -27,6 +27,7 @@ def parseFiles(tar,i,dicAlg,member,getConfiguration):
 #=============================================================================================================================
 				if Data[0] == -1.0:
 					print 'white line'
+					pass
 				if step in dicAlg[str(i)][str(j)].keys() and Data[0]!= -1.0:
 					solution = []
 					print dicAlg[str(i)][str(j)][step]

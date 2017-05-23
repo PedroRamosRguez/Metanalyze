@@ -1,4 +1,4 @@
-import os,tarfile,zipfile,re,collections
+import os,tarfile,zipfile,re,collections,sys
 import createModels as cModels
 from django.apps import apps
 from django.db.models import get_app, get_models
@@ -10,6 +10,7 @@ from referencePoint import referencePointInit,referencePointCalculation
 from setChartModels import setChart,setMinAvgMaxChart,setMinChart,setAvgChart,setMaxChart
 from setDataframes import mainDataFrame,minAvgMaxDataFrame,minDataFrame,avgDataFrame,maxDataFrame
 from statisticTest import shapiroWilkTest,kruskalWallisTest,leveneTest,anovaTest,welchTest,pvalueMajor,pvalueMinor
+import numpy as np
 def parse(idConfiguration):
 	BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 	print BASE_DIR
@@ -78,13 +79,15 @@ def parse(idConfiguration):
 		print 'print no peto la igualacion'
 	print 'esto es dicalg fuera...'
 	print dicAlg
+	#normalizar dicAlg
 	#PREPARACION PARA EL CALCULO DE REFERENCIA DEL HIPERVOLUMEN...(PASARLO A UNA FUNCION)
-
 	referencePoint = referencePointInit(int(getConfiguration.nAlgorithms),int(getConfiguration.nObjectives))
-	print referencePoint
+
 	referencePoint = referencePointCalculation(dicAlg,referencePoint)
-	print 'punto de referencia:'			
+	print 'punto de referencia:'
+
 	print referencePoint
+	#sys.exit('parada...')	
 	dictHvAlg = collections.defaultdict(dict)
 	hyperVolumeList = []
 	for k,v in sorted(dicAlg.iteritems()):
@@ -94,12 +97,52 @@ def parse(idConfiguration):
 			for kkk,vvv in sorted(vv.iteritems()):
 				if not kkk in dictHvAlg[str(k)].keys():
 					dictHvAlg[k][kkk] = []
-				hyperVolume = HyperVolume(referencePoint[int(k)])
+				hyperVolume = HyperVolume(referencePoint)
 				hypervolumeAlgorithmList.append(hyperVolume.compute(vvv))
 				dictHvAlg[k][kkk].append(hyperVolume.compute(vvv))
+				print vv
+				print vvv
+				print referencePoint
+				print dictHvAlg[k][kkk]
 		hyperVolumeList.append(hypervolumeAlgorithmList)
 	print dictHvAlg
+	print referencePoint
+	print dictHvAlg['0']['8200']
+	#normalizacion...
+	listMin = []
+	listMax = []
+	for k,v in sorted(dictHvAlg.iteritems()):
+		minAlgorithm = []
+		maxAlgorithm = []
+		for kk,vv in sorted(v.iteritems()):
+			minAlgorithm.append(min(vv))
+			maxAlgorithm.append(max(vv))
+		listMin.append(minAlgorithm)
+		listMax.append(maxAlgorithm)
+	print listMin
+	print listMax
+	minValue = []
+	maxValue = []
+	for i,value in enumerate(listMin):
+		minValue.append(min(listMin[i]))
+		maxValue.append(max(listMax[i]))
 
+	for k,v in sorted(dictHvAlg.iteritems()):
+		for kk,vv in sorted(v.iteritems()):
+			newHvValue = []
+			for i,value in enumerate(vv):
+				num = float(value - minValue[int(k)])
+				denom = float(maxValue[int(k)] - minValue[int(k)])
+				newValue = float(num/denom)
+				#si el problema es de maximizar se hace esta operacion si es de minimizar no...
+				newValue = 1- newValue
+				newHvValue.append(newValue)
+			#sys.exit('parada')
+			dictHvAlg[str(k)][str(kk)] = newHvValue
+			#print dictHvAlg[str(k)][str(kk)]
+	print 'esto es dicthvalg despues ..'
+	print dictHvAlg
+	#sys.exit("PARADA...")
 	#REALIZACION DE LOS DATAFRAME CON PANDAS DE LOS HIPERVOLUMENES POR PASO Y POR ALGORITMO.
 	df = mainDataFrame(dictHvAlg)
 	print df

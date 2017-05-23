@@ -1,28 +1,24 @@
+import sys
 def referencePointInit(nAlgorithms,nObjectives):
 	counter = 0
   	referencePoint = []
-  	while counter < nAlgorithms:
-		iReferencePoint = []
-		for i in range(nObjectives):
-			iReferencePoint.append(0)
-		referencePoint.append(iReferencePoint)
-		counter +=1
+	for i in range(nObjectives):
+		referencePoint.append(0)
 	return referencePoint
 
 def referencePointCalculation(dicAlg,referencePoint):
-	counter = 0
-	coordinate = 0
 	for k,v in sorted(dicAlg.iteritems()):
 		for kk,vv in sorted(v.iteritems()):
 			for kkk,vvv in sorted(vv.iteritems()):
-				for x,val in enumerate(vvv):
-					counter = 0
-					coordinate = 0
-					while counter < len(val):
-						print referencePoint[int(k)]
-						if val[counter] > referencePoint[int(k)][counter]:
-							coordinate +=1
-						counter +=1
-					if coordinate == counter:
-						referencePoint[int(k)] = val
+				for x,value in enumerate(vvv):
+					maxX = float(value[0])
+					maxY = float(value[1])
+					print 'maxX =%f'%maxX
+					print 'maxY =%f'%maxY
+					if maxX > referencePoint[0]:
+						referencePoint[0] = maxX
+					if maxY > referencePoint[1]:
+						referencePoint[1] = maxY
+				print referencePoint
+	 #referencePoint = val
 	return referencePoint

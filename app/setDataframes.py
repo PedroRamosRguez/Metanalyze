@@ -1,4 +1,6 @@
 import pandas as pd
+import sys
+from collections import OrderedDict
 def mainDataFrame(dictHvAlg):
 	df = []
 	for k,v in sorted(dictHvAlg.iteritems()):
@@ -32,22 +34,28 @@ def maxDataFrame(df):
 	return dfMax
 
 def sortAvgDataframe(dic):
-	sortedbyKeys = sorted(dic, key = lambda tup:tup[1],reverse=True)
-	df = pd.DataFrame(sortedbyKeys)
-	df.columns=['0','Average']
-	df = df.drop('0', 1)
+	sortedbyKeys = sorted(dic, key = lambda tup:int(tup[0]),reverse=False)
+	index = []
+	for i,v in enumerate(sortedbyKeys):
+		index.append(str(v[0])) 
+	df = pd.DataFrame(sortedbyKeys,index=index)
+	df.columns=['Step','Average']
 	return df
 def sortMaxDataframe(dic):
-	sortedbyKeys = sorted(dic, key=lambda tup: tup[1],reverse=True)
-	df = pd.DataFrame(sortedbyKeys)
-	df.columns = ['0','Max']
-	df = df.drop('0', 1)
+	sortedbyKeys = sorted(dic, key=lambda tup: int(tup[0]),reverse=False)
+	index = []
+	for i,v in enumerate(sortedbyKeys):
+		index.append(str(v[0])) 
+	df = pd.DataFrame(sortedbyKeys,index=index)
+	df.columns = ['Step','Max']	
 	return df
 
 
 def sortMinDataframe(dic):
-	sortedbyKeys = sorted(dic, key=lambda tup: tup[1],reverse=True)
-	df = pd.DataFrame(sortedbyKeys)
-	df.columns = ['0','Min']
-	df = df.drop('0',1)
+	sortedbyKeys = sorted(dic, key=lambda tup: int(tup[0]),reverse=False)
+	index = []
+	for i,v in enumerate(sortedbyKeys):
+		index.append(str(v[0])) 
+	df = pd.DataFrame(sortedbyKeys,index=index)
+	df.columns = ['Step','Min']
 	return df

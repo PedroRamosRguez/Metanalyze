@@ -5,7 +5,7 @@ from django.shortcuts import render,render_to_response
 from django.core.servers.basehttp import FileWrapper
 from django.core.files import File
 from collections import OrderedDict
-import os,ast,tarfile
+import os,ast,tarfile,sys
 import createModels as cModels
 import uploadFiles as uFiles
 import parsefiles as parse
@@ -76,22 +76,41 @@ def results(request):
     if 'table' in str(getConfiguration.dataOutput):
       data = dataModel.listValues
       df = []
+      #print data
+      print data[0]['Average'].keys()
+      list1 = [int(x) for x in data[0]['Average'].keys()]
+      list1.sort()
+      for i,value in enumerate(list1):
+        list1[i] = str(value)
+      print list1
+
       for i,v in enumerate(data):
         #condicion de mirar en la lista de bounds escogidos...(si esta avg se hace)
+
         dataFrame = pd.DataFrame()
+        
         if 'Average' in str(getConfiguration.bound):
           dfAverage = sortAvgDataframe(data[i]['Average'].items())
-          dataFrame['Average'] = dfAverage
+          dataFrame['0'] = dfAverage['Step']
+          dataFrame['Average'] = dfAverage['Average']
+          dataFrame.set_index('0')
+          dataFrame = dataFrame.drop('0',1)
         if 'Max' in str(getConfiguration.bound):
           dfMax = sortMaxDataframe(data[i]['Max'].items())
-          dataFrame['Max'] = dfMax 
+          dataFrame['0'] = dfMax['Step']
+          dataFrame['Max'] = dfMax['Max']
+          dataFrame.set_index('0')
+          dataFrame = dataFrame.drop('0',1)
         if 'Min' in str(getConfiguration.bound):
           dfMin = sortMinDataframe(data[i]['Min'].items())
-          dataFrame['Min'] = dfMin
+          dataFrame['0'] = dfMin['Step']
+          dataFrame['Min'] = dfMin['Min']
+          dataFrame.set_index('0')
+          dataFrame = dataFrame.drop('0',1)
         df.append(dataFrame)
       html_table =[]
       for i,v in enumerate(df):
-        html_df = df[i].to_html(index=False)
+        html_df = df[i].to_html()
         filename = os.path.join(mediafolder,'results'+str(algorithm_names[i])+'.tex')
         template = r'''\documentclass[preview]{{standalone}}
                     \usepackage{{booktabs}}
@@ -100,7 +119,7 @@ def results(request):
                     \end{{document}}
                     '''
         with open(filename, 'wb') as f:
-          f.write(template.format(df[i].to_latex(index=False)))
+          f.write(template.format(df[i].to_latex()))
         subprocess.call(['pdflatex','-output-directory='+str(mediafolder),filename])
         html_table.append(html_df)
       tFile = tarfile.open(str(mediafolder)+"/files.tar", 'w')

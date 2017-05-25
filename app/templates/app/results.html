@@ -18,49 +18,50 @@
 <body>
 	<div class="container center">
 		<div class="row" >
-				<div class="col s12">
+			<div class="col s12">
 				{{min_chart.as_html}}
 			</div>
-			<!--<button class="btn waves-effect waves-light" type="button" name="action" id="saveMinChart-btn">
-				<i class="material-icons right">Save</i>
-			</button>-->
-			<button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveMinChart-btn">
-            	<i class="material-icons right">send</i>Save Minimum Bound Chart
-          	</button>
+			
 		</div>
-
+		<button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveMinChart-btn">
+        	<i class="material-icons right">send</i>Save Minimum Bound Chart
+      	</button>
 		<div class="row" >
 				<div class="col s12">
 					{{avg_chart.as_html}}
 				</div>
-			<button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveAvgChart-btn">
-            	<i class="material-icons right">send</i>Save Average Bound Chart
-          	</button>
+			
 		</div>
+		<button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveAvgChart-btn">
+        	<i class="material-icons right">send</i>Save Average Bound Chart
+      	</button>
 		<div class="row" >
 				<div class="col s12">
 					{{max_chart.as_html}}
 				</div>
-			<button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveMaxChart-btn">
-            	<i class="material-icons right">send</i>Save Maximum Bound Chart
-          	</button>
-		</div>
-		<div class="row" >
-				<div class="col s12">
-					{{minavgmax_chart.as_html}}
-				</div>
-			<button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveMinAvgMaxChart-btn">
-            	<i class="material-icons right">send</i>Save Minimum/Average/Maximum Bound Chart
-          	</button>
-		</div>
-		<a href="/download" download>Download Table as Tex File</a>
-		<div>
 			
+		</div>
+		<button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveMaxChart-btn">
+        	<i class="material-icons right">send</i>Save Maximum Bound Chart
+      	</button>
+		<div class="row" >
+			<div class="col s12">
+				{{minavgmax_chart.as_html}}
+			</div>
+		</div>
+		<button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveMinAvgMaxChart-btn">
+        	<i class="material-icons right">send</i>Save Minimum/Average/Maximum Bound Chart
+      	</button>
+      	
+		<div class="row" >
+			<div class="col s12">
+				<br><a class="btn waves-effect waves-light indigo darken-3" type="button" name="action" href="/download" download>Download Table as Tex File</a><br/>
 				
-			{% for algorithm,table in algorithmTable %}
-				{{algorithm}} <!--utilizar un encabezado con estilo...-->
-	 			{{ table | safe }}
-			{%endfor%}
+				{% for algorithm,table in algorithmTable %}
+					{{algorithm}} 
+	 				{{ table | safe }}
+				{%endfor%}
+			</div>
 		</div>
 	</div>
 	<!--Import jQuery before materialize.js-->

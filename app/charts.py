@@ -1,13 +1,16 @@
 from jchart import Chart
-from jchart.config import Axes, DataSet, rgba,ScaleLabel,Tick,Title
+from jchart.config import DataSet,rgba
 from .models import Configuration,Algorithms,ChartsModel,MinAvgMaxChartModel,MinChartModel,AvgChartModel,MaxChartModel
 from labelsChart import labels
 from dataSet import dataset,datasetMinAvgMax
+import getColors as colors
 class MinChart(Chart):
     chart_type = 'line'
-    axes = {
-        'id': 'pruebaid'
+    scales = {
+        'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hv Value','fontSize':int(15)}}],
+        'xAxes': [{'scaleLabel':{'display':True,'labelString':'Steps','fontSize':int(15)}}]
     }
+
     title = {
         'display': True,
         'text': 'Chart of Minimum Bounds',
@@ -19,7 +22,11 @@ class MinChart(Chart):
     }
     responsive = True
     
+    colores = colors.colors()
+    print 'colores:'
+    print colores
     
+
     def get_datasets(self,*args):
         getConfiguration = Configuration.objects.filter().latest('id')
         algorithm_names = []
@@ -30,22 +37,12 @@ class MinChart(Chart):
         data = dataModel.listValues
         chartReturned = []
         data_scatter = dataset(data)
-        borderColor = ['rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)']
-        '''backgroundColor = [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ]'''
+        borderColor = []
         for i,v in enumerate(data_scatter):
-            chartReturned.append(DataSet(type='line',label='Min'+' Algorithm '+str(algorithm_names[i]),showLine=True,data=v, 
+            borderColor.append(colors.colors())
+
+        for i,v in enumerate(data_scatter):
+            chartReturned.append(DataSet(type='line',label='Min '+str(algorithm_names[i]),showLine=True,data=v, 
                 borderColor=borderColor[i],fill=False))#,backgroundColor=backgroundColor[i]))
         return chartReturned
 
@@ -80,14 +77,11 @@ class AvgChart(Chart):
         data_scatter = dataset(data)
         chartReturned = []
 
-        borderColor = ['rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)']
+        borderColor = []
         for i,v in enumerate(data_scatter):
-            chartReturned.append(DataSet(type='line',label='Avg'+' Algorithm '+str(algorithm_names[i]),showLine=True,data=v, 
+            borderColor.append(colors.colors())
+        for i,v in enumerate(data_scatter):
+            chartReturned.append(DataSet(type='line',label='Avg '+str(algorithm_names[i]),showLine=True,data=v, 
                 borderColor=borderColor[i],fill=False))#,backgroundColor=backgroundColor[i]))
         return chartReturned
 
@@ -121,15 +115,11 @@ class MaxChart(Chart):
         data = dataModel.listValues
         data_scatter = dataset(data)
         chartReturned = []
-
-        borderColor = ['rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)']
+        borderColor = []
         for i,v in enumerate(data_scatter):
-            chartReturned.append(DataSet(type='line',label='Max'+' Algorithm '+str(algorithm_names[i]),showLine=True,data=v, 
+            borderColor.append(colors.colors())
+        for i,v in enumerate(data_scatter):
+            chartReturned.append(DataSet(type='line',label='Max '+str(algorithm_names[i]),showLine=True,data=v, 
                 borderColor=borderColor[i],fill=False))#,backgroundColor=backgroundColor[i]))
         return chartReturned
 
@@ -171,23 +161,12 @@ class MinAvgMaxChart(Chart):
         #print 'esto es charlabels:'
         #print chartLabels
         dataList=datasetMinAvgMax(data)
-        data_scatter = []
         chartReturned = []
-        borderColor = ['rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(128,0,0,1)',
-                'rgba(0,0,128,1)',
-                'rgba(47,79,79,1)',
-                'rgba(75,0,130,1)',
-                'rgba(124,252,0,1)',
-                'rgba(0,139,139,1)'
-                ]
         selectColor = 0
-        print 'esto es data list antes del ultimos for..'
+        borderColor = []
+        numberColors = int(len(dataList)*3)
+        for i in range(numberColors):
+            borderColor.append(colors.colors())
         for i,v in enumerate(dataList):
             #print len(v)
             for ii,vv in enumerate(v):
@@ -195,7 +174,7 @@ class MinAvgMaxChart(Chart):
                 #print vv
                 #print len(vv)
                 #print chartLabels[ii]
-                chartReturned.append(DataSet(type='line',label=str(chartLabels[ii])+' Algorithm '+str(algorithm_names[i]),showLine=True,data=vv, 
+                chartReturned.append(DataSet(type='line',label=str(chartLabels[ii])+' '+str(algorithm_names[i]),showLine=True,data=vv, 
                 borderColor=borderColor[selectColor],fill=False))#,backgroundColor=backgroundColor[selectColor]))
                 selectColor +=1
         return chartReturned

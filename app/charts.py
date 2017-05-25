@@ -1,5 +1,5 @@
 from jchart import Chart
-from jchart.config import DataSet,rgba
+from jchart.config import DataSet,Axes,Legend
 from .models import Configuration,Algorithms,ChartsModel,MinAvgMaxChartModel,MinChartModel,AvgChartModel,MaxChartModel
 from labelsChart import labels
 from dataSet import dataset,datasetMinAvgMax
@@ -8,7 +8,8 @@ class MinChart(Chart):
     chart_type = 'line'
     scales = {
         'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hv Value','fontSize':int(15)}}],
-        'xAxes': [{'scaleLabel':{'display':True,'labelString':'Steps','fontSize':int(15)}}]
+        'xAxes' : [{'scaleLabel':{'display':True,'labelString':'Step','fontSize':int(20)}}]
+        
     }
 
     title = {
@@ -21,10 +22,6 @@ class MinChart(Chart):
         'position': 'right'
     }
     responsive = True
-    
-    colores = colors.colors()
-    print 'colores:'
-    print colores
     
 
     def get_datasets(self,*args):
@@ -55,6 +52,11 @@ class MinChart(Chart):
 
 class AvgChart(Chart):
     chart_type = 'line'
+    scales = {
+        'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hv Value','fontSize':int(15)}}],
+        'xAxes' : [{'scaleLabel':{'display':True,'labelString':'Step','fontSize':int(20)}}]
+        
+    }
     title = {
         'display': True,
         'text': 'Chart of Average bounds',
@@ -94,6 +96,11 @@ class AvgChart(Chart):
 
 class MaxChart(Chart):
     chart_type = 'line'
+    scales = {
+        'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hv Value','fontSize':int(15)}}],
+        'xAxes' : [{'scaleLabel':{'display':True,'labelString':'Step','fontSize':int(20)}}]
+        
+    }
     title = {
         'display': True,
         'text': 'Chart of Max bounds',
@@ -132,6 +139,11 @@ class MaxChart(Chart):
 
 class MinAvgMaxChart(Chart):
     chart_type = 'line'
+    scales = {
+        'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hv Value','fontSize':int(15)}}],
+        'xAxes' : [{'scaleLabel':{'display':True,'labelString':'Step','fontSize':int(20)}}]
+        
+    }
     title = {
         'display': True,
         'text': 'Chart of MinAvgMax bounds',

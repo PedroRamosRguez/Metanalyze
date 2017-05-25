@@ -20,6 +20,7 @@ Chart.plugins.register({
         ctx.fillStyle = backgroundColor;
         ctx.fillRect(0, 0, c.chart.width, c.chart.height);
     }
+
 });
 
 //se pasa a blob el chart para poder guardarlo.

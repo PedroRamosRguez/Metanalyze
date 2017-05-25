@@ -6,6 +6,10 @@ class AlgorithmForm(forms.Form):
         ('plot', 'Plot'),
         ('table-plot', 'Table and Plot'),
     )
+    CHOICES_ANOVA =(
+        ('si','Si'),
+        ('no','No')
+    )
     nAlgorithms = forms.CharField(widget = forms.TextInput(attrs = {'name':'nAlgorithms','id': 'nAlgorithms',
         'placeholder': 'Insert the number of algorithms', 'oninput': 'checkAlgorithm()'}),required=True)
               
@@ -33,3 +37,4 @@ class AlgorithmForm(forms.Form):
 
     stopCondition = forms.CharField(widget = forms.TextInput(attrs= {'id': 'stopCondition','name': 'stopCondition',
         'placeholder': 'Insert the stop condition'}),required=True)
+    ANOVA = forms.ChoiceField(widget=forms.RadioSelect(attrs = {'class': 'with-gap dataOutput'}),choices=CHOICES_ANOVA, required=True)

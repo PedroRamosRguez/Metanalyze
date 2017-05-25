@@ -63,12 +63,22 @@
 
       <div class="row" >
         <div class="input-field center col s10">
-          <select multiple id="test">
+          <p>
+            <strong>DO YOU WANT TO DO THE ANOVA TEST</strong>
+          </p>
+            {% for choice in form.ANOVA %}
+              <p >
+                <input name="{{ choice.name }}" type="radio" class="with-gap dataOutput" id="{{ choice.choice_value }}" value={{ choice.choice_value }}>
+                <label for="{{ choice.choice_value }}">{{ choice.choice_label }}</label>
+              </p>  
+            {% endfor %}
+          <!--<select multiple id="test">
             <option value="" disabled selected>Select a statistic test</option>
             {% for i in test %}
               <option {{i}}>{{i}}</option>
             {%endfor%}
-          </select>
+          </select>-->
+
         </div>
       </div>
       <div class="row" >
@@ -85,9 +95,9 @@
       <div class="row" >
         <div class="col s10">
           <div>
-            <p>Select a data output format</p>
+            <p><strong>Select a data output format</strong></p>
             {% for choice in form.dataOutput %}
-              <p>
+              <p >
                 <input name="{{ choice.name }}" type="radio" class="with-gap dataOutput" id="{{ choice.choice_value }}" value={{ choice.choice_value }}>
                 <label for="{{ choice.choice_value }}">{{ choice.choice_label }}</label>
               </p>  

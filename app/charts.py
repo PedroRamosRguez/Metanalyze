@@ -14,7 +14,7 @@ class MinChart(Chart):
 
     title = {
         'display': True,
-        'text': 'Chart of Minimum Bounds',
+        'text': 'Hypervolume Minimum Bounds',
         'fontSize': 20,
     }
     legend = {
@@ -59,7 +59,7 @@ class AvgChart(Chart):
     }
     title = {
         'display': True,
-        'text': 'Chart of Average bounds',
+        'text': 'Hypervolume Average bounds',
         'fontSize': 20,
     }
     legend = {
@@ -103,7 +103,7 @@ class MaxChart(Chart):
     }
     title = {
         'display': True,
-        'text': 'Chart of Max bounds',
+        'text': 'Hypervolume Max bounds',
         'fontSize': 20
     }
     legend = {
@@ -146,7 +146,7 @@ class MinAvgMaxChart(Chart):
     }
     title = {
         'display': True,
-        'text': 'Chart of MinAvgMax bounds',
+        'text': 'Hypervolume MinAvgMax bounds',
         'fontSize': 20
     }
     legend = {

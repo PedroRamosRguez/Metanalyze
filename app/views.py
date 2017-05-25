@@ -25,7 +25,8 @@ def index(request):
   form = AlgorithmForm()
   print mediafolder
   return render(request,'app/index.html',{'form': form})
-
+def about(request):
+  return render(request,'app/about.html')
 def results(request):
   #variable para obtener el id de configuracion de los algoritmos
   if request.method == 'POST':
@@ -44,10 +45,7 @@ def results(request):
         fileNames.append(x)
         uFiles.process(BASE_DIR,x)
       #llama al metodo de crear el modelo de configuracion
-      global idConfiguration
       idConfiguration = cModels.modelConfiguration(form,request)
-      print 'esto es idconfiguration'
-      print idConfiguration
       #config.metric = request.POST['metric']
       #algorithmModel.nAlgorithms = form.cleaned_data['nAlgorithms']
       for i,item in enumerate(dictAlgorithms):

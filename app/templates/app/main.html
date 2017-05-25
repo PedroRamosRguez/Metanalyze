@@ -66,7 +66,7 @@
           <p>
             <strong>DO YOU WANT TO DO THE ANOVA TEST</strong>
           </p>
-            {% for choice in form.ANOVA %}
+            {% for choice in form.anova %}
               <p >
                 <input name="{{ choice.name }}" type="radio" class="with-gap dataOutput" id="{{ choice.choice_value }}" value={{ choice.choice_value }}>
                 <label for="{{ choice.choice_value }}">{{ choice.choice_label }}</label>

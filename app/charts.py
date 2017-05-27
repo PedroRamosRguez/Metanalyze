@@ -7,14 +7,14 @@ import getColors as colors
 class MinChart(Chart):
     chart_type = 'line'
     scales = {
-        'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hv Value','fontSize':int(15)}}],
+        'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hypervolume','fontSize':int(15)}}],
         'xAxes' : [{'scaleLabel':{'display':True,'labelString':'Step','fontSize':int(20)}}]
         
     }
 
     title = {
         'display': True,
-        'text': 'Hypervolume Minimum Bounds',
+        'text': 'Evolution of Minimum Hypervolume',
         'fontSize': 20,
     }
     legend = {
@@ -53,13 +53,13 @@ class MinChart(Chart):
 class AvgChart(Chart):
     chart_type = 'line'
     scales = {
-        'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hv Value','fontSize':int(15)}}],
+        'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hypervolume','fontSize':int(15)}}],
         'xAxes' : [{'scaleLabel':{'display':True,'labelString':'Step','fontSize':int(20)}}]
         
     }
     title = {
         'display': True,
-        'text': 'Hypervolume Average bounds',
+        'text': 'Evolution of Average Hypervolume',
         'fontSize': 20,
     }
     legend = {
@@ -97,13 +97,13 @@ class AvgChart(Chart):
 class MaxChart(Chart):
     chart_type = 'line'
     scales = {
-        'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hv Value','fontSize':int(15)}}],
+        'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hypervolume','fontSize':int(15)}}],
         'xAxes' : [{'scaleLabel':{'display':True,'labelString':'Step','fontSize':int(20)}}]
         
     }
     title = {
         'display': True,
-        'text': 'Hypervolume Max bounds',
+        'text': 'Evolution of Maximum Hypervolume',
         'fontSize': 20
     }
     legend = {
@@ -140,13 +140,13 @@ class MaxChart(Chart):
 class MinAvgMaxChart(Chart):
     chart_type = 'line'
     scales = {
-        'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hv Value','fontSize':int(15)}}],
+        'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hypervolume','fontSize':int(15)}}],
         'xAxes' : [{'scaleLabel':{'display':True,'labelString':'Step','fontSize':int(20)}}]
         
     }
     title = {
         'display': True,
-        'text': 'Hypervolume MinAvgMax bounds',
+        'text': 'Evolution of Hypervolume',
         'fontSize': 20
     }
     legend = {

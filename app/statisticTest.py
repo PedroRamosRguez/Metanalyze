@@ -6,103 +6,136 @@ import scipy.stats as stats
 import numpy as np
 def all_same(items):
 	return all(x == items[0] for x in items)
-def pvalueMinor(items):
-			return all(x <0.05 for x in items)
-def pvalueMajor(items):
-	return all(x >=0.05 for x in items)
 
-def shapiroWilkTest(nAlgorithms,hypervolumeList):
+def pvalueMinor(items):
+	return all(x <0.05 for x in items)
+
+def pvalueMajor(items):
+	print 'estoy en pvaluemajor'
+	return all(x[1] >=0.05 for x in items)
+
+def calculeMean(hyperVolumeList):
+	meanAlgorithms = []
+	for i,v in enumerate(hyperVolumeList):
+		npAlgorithm = np.array(v)
+		#print npAlgorithm
+		meanAlgorithms.append(npAlgorithm.mean())
+	return meanAlgorithms
+
+def calculeVariance(hyperVolumeList):
+	varianceAlgorithms = []
+	for i,v in enumerate(hyperVolumeList):
+		npAlgorithm = np.array(v)
+		#print npAlgorithm
+		varianceAlgorithms.append(npAlgorithm.var())
+	return varianceAlgorithms
+
+def calculeMedian(hyperVolumeList):
+	medianAlgorithms = []
+	for i,v in enumerate(hyperVolumeList):
+		npAlgorithm = np.array(v)
+		#print npAlgorithm
+		medianAlgorithms.append(np.median(npAlgorithm))
+	return medianAlgorithms
+		
+def shapiroWilkTest(nAlgorithms,hyperVolumeList):
 	shapiroWilk = []
-	#print len(hypervolumeList)
+	#print len(hyperVolumeList)
 	for i in range(nAlgorithms):
 		#print i
-		algorithmList = np.array(hypervolumeList[i])
+		algorithmList = np.array(hyperVolumeList[i])
 		shapiroTest= stats.shapiro(algorithmList)
 		#print shapiroTest
 		shapiroWilk.append(shapiroTest)
 	return shapiroWilk
 
-def kruskalWallisTest(nAlgorithms,hypervolumeList):
+def kruskalWallisTest(nAlgorithms,hyperVolumeList):
 	#stats.kruskal(algoritmo1, algoritmo2)
 	print 'entre a kruskalwallis'
-	i =0
-	j= 1
+	
 	kruskal = []
-	algorithm = np.array(hypervolumeList[i])
-	print 'antes del while'
-	while j < int(nAlgorithms):
-		
-		algorithmCompare = np.array(hypervolumeList[j])
-		kruskalTest = stats.kruskal(algorithm, algorithmCompare)
-		kruskal.append(kruskalTest)
-		print kruskal
-		j +=1
+	for i in range(nAlgorithms):
+		algorithm = np.array(hyperVolumeList[i])
+		j =i+1
+		while j < nAlgorithms:
+			algorithmCompare = np.array(hyperVolumeList[j])
+			kruskalTest = stats.kruskal(algorithm, algorithmCompare)
+			kruskal.append(kruskalTest)
+			print kruskal
+			j +=1
 	return kruskal
 
-def leveneTest(nAlgorithms,hypervolumeList):
+def leveneTest(nAlgorithms,hyperVolumeList):
 	#stats.levene(algoritmo1,algoritmo2)
 	print 'entre a levene test'
-	i =0
-	j= 1
 	levene = []
-	algorithm = np.array(hypervolumeList[i])
-	while j < nAlgorithms:
-		algorithmCompare = np.array(hypervolumeList[j])
-		lvnTest = stats.levene(algorithm, algorithmCompare)
-		levene.append(lvnTest)
-		j +=1
+	
+	for i,v in enumerate(nAlgorithms,hyperVolumeList):
+		algorithm = np.array(hyperVolumeList[i])
+		j = i+1
+		while j < nAlgorithms:
+			algorithmCompare = np.array(hyperVolumeList[j])
+			lvnTest = stats.levene(algorithm, algorithmCompare)
+			levene.append(lvnTest)
+			j +=1
 	return levene
 
-def anovaTest(nAlgorithms,hypervolumeList):
+def anovaTest(nAlgorithms,hyperVolumeList):
 	print 'entre a anova...'
 	#stats.f_oneway(algoritmo1,algoritmo2)
-	i =0
-	j= 1
 	anova = []
-	while j < nAlgorithms:
-		algorithmCompare = np.array(hypervolumeList[j])
-		anvaTest = stats.f_oneway(algorithmList[i], algorithmCompare)
-		anova.append(anvaTest)
-		j +=1
+	for i in range(nAlgorithms):
+		algorithm = np.array(hyperVolumeList[i])
+		j=i+1
+		while j < nAlgorithms:
+			algorithmCompare = np.array(hyperVolumeList[j])
+			anvaTest = stats.f_oneway(algorithmList, algorithmCompare)
+			anova.append(anvaTest)
+			j +=1
 	return anova
 
-def welchTest(nAlgorithms,hypervolumeList):
+def welchTest(nAlgorithms,hyperVolumeList):
 	#primero calcular las medias y varianzas...
-	average =  []
-	variance = []
+	mean =  calculeMean(hyperVolumeList)	#calcular medias
+	variance = calculeVariance(hyperVolumeList)	#calcular varianzas
 	welch = []
-	j=0
-	k=1
-	for i,value in enumerate(hypervolumeList):
-		algorithm = np.array(hypervolumeList[i])
-		average.append(algorithm.mean())
-		variance.append(algorithm.var())
-	equalAverage = all_same(average)
+	
+	'''for i,value in enumerate(hyperVolumeList):
+		algorithm = np.array(hyperVolumeList[i])
+		average.append()
+		variance.append(algorithm.var())'''
+	equalAverage = all_same(mean)
 	if sameAverage == True :
 		#misma media se hace el test de welch asi:
 		#stats.ttest_ind(algoritmo1,algoritmo2)
-		algorithm = np.array(hypervolumeList[j])
-		while k < nAlgorithms:
-			algorithmCompare = np.array(hypervolumeList[k])
-			wlch = stats.ttest_ind(algorithm, algorithmCompare)
-			welch.append(wlch)
-			k +=1
+		for i,v in range(nAlgorithms):
+			algorithm = np.array(hyperVolumeList[i])
+			j =i+1
+			while j < nAlgorithms:
+				algorithmCompare = np.array(hyperVolumeList[j])
+				welchTest = stats.ttest_ind(algorithm, algorithmCompare)
+				welch.append(welchTest)
+				j +=1
 	else:
 		equalVariance = all_same(variance)
 		if equalVariance == True:
-			algorithm = np.array(hypervolumeList[j])
-			while j < nAlgorithms:
-				algorithmCompare = np.array(hypervolumeList[k])
-				wlch = stats.ttest_ind(algorithm, algorithmCompare)
-				welch.append(wlch)
-				k +=1	
+			for i,v in range(nAlgorithms):
+				algorithm = np.array(hyperVolumeList[i])
+				j =i+1
+				while j < nAlgorithms:
+					algorithmCompare = np.array(hyperVolumeList[j])
+					welchTest = stats.ttest_ind(algorithm, algorithmCompare)
+					welch.append(welchTest)
+					j +=1
 		else:
-			algorithm = np.array(hypervolumeList[j])
-			while k < nAlgorithms:
-				algorithmCompare = np.array(hypervolumeList[k])
-				wlch = stats.ttest_ind(algorithm, algorithmCompare,equal_var = False)
-				welch.append(wlch)
-				j +=1
+			for i,v in range(nAlgorithms):
+				algorithm = np.array(hyperVolumeList[i])
+				j =i+1
+				while j < nAlgorithms:
+					algorithmCompare = np.array(hyperVolumeList[j])
+					welchTest = stats.ttest_ind(algorithm, algorithmCompare,equal_var =False)
+					welch.append(welchTest)
+					j +=1
 	return welch
 
 

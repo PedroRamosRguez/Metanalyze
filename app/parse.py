@@ -44,6 +44,7 @@ def parseFiles(tar,i,dicAlg,member,getConfiguration):
 						indexObjectives +=1
 					print 'sali del while...'
 					dicAlg[str(i)][str(j)][step].append(solution)
+					#para comprobar el hiervolumen poner aqui en una lista los resultados...
 	#print dicAlg
 	return dicAlg
 

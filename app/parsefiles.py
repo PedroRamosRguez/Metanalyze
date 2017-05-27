@@ -9,7 +9,7 @@ from parse import parseFiles,parseZipFiles
 from referencePoint import referencePointInit,referencePointCalculation
 from setChartModels import setChart,setMinAvgMaxChart,setMinChart,setAvgChart,setMaxChart
 from setDataframes import mainDataFrame,minAvgMaxDataFrame,minDataFrame,avgDataFrame,maxDataFrame
-from statisticTest import shapiroWilkTest,kruskalWallisTest,leveneTest,anovaTest,welchTest,pvalueMajor,pvalueMinor
+from statisticTest import calculeMean,calculeMedian,shapiroWilkTest,kruskalWallisTest,leveneTest,anovaTest,welchTest,pvalueMajor,pvalueMinor
 import numpy as np
 def parse(idConfiguration):
 	BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -104,7 +104,7 @@ def parse(idConfiguration):
 				print vvv
 				print referencePoint
 				print dictHvAlg[k][kkk]
-		hyperVolumeList.append(hypervolumeAlgorithmList)
+		#hyperVolumeList.append(hypervolumeAlgorithmList)
 	print dictHvAlg
 	print referencePoint
 	print dictHvAlg['0']['8200']
@@ -128,24 +128,27 @@ def parse(idConfiguration):
 		maxValue.append(max(listMax[i]))
 
 	for k,v in sorted(dictHvAlg.iteritems()):
+		hypervolumeAlgorithmList = []
 		for kk,vv in sorted(v.iteritems()):
 			newHvValue = []
 			for i,value in enumerate(vv):
 				num = float(value - minValue[int(k)])
 				denom = float(maxValue[int(k)] - minValue[int(k)])
 				newValue = float(num/denom)
-				#si el problema es de maximizar se hace esta operacion si es de minimizar no...
+				#si el problema es de maximizar se debe multiplicar por menos 1
 				newValue = 1- newValue
 				newHvValue.append(newValue)
+				hypervolumeAlgorithmList.append(newValue)
 			#sys.exit('parada')
 			dictHvAlg[str(k)][str(kk)] = newHvValue
 			#print dictHvAlg[str(k)][str(kk)]
+		hyperVolumeList.append(hypervolumeAlgorithmList)
 	print 'esto es dicthvalg despues ..'
 	print dictHvAlg
 	#sys.exit("PARADA...")
 	#REALIZACION DE LOS DATAFRAME CON PANDAS DE LOS HIPERVOLUMENES POR PASO Y POR ALGORITMO.
 	df = mainDataFrame(dictHvAlg)
-	print df
+
 	#CREACION DEL MODELO DE GRAFICOS
 	chartList = setChart(dictHvAlg)
 	
@@ -175,17 +178,54 @@ def parse(idConfiguration):
 	print len(tests)
 	for i in range(int(getConfiguration.nAlgorithms)):
 		algorithm_names.append(getAlgorithms[i]['algorithm'])
-	if 'Shapiro-wilk' in tests:
+
+
+	print getConfiguration.anova
+	if str(getConfiguration.anova) == 'si':
+		#se realizara cada uno de los test...
+		print 'entre al if...'
+
 		#retorna el pvalue 
 		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
 		shapiroWilktest = pvalueMajor(shapiroWilk)
+		print shapiroWilk
+		print shapiroWilktest
+		
 		if shapiroWilktest == True:
 			print 'se distribuyen normalmente'
+			levene = leveneTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+			lvnTest = pvalueMajor(levene)
+			if lvnTest == True:
+				#se  realizaria anova...
+				anova = anovaTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+			else:
+				welch = welchTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+			#sys.exit('parada...')
 		else:
 			print 'no se distribuye normalmente se pasaria a kruskal'
-
-	if 'Kruskal-Wallis' in tests:
-		print 'entre en kruskal'
+			kruskalWallis = kruskalWallisTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+			print kruskalWallis
+			#hacer media de cada uno de los algoritmos
+			#hacer la mediana de cada uno de los algoritmos..
+		meanAlgorithms = calculeMean(hyperVolumeList)
+		medianAlgorithms = calculeMedian(hyperVolumeList)
+		print meanAlgorithms
+		print medianAlgorithms
+		for i,v in enumerate(kruskalWallis):
+			j = i+1
+			if(v[1] < 0.05):	#pvalue menor a 0.05 en caso de minimizacion se hace este caso
+				if meanAlgorithms[i] > meanAlgorithms[j] and medianAlgorithms[i] < medianAlgorithms[j]:
+					print 'poner un asterisco en la tabla...'
+				elif  meanAlgorithms[i] < meanAlgorithms[j] and medianAlgorithms[i] > medianAlgorithms[j]:
+					print 'imprimir asterisco en la tabla...'
+				elif medianAlgorithms[i] < medianAlgorithms[j]:
+					print 'flecha arriba algoritmo1 mejor que el 2'
+				elif medianAlgorithms[i] > medianAlgorithms[j]:
+					print 'flecha abajo, el algoritmo1 es peor que el 2'
+			else:
+				print 'imprimir = no existen diferencias...'
+		sys.exit('parada')
+		'''print 'entre en kruskal'
 		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
 		shapiroWilktest = pvalueminor(shapiroWilk)
 		if shapiroWilktest == True:
@@ -198,7 +238,7 @@ def parse(idConfiguration):
 				print 'las medianas no son iguales.'
 		else:
 			print 'se distribuyen normalmente'
-	if 'Levene' in tests:
+	
 		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
 		shapiroWilktest = pvalueMajor(shapiroWilk)
 		if shapiroWilktest == True:
@@ -209,12 +249,13 @@ def parse(idConfiguration):
 			else:
 				print 'no existe homogeneidad entre las varianzas'
 		else:
-			print 'no se distribuye normalmente se pasaria a kruskal'
+			print 'no se distribuye normalmente se pasaria a kruskal'''
 		
-	if 'Anova' in tests:
-		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+	
+		'''shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
 		shapiroWilktest = pvalueMajor(shapiroWilk)
 		if shapiroWilktest == True:
+			print shapiroWilk
 			print 'se distribuyen normalmente se pasa a hacer levene'
 			levene = leveneTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
 			if levene[0][1] >= 0.05:
@@ -223,8 +264,8 @@ def parse(idConfiguration):
 				if anova[0][1] < 0.05:
 					print 'existen diferencias significativas'
 				else:
-					print 'no existen diferencias significativas...'
-	if 'Welch' in tests:
+					print 'no existen diferencias significativas...'''
+	'''if 'Welch' in tests:
 		print 'hacer welch...'
 		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
 		shapiroWilktest = pvalueMajor(shapiroWilk)
@@ -244,58 +285,8 @@ def parse(idConfiguration):
 			else:
 				print 'existe homogeneidad entre las varianzas'
 		else:
-			print 'no se distribuye normalmente se pasaria a kruskal'
-	'''if 'Kruskal-Wallis' in tests:
-		print 'entre en kruskal'
-		shapiroWilk = shapiro(int(getConfiguration.nAlgorithms),hyperVolumeList)
-		#si todos los pvalues son <0.05 se realiza el test de kruskal-wallis
-		shapiroWilktest = pvalueMinor(shapiroWilk)
-		print shapiroWilktest
-		if shapiroWilktest == True:
-			print 'entre al if kruskal=true'
-			kruskalWallis =  kruskalWallisTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-			print kruskalWallis
-		else:
-			print 'se tiene una distribucion normal por tanto no se puede realizar kruskal wallis'
-	if 'Levene' in tests:
-		print 'seleccionado levene'
-		shapiroWilk = shapiro(int(getConfiguration.nAlgorithms),hyperVolumeList)
-		shapiroWilktest = pvalueMajor(shapiroWilk)
-		if shapiroWilktest == True:
-			print 'entre en lvntst true'
-			levene = leveneTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-			print levene
-		else:
-			print 'no se cumplre shapiroWilk'
-			pass
-	if 'Anova' in tests:
-		print 'seleccionado Anova...'
-		shapiroWilk = shapiro(int(getConfiguration.nAlgorithms),hyperVolumeList)
-		shapiroWilktest = pvalueMajor(shapiroWilk)
-		if shapiroWilktest == True:
-			print 'entre en lvntst true'
-			levene = leveneTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-			lvnTest = pvalueMajor(levene)
-			if lvnTest == True:
-				print 'p value >=0.05 se realizara anova...'
-				anova = anovaTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-			else:
-				print 'probabilidad >0.05 por tannto se realiza welch para luego hacer anova...'
-				welch = welchTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-				wlchtest = pvalueMinor(welch)
-				if wlchtest == True :
-					anova = anovaTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-		print anova
-	if 'Welch' in tests:
-		shapiroWilk = shapiro(int(getConfiguration.nAlgorithms),hyperVolumeList)
-		shapiroWilktest = pvalueMajor(shapiroWilk)
-		if shapiroWilktest == True:
-			print 'entre en lvntst true'
-			levene = leveneTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-			lvnTest = pvalueMinor(levene)
-			if lvnTest == True:
-				welch = welchTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-		print welch
+			print 'no se distribuye normalmente se pasaria a kruskal
+	
 
 		#stats.kruskal(algoritmo1, algoritmo2)
 	print shapiroWilk'''

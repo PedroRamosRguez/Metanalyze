@@ -31,7 +31,6 @@ def results(request):
   #variable para obtener el id de configuracion de los algoritmos
   if request.method == 'POST':
     print 'es un post de pruebatemplate..'
-
     form = AlgorithmForm(request.POST)
     #convierte a array de diccionarios los valores que se obtienen.
     dictAlgorithms= ast.literal_eval(request.POST.get('algorithms'))
@@ -114,7 +113,9 @@ def results(request):
         template = r'''\documentclass[preview]{{standalone}}
                     \usepackage{{booktabs}}
                     \begin{{document}}
+                    \begin{{tabular}}{{|c|c|c|c|c|}}
                     {}
+                    \end{{tabular}}
                     \end{{document}}
                     '''
         with open(filename, 'wb') as f:

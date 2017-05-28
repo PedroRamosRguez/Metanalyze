@@ -4,7 +4,7 @@ from .models import Algorithms,Configuration,ChartsModel,MinAvgMaxChartModel,Min
 def modelConfiguration(form,request):
 	#PONER LA CREACION DEL MODELO DE CONFIGURACION EN UN METODO
 	print 'esto es request.post test'
-	print form.cleaned_data['anova']
+	print form.cleaned_data['evaluation']
 	config = Configuration.objects.create()
 	config.nAlgorithms = form.cleaned_data['nAlgorithms']
 	config.nObjectives = form.cleaned_data['nObjectives']
@@ -15,9 +15,8 @@ def modelConfiguration(form,request):
 	config.bound = request.POST['bound']
 	#config.test = request.POST['test']
 	config.metric = request.POST['metric']
-	print 'llego'
 	config.anova = form.cleaned_data['anova']
-	print 'peto aqui'
+	config.evaluation = form.cleaned_data['evaluation']
 	config.save()
 	return config.id
 #metodo que crea el modelo para cada algoritmo introducido

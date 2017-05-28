@@ -16,7 +16,7 @@ from .models import  Algorithms,Configuration,ChartsModel,MinAvgMaxChartModel,Mi
 #libreria de graficos charts
 from charts import MinChart,AvgChart,MaxChart,MinAvgMaxChart
 from setDataframes import sortAvgDataframe,sortMaxDataframe,sortMinDataframe
-
+import sys
 #from .models import Algorithms,Configuration
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 mediafolder = os.path.join(BASE_DIR, 'media/results/')
@@ -31,6 +31,7 @@ def results(request):
   #variable para obtener el id de configuracion de los algoritmos
   if request.method == 'POST':
     print 'es un post de pruebatemplate..'
+    print request.POST
     form = AlgorithmForm(request.POST)
     #convierte a array de diccionarios los valores que se obtienen.
     dictAlgorithms= ast.literal_eval(request.POST.get('algorithms'))

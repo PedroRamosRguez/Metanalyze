@@ -5,10 +5,11 @@ from labelsChart import labels
 from dataSet import dataset,datasetMinAvgMax
 import getColors as colors
 class MinChart(Chart):
+    getConfiguration = Configuration.objects.filter().latest('id')
     chart_type = 'line'
     scales = {
         'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hypervolume','fontSize':int(15)}}],
-        'xAxes' : [{'scaleLabel':{'display':True,'labelString':'Step','fontSize':int(20)}}]
+        'xAxes' : [{'scaleLabel':{'display':True,'labelString':str(getConfiguration.evaluation),'fontSize':int(20)}}]
         
     }
 
@@ -51,10 +52,11 @@ class MinChart(Chart):
         return labelsChart
 
 class AvgChart(Chart):
+    getConfiguration = Configuration.objects.filter().latest('id')
     chart_type = 'line'
     scales = {
         'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hypervolume','fontSize':int(15)}}],
-        'xAxes' : [{'scaleLabel':{'display':True,'labelString':'Step','fontSize':int(20)}}]
+        'xAxes' : [{'scaleLabel':{'display':True,'labelString':str(getConfiguration.evaluation),'fontSize':int(20)}}]
         
     }
     title = {
@@ -95,10 +97,11 @@ class AvgChart(Chart):
         return labelsChart
 
 class MaxChart(Chart):
+    getConfiguration = Configuration.objects.filter().latest('id')
     chart_type = 'line'
     scales = {
         'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hypervolume','fontSize':int(15)}}],
-        'xAxes' : [{'scaleLabel':{'display':True,'labelString':'Step','fontSize':int(20)}}]
+        'xAxes' : [{'scaleLabel':{'display':True,'labelString':str(getConfiguration.evaluation),'fontSize':int(20)}}]
         
     }
     title = {
@@ -138,10 +141,11 @@ class MaxChart(Chart):
         return labelsChart 
 
 class MinAvgMaxChart(Chart):
+    getConfiguration = Configuration.objects.filter().latest('id')
     chart_type = 'line'
     scales = {
         'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hypervolume','fontSize':int(15)}}],
-        'xAxes' : [{'scaleLabel':{'display':True,'labelString':'Step','fontSize':int(20)}}]
+        'xAxes' : [{'scaleLabel':{'display':True,'labelString':str(getConfiguration.evaluation),'fontSize':int(20)}}]
         
     }
     title = {

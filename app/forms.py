@@ -11,8 +11,8 @@ class AlgorithmForm(forms.Form):
         ('no','No')
     )
     CHOICES_evaluations =(
-        ('evaluation','Number of evaluation'),
-        ('time','Time')
+        ('Number of evaluation','Number of evaluation'),
+        ('Time','Time')
     )
     nAlgorithms = forms.CharField(widget = forms.TextInput(attrs = {'name':'nAlgorithms','id': 'nAlgorithms',
         'placeholder': 'Insert the number of algorithms', 'oninput': 'checkAlgorithm()'}),required=True)

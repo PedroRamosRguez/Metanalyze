@@ -4,8 +4,10 @@ from .models import Configuration,Algorithms,ChartsModel,MinAvgMaxChartModel,Min
 from labelsChart import labels
 from dataSet import dataset,datasetMinAvgMax
 import getColors as colors
+import sys
 class MinChart(Chart):
     getConfiguration = Configuration.objects.filter().latest('id')
+  
     chart_type = 'line'
     scales = {
         'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hypervolume','fontSize':int(15)}}],

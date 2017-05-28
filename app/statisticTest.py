@@ -69,8 +69,8 @@ def leveneTest(nAlgorithms,hyperVolumeList):
 	#stats.levene(algoritmo1,algoritmo2)
 	print 'entre a levene test'
 	levene = []
-	
-	for i,v in enumerate(nAlgorithms,hyperVolumeList):
+	print hyperVolumeList
+	for i in range(nAlgorithms):
 		algorithm = np.array(hyperVolumeList[i])
 		j = i+1
 		while j < nAlgorithms:
@@ -89,9 +89,11 @@ def anovaTest(nAlgorithms,hyperVolumeList):
 		j=i+1
 		while j < nAlgorithms:
 			algorithmCompare = np.array(hyperVolumeList[j])
-			anvaTest = stats.f_oneway(algorithmList, algorithmCompare)
+			anvaTest = stats.f_oneway(algorithm, algorithmCompare)
 			anova.append(anvaTest)
 			j +=1
+			print 'esto es anova'
+			print anova
 	return anova
 
 def welchTest(nAlgorithms,hyperVolumeList):

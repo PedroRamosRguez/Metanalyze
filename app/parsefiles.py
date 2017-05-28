@@ -11,6 +11,7 @@ from setChartModels import setChart,setMinAvgMaxChart,setMinChart,setAvgChart,se
 from setDataframes import mainDataFrame,minAvgMaxDataFrame,minDataFrame,avgDataFrame,maxDataFrame
 from statisticTest import calculeMean,calculeMedian,shapiroWilkTest,kruskalWallisTest,leveneTest,anovaTest,welchTest,pvalueMajor,pvalueMinor
 import numpy as np
+import scipy.stats as stats
 def parse(idConfiguration):
 	BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 	print BASE_DIR
@@ -184,34 +185,66 @@ def parse(idConfiguration):
 	if str(getConfiguration.anova) == 'si':
 		#se realizara cada uno de los test...
 		print 'entre al if...'
-
+		#una prueba con dos arrays que si siguen una distribucion normal
+		x = stats.norm.rvs(loc=5, scale=3, size=100)
+		y = stats.norm.rvs(loc=5, scale=3, size=100)
+		z = stats.norm.rvs(loc=5, scale=3, size=100)
+		hyperVolumeList2 =[]
+		algoritmo1 = []
+		algoritmo2 = []
+		algoritmo3 = []
+		for i,v in enumerate(x):
+			algoritmo1.append(v)
+		hyperVolumeList2.append(algoritmo1)
+		for i,v in enumerate(y):
+			algoritmo2.append(v)
+		hyperVolumeList2.append(algoritmo2)
+		for i,v in enumerate(z):
+			algoritmo3.append(v)
+		hyperVolumeList2.append(algoritmo3)
+		print hyperVolumeList2
+		print len(hyperVolumeList2)
+		
 		#retorna el pvalue 
-		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+		#shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList2)
 		shapiroWilktest = pvalueMajor(shapiroWilk)
 		print shapiroWilk
 		print shapiroWilktest
 		
 		if shapiroWilktest == True:
 			print 'se distribuyen normalmente'
-			levene = leveneTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-			lvnTest = pvalueMajor(levene)
+			#levene = leveneTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+			value = leveneTest(int(getConfiguration.nAlgorithms),hyperVolumeList2)
+			lvnTest = pvalueMajor(value)
 			if lvnTest == True:
 				#se  realizaria anova...
-				anova = anovaTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+				#anova = anovaTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+				value = anovaTest(int(getConfiguration.nAlgorithms),hyperVolumeList2)
+				print 'esto es value:'
+				print value
 			else:
-				welch = welchTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+				#welch = welchTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+				value = welchTest(int(getConfiguration.nAlgorithms),hyperVolumeList2)
 			#sys.exit('parada...')
 		else:
 			print 'no se distribuye normalmente se pasaria a kruskal'
-			kruskalWallis = kruskalWallisTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-			print kruskalWallis
+			#value = kruskalWallisTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+			value = kruskalWallisTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
+			print 'esto es value:'
+			print value
 			#hacer media de cada uno de los algoritmos
 			#hacer la mediana de cada uno de los algoritmos..
-		meanAlgorithms = calculeMean(hyperVolumeList)
-		medianAlgorithms = calculeMedian(hyperVolumeList)
+		#meanAlgorithms = calculeMean(hyperVolumeList)
+		meanAlgorithms = calculeMean(hyperVolumeList2)
+		#medianAlgorithms = calculeMedian(hyperVolumeList)
+		medianAlgorithms = calculeMedian(hyperVolumeList2)
+		print 'media y mediana'
 		print meanAlgorithms
 		print medianAlgorithms
-		for i,v in enumerate(kruskalWallis):
+		print 'esto es value'
+		print value
+		for i,v in enumerate(value):
 			j = i+1
 			if(v[1] < 0.05):	#pvalue menor a 0.05 en caso de minimizacion se hace este caso
 				if meanAlgorithms[i] > meanAlgorithms[j] and medianAlgorithms[i] < medianAlgorithms[j]:
@@ -224,6 +257,7 @@ def parse(idConfiguration):
 					print 'flecha abajo, el algoritmo1 es peor que el 2'
 			else:
 				print 'imprimir = no existen diferencias...'
+		#crear un dataframe con los resultados...
 		sys.exit('parada')
 		'''print 'entre en kruskal'
 		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)

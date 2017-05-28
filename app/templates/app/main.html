@@ -103,6 +103,15 @@
               </p>  
             {% endfor %}
           </div>
+          <div id="xAxisChart">
+            <p><strong>Title xAxis chart</strong></p>
+            {% for choice in form.evaluation %}
+              <p >
+                <input name="{{ choice.name }}" type="radio" class="with-gap dataOutput" id="{{ choice.choice_value }}" value={{ choice.choice_value }}>
+                <label for="{{ choice.choice_value }}">{{ choice.choice_label }}</label>
+              </p>  
+            {% endfor %}
+          </div>
         </div>
       </div>
       <button class="btn waves-effect waves-light " type="submit" name="action" id="send">Send

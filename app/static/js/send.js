@@ -30,6 +30,7 @@ $("#formulario").submit(() =>{
     formData.append('anova',$('input[name=anova]:checked').val())
     //formData.append('test',JSON.stringify($('#test').val()))
     formData.append('dataOutput',$('input[name=dataOutput]:checked').val())
+    formData.append('evaluation',$('input[name=evaluation]:checked').val())
     formData.append('nObjectives',document.getElementById('nObjectives').value)
     formData.append('nExecutions',document.getElementById('nExecutions').value)
     formData.append('step',document.getElementById('step').value)

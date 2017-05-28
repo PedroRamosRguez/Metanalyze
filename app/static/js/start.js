@@ -14,6 +14,7 @@
  	$('#algorithmConfiguration').hide();
  	//$('#selectMetric').hide();
  	$('#selectBound').hide();
+ 	$('#xAxisChart').hide();
   })
 
 

@@ -10,6 +10,10 @@ class AlgorithmForm(forms.Form):
         ('si','Si'),
         ('no','No')
     )
+    CHOICES_evaluations =(
+        ('evaluation','Number of evaluation'),
+        ('time','Time')
+    )
     nAlgorithms = forms.CharField(widget = forms.TextInput(attrs = {'name':'nAlgorithms','id': 'nAlgorithms',
         'placeholder': 'Insert the number of algorithms', 'oninput': 'checkAlgorithm()'}),required=True)
               
@@ -38,3 +42,4 @@ class AlgorithmForm(forms.Form):
     stopCondition = forms.CharField(widget = forms.TextInput(attrs= {'id': 'stopCondition','name': 'stopCondition',
         'placeholder': 'Insert the stop condition'}),required=True)
     anova = forms.ChoiceField(widget=forms.RadioSelect(attrs = {'class': 'with-gap dataOutput'}),choices=CHOICES_anova, required=True)
+    evaluation = forms.ChoiceField(widget=forms.RadioSelect(attrs = {'class': 'with-gap dataOutput'}),choices=CHOICES_evaluations, required=True)

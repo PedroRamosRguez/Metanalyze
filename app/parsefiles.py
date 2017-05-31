@@ -11,6 +11,7 @@ from setChartModels import setChart,setMinAvgMaxChart,setMinChart,setAvgChart,se
 from setDataframes import mainDataFrame,minAvgMaxDataFrame,minDataFrame,avgDataFrame,maxDataFrame
 from statisticTest import calculeMean,calculeMedian,shapiroWilkTest,kruskalWallisTest,leveneTest,anovaTest,welchTest,pvalueMajor,pvalueMinor
 import numpy as np
+import pandas as pd
 import scipy.stats as stats
 def parse(idConfiguration):
 	BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -199,11 +200,11 @@ def parse(idConfiguration):
 		for i,v in enumerate(y):
 			algoritmo2.append(v)
 		hyperVolumeList2.append(algoritmo2)
-		for i,v in enumerate(z):
+		'''for i,v in enumerate(z):
 			algoritmo3.append(v)
 		hyperVolumeList2.append(algoritmo3)
 		print hyperVolumeList2
-		print len(hyperVolumeList2)
+		print len(hyperVolumeList2)'''
 		
 		#retorna el pvalue 
 		#shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
@@ -244,6 +245,8 @@ def parse(idConfiguration):
 		print medianAlgorithms
 		print 'esto es value'
 		print value
+		statisticDfTex =pd.DataFrame(index=['algoritmo1','algoritmo2'],)
+		statisticDfTxt =pd.DataFrame(index=['algoritmo1','algoritmo2'],)
 		for i,v in enumerate(value):
 			j = i+1
 			if(v[1] < 0.05):	#pvalue menor a 0.05 en caso de minimizacion se hace este caso
@@ -257,84 +260,19 @@ def parse(idConfiguration):
 					print 'flecha abajo, el algoritmo1 es peor que el 2'
 			else:
 				print 'imprimir = no existen diferencias...'
+				statisticDfTex.set_value('algoritmo1','algoritmo1',u'\u2194')
+				statisticDfTex.set_value('algoritmo1','algoritmo2',u'\u8593')
+				statisticDftex.set_value('algoritmo2','algoritmo1',u'\u8595')
+				statisticDfTex.set_value('algoritmo2','algoritmo2',u'\u2194')
+
+				statisticDfTxt.set_value('algoritmo1','algoritmo1','-')
+				statisticDfTxt.set_value('algoritmo1','algoritmo2','>')
+				statisticDftxt.set_value('algoritmo2','algoritmo1','-')
+				statisticDfTxt.set_value('algoritmo2','algoritmo2','<')
+
+		print statisticDf
 		#crear un dataframe con los resultados...
-		sys.exit('parada')
-		'''print 'entre en kruskal'
-		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-		shapiroWilktest = pvalueminor(shapiroWilk)
-		if shapiroWilktest == True:
-			print 'no se distribuye normalemente se realizara el test de kruskal-wallis'
-			kruskalWallis = kruskalWallisTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-			print kruskalWallis
-			if kruskalWallis[0][1] <0.05:
-				print 'las medianas son iguales'
-			else:
-				print 'las medianas no son iguales.'
-		else:
-			print 'se distribuyen normalmente'
-	
-		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-		shapiroWilktest = pvalueMajor(shapiroWilk)
-		if shapiroWilktest == True:
-			print 'se distribuyen normalmente se pasa a hacer levene'
-			levene = leveneTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-			if levene[0][1] >= 0.05:
-				print 'existe homogeneidad en las varianzas se podria pasar a realizar ANOVA'
-			else:
-				print 'no existe homogeneidad entre las varianzas'
-		else:
-			print 'no se distribuye normalmente se pasaria a kruskal'''
 		
-	
-		'''shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-		shapiroWilktest = pvalueMajor(shapiroWilk)
-		if shapiroWilktest == True:
-			print shapiroWilk
-			print 'se distribuyen normalmente se pasa a hacer levene'
-			levene = leveneTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-			if levene[0][1] >= 0.05:
-				print 'existe homogeneidad en las varianzas se podria pasar a realizar ANOVA'
-				anova = anovaTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-				if anova[0][1] < 0.05:
-					print 'existen diferencias significativas'
-				else:
-					print 'no existen diferencias significativas...'''
-	'''if 'Welch' in tests:
-		print 'hacer welch...'
-		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-		shapiroWilktest = pvalueMajor(shapiroWilk)
-		if shapiroWilktest == True:
-			print 'se distribuyen normalmente se pasa a hacer levene'
-			levene = leveneTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-			if levene[0][1] < 0.05:
-				print 'no existe homogeneidad en las varianzas se realiza welch'
-				welch = welchTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-				if welch[0][1] < 0.05:
-					print 'se realiza anova...'
-					anova = anovaTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
-					if anova[0][1] < 0.05:
-						print 'existen diferencias significativas'
-					else:
-						print 'no existen diferencias significativas...'
-			else:
-				print 'existe homogeneidad entre las varianzas'
-		else:
-			print 'no se distribuye normalmente se pasaria a kruskal
-	
-
-		#stats.kruskal(algoritmo1, algoritmo2)
-	print shapiroWilk'''
-	#REALIZAR LOS TEST ESTADISTICOS...
-	'''ORDEN DE REALIZACION DE LOS TESTS...
-		1. SHAPIRO WILK
-			- . SI P<0.05 KRUSKAL-WALLIS
-			- . SI P>0.05 LEVENE
-		2.  SI LEVENE DA P>= 0.05 -> ANOVA
-			SI LEVENE DA P <0.05 -> WELCH
-		3. SI WELCH DA P <0.05 -> ANOVA
-	POR TANTO SI EL USUARIO INTRODUCE ANOVA, HAY QUE REALIZAR TODOS LOS TEST ANTERIORES
-	EN CASI DE QUE SELECCIONE LEVENE POR EJEMPLO, PUES SHAPIRO-WILK (P>=0.05) Y REALIZAR LEVENE'''
-
 
 	
 

@@ -16,7 +16,6 @@ from .models import  Algorithms,Configuration,ChartsModel,MinAvgMaxChartModel,Mi
 #libreria de graficos charts
 from charts import MinChart,AvgChart,MaxChart,MinAvgMaxChart
 from setDataframes import sortAvgDataframe,sortMaxDataframe,sortMinDataframe
-import sys
 #from .models import Algorithms,Configuration
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 mediafolder = os.path.join(BASE_DIR, 'media/results/')
@@ -107,9 +106,23 @@ def results(request):
           dataFrame = dataFrame.drop('0',1)
         df.append(dataFrame)
       html_table =[]
+      txt_df = []
       for i,v in enumerate(df):
         html_df = df[i].to_html()
-        filename = os.path.join(mediafolder,'results'+str(algorithm_names[i])+'.tex')
+        columns = df[i].columns.values
+        stringFormat = str(algorithm_names[i])+'Results'+'\n'
+        for index,row in df[i].iterrows():
+          stringFormat = str(index)+' '
+          for j,v in enumerate(columns):
+            stringFormat = stringFormat + str(row[str(v)])+' '
+          stringFormat = stringFormat + '\n'
+          with open(os.path.join(mediafolder,str(algorithm_names[i])+'.txt'), 'a') as myfile:
+            myfile.write(str(stringFormat))
+
+
+
+
+        filename = os.path.join(mediafolder,str(algorithm_names[i])+'results'+'.tex')
         template = r'''\documentclass[preview]{{standalone}}
                     \usepackage{{booktabs}}
                     \begin{{document}}
@@ -146,6 +159,7 @@ def results(request):
       print 'la salida es plot y tabla'
       dicOutput['algorithmTable'] = algorithmTable
       return render(request, 'app/results.html',dicOutput)
+
   return render(request,'app/results.html') 
 
 

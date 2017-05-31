@@ -245,35 +245,43 @@ def parse(idConfiguration):
 		print medianAlgorithms
 		print 'esto es value'
 		print value
-		statisticDfTex =pd.DataFrame(index=['algoritmo1','algoritmo2'],)
-		statisticDfTxt =pd.DataFrame(index=['algoritmo1','algoritmo2'],)
-		for i,v in enumerate(value):
-			j = i+1
-			if(v[1] < 0.05):	#pvalue menor a 0.05 en caso de minimizacion se hace este caso
-				if meanAlgorithms[i] > meanAlgorithms[j] and medianAlgorithms[i] < medianAlgorithms[j]:
-					print 'poner un asterisco en la tabla...'
-				elif  meanAlgorithms[i] < meanAlgorithms[j] and medianAlgorithms[i] > medianAlgorithms[j]:
-					print 'imprimir asterisco en la tabla...'
-				elif medianAlgorithms[i] < medianAlgorithms[j]:
-					print 'flecha arriba algoritmo1 mejor que el 2'
-				elif medianAlgorithms[i] > medianAlgorithms[j]:
-					print 'flecha abajo, el algoritmo1 es peor que el 2'
-			else:
-				print 'imprimir = no existen diferencias...'
-				statisticDfTex.set_value('algoritmo1','algoritmo1',u'\u2194')
-				statisticDfTex.set_value('algoritmo1','algoritmo2',u'\u8593')
-				statisticDftex.set_value('algoritmo2','algoritmo1',u'\u8595')
-				statisticDfTex.set_value('algoritmo2','algoritmo2',u'\u2194')
+		algorithm_names = []
+		getAlgorithms = Algorithms.objects.filter(configuration__id=getConfiguration.id).values().distinct()
+		for i in range(int(getConfiguration.nAlgorithms)):
+			algorithm_names.append(str(getAlgorithms[i]['algorithm']))
+      	statisticDftex = pd.DataFrame(index=algorithm_names,columns=algorithm_names)
+      	statisticDftxt = pd.DataFrame(index=algorithm_names,columns=algorithm_names)
+      	for i,v in enumerate(value):
+      		j=i+1
+      		if(v[1] < 0.05):
 
-				statisticDfTxt.set_value('algoritmo1','algoritmo1','-')
-				statisticDfTxt.set_value('algoritmo1','algoritmo2','>')
-				statisticDftxt.set_value('algoritmo2','algoritmo1','-')
-				statisticDfTxt.set_value('algoritmo2','algoritmo2','<')
-
-		print statisticDf
-		#crear un dataframe con los resultados...
-		
-
-	
-
-	
+      			if meanAlgorithms[i] > meanAlgorithms[j] and medianAlgorithms[i] < medianAlgorithms[j]:
+      				print 'poner un asterisco en la tabla'
+      				statisticDftex.set_value(algorithm_names[i],algorithm_names[j],'*')
+      				statisticDftxt.set_value(algorithm_names[i],algorithm_names[j],'*')
+      			elif meanAlgorithms[i] < meanAlgorithms[j] and medianAlgorithms[i] > medianAlgorithms[j]:
+      				print 'imprimir asterisco en la tabla'
+      				statisticDftex.set_value(algorithm_names[i],algorithm_names[j],'*')
+      				statisticDftxt.set_value(algorithm_names[i],algorithm_names[j],'*')
+      			elif medianAlgorithms[i] < medianAlgorithms[j]:
+      				print 'flecha arriba algoritmo1 mejor que el 2'
+      				statisticDftxt.set_value(algorithm_names[i],algorithm_names[j],'+')
+      				statisticDftex.set_value(algorithm_names[i],algorithm_names[j],u'\u2191')
+      				tatisticDftex.set_value(algorithm_names[j],algorithm_names[i],u'\u2193')
+      				statisticDftex.set_value(algorithm_names[i],algorithm_names[i],u'\u2194')
+      				statisticDftex.set_value(algorithm_names[j],algorithm_names[j],u'\u2194')
+      			elif medianAlgorithms[i] > medianAlgorithms[j]:
+      				print 'flecha abajo, el algoritmo1 es peor que el 2'
+      				statisticDftex.set_value(algorithm_names[i],algorithm_names[j],u'\u2193')
+      				statisticDftex.set_value(algorithm_names[j],algorithm_names[i],u'\u2191')
+      				statisticDftxt.set_value(algorithm_names[i],algorithm_names[j],'-')
+      				statisticDftex.set_value(algorithm_names[i],algorithm_names[i],u'\u2194')
+      				statisticDftex.set_value(algorithm_names[j],algorithm_names[j],u'\u2194')
+      		else:
+      			print 'no existen diferencias'
+      			statisticDftex.set_value(algorithm_names[i],algorithm_names[j],u'\u2194')
+      			statisticDftex.set_value(algorithm_names[j],algorithm_names[i],u'\u2194')
+      			statisticDftxt.set_value(algorithm_names[i],algorithm_names[j],'=')
+      			statisticDftxt.set_value(algorithm_names[j],algorithm_names[i],'=')
+      	print statisticDftex
+      	print statisticDftxt

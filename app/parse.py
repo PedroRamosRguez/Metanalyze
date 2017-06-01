@@ -26,23 +26,15 @@ def parseFiles(tar,i,dicAlg,member,getConfiguration):
 			#LAS SOLUCIONES DE LOS OBJETIVOS DEPENDIENDO DEL NUMERO DE OBJETIVOS QUE SE HAYA INSERTADO.
 #=============================================================================================================================
 				if Data[0] == -1.0:
-					print 'white line'
+					#lee una linea en blanco
 					pass
 				if step in dicAlg[str(i)][str(j)].keys() and Data[0]!= -1.0:
 					solution = []
-					print dicAlg[str(i)][str(j)][step]
-					#print 'esto es index objetivos %s'%str(indexObjectives)
-					#print Data
-					#print type(Data)
-					#print Data[0]
+					
 					while indexObjectives < 0:
-						#print 'estoy en el while...'
-						#print solution
-						#print Data
-						#print Data[indexObjectives]
 						solution.append(Data[indexObjectives])
 						indexObjectives +=1
-					print 'sali del while...'
+
 					dicAlg[str(i)][str(j)][step].append(solution)
 					#para comprobar el hiervolumen poner aqui en una lista los resultados...
 	#print dicAlg
@@ -50,19 +42,16 @@ def parseFiles(tar,i,dicAlg,member,getConfiguration):
 
 def parseZipFiles(zf,i,dicAlg,fileList,getConfiguration):
 	for j,filename in enumerate(fileList):
-		print 'entre aqui...'
-		print zf
-		#f = tar.extractfile(file)
+		
+		
 		dicAlg[str(i)][str(j)] = dict()	#crea el diccionario por ejecuciones dentro del algoritmo actual
-		#data = zf.readlines(filename)
+		
 		with zf.open(filename) as f:
 			for line in f:
 				if re.search('^[#]?\s*\w+\s*\d+\n+',line):
 					step = re.sub('^[#]?\s*[a-zA-Z]+\s*','',str(line)).rstrip()
 
 					if not step in dicAlg[str(i)][str(j)].keys():
-						#print 'claves:'
-						#print dicAlg[str(i)][str(j)].keys()
 						dicAlg[str(i)][str(j)][step]=[]
 					#se detecta que el paso venga dado de la manera 200(200)\n,200 (200)\n y se elimina la parte del parentesis
 				elif re.search('^\d+\s*\(\d+\)\n+',line):
@@ -79,22 +68,12 @@ def parseZipFiles(zf,i,dicAlg,fileList,getConfiguration):
 				#LAS SOLUCIONES DE LOS OBJETIVOS DEPENDIENDO DEL NUMERO DE OBJETIVOS QUE SE HAYA INSERTADO.
 		#=============================================================================================================================
 					if Data[0] == -1.0:
-						print 'white line'
+						#linea en blanco
+						pass
 					if step in dicAlg[str(i)][str(j)].keys() and Data[0]!= -1.0:
 						solution = []
-						print dicAlg[str(i)][str(j)][step]
-						#print 'esto es index objetivos %s'%str(indexObjectives)
-						#print Data
-						#print type(Data)
-						#print Data[0]
 						while indexObjectives < 0:
-							#print 'estoy en el while...'
-							#print solution
-							#print Data
-							#print Data[indexObjectives]
 							solution.append(Data[indexObjectives])
 							indexObjectives +=1
-						print 'sali del while...'
 						dicAlg[str(i)][str(j)][step].append(solution)
-	#print dicAlg
 	return dicAlg

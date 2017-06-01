@@ -67,3 +67,11 @@ class AvgChartModel(models.Model):
 class MaxChartModel(models.Model):
   listValues = ListField()
   configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)
+
+class StatisticDataframeTex(models.Model):
+  listValues = ListField()
+  configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)
+
+class StatisticDataframeTxt(models.Model):
+  listValues = ListField()
+  configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)

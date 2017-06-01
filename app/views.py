@@ -12,7 +12,7 @@ import parsefiles as parse
 import pandas as pd
 import subprocess
 from .forms import AlgorithmForm
-from .models import  Algorithms,Configuration,ChartsModel,MinAvgMaxChartModel,MinChartModel,AvgChartModel,MaxChartModel
+from .models import  Algorithms,Configuration,ChartsModel,MinAvgMaxChartModel,MinChartModel,AvgChartModel,MaxChartModel,StatisticDataframeTex,StatisticDataframeTxt
 #libreria de graficos charts
 from charts import MinChart,AvgChart,MaxChart,MinAvgMaxChart
 from setDataframes import sortAvgDataframe,sortMaxDataframe,sortMinDataframe
@@ -36,10 +36,7 @@ def results(request):
     #array para guardar el nombre de los ficheros que se suban para insertarlos al modelo.
     fileNames = []
     if form.is_valid():
-      print('formulario valido se procede a insertar al modelo')
-      #print(form.is_valid())
-      #print(form.cleaned_data)
-      #hacer un try para que en caso de que no llegue file no haga nada...
+      
       for count, x in enumerate(request.FILES.getlist('file')):
         fileNames.append(x)
         uFiles.process(BASE_DIR,x)
@@ -48,12 +45,8 @@ def results(request):
       #config.metric = request.POST['metric']
       #algorithmModel.nAlgorithms = form.cleaned_data['nAlgorithms']
       for i,item in enumerate(dictAlgorithms):
-        print i
-        print item
         #llama al metodo para crear 
         cModels.modelAlgorithm(item,fileNames[i],idConfiguration)
-        #PONER LA CREACION DEL MODELO DE LOS ALGORITMOS EN UN METODO
-      #return HttpResponse('archivos subidos...')
 
       parse.parse(idConfiguration)
       
@@ -72,14 +65,22 @@ def results(request):
       algorithm_names.append(getAlgorithms[i]['algorithm'])
     if 'table' in str(getConfiguration.dataOutput):
       data = dataModel.listValues
+      statisticDfTex = StatisticDataframeTex.objects.filter().latest('id')
+      statisticDfTxt = StatisticDataframeTxt.objects.filter().latest('id')
+      dataStatisticDftex = statisticDfTex.listValues
+      dataStatisticDftxt = statisticDfTxt.listValues
+      statisticalDfTex = pd.DataFrame.from_dict(dataStatisticDftex[0])
+      statisticalDfTxt = pd.DataFrame.from_dict(dataStatisticDftxt[0])
+      statiscalDfTexTable = statisticalDfTex.to_html()
+      statiscalDfTxtTable = statisticalDfTxt.to_html()
       df = []
       #print data
-      print data[0]['Average'].keys()
+      
       list1 = [int(x) for x in data[0]['Average'].keys()]
       list1.sort()
       for i,value in enumerate(list1):
         list1[i] = str(value)
-      print list1
+      
 
       for i,v in enumerate(data):
         #condicion de mirar en la lista de bounds escogidos...(si esta avg se hace)
@@ -107,6 +108,7 @@ def results(request):
         df.append(dataFrame)
       html_table =[]
       txt_df = []
+
       for i,v in enumerate(df):
         html_df = df[i].to_html()
         columns = df[i].columns.values
@@ -139,7 +141,9 @@ def results(request):
       tFile.add(str(mediafolder),arcname='results')
       #eliminar todos menos el tar...
       #os.delete(join(str(mediafolder),r'^results\s*\w*.\w*'))
-      algorithmTable = zip(algorithm_names,html_table,)
+      algorithmTable = zip(algorithm_names,html_table)
+      statisticTableTex = statiscalDfTexTable
+      statisticTableTxt = statiscalDfTxtTable
     dicOutput = {}
     if len(getConfiguration.bound) == 3:
       dicOutput['minavgmax_chart'] = MinAvgMaxChart
@@ -150,14 +154,16 @@ def results(request):
     if 'Max' in str(getConfiguration.bound):
       dicOutput['max_chart'] = MaxChart
     if str(getConfiguration.dataOutput) =='plot':
-      print 'la salida es plot'
+      #salida de datos plot
       return render(request, 'app/results.html',dicOutput)
     elif str(getConfiguration.dataOutput) == 'table':
-      print 'la salida es tabla..'
-      return render(request,'app/results.html',{'algorithmTable':algorithmTable}) 
+      #salida de datos table
+      print statiscalDfTexTable
+      return render(request,'app/results.html',{'algorithmTable':algorithmTable,'statiscalDfTexTable':statiscalDfTexTable,'statiscalDfTxtTable':statiscalDfTxtTable}) 
     else:
-      print 'la salida es plot y tabla'
+      #salida de datos plot y table
       dicOutput['algorithmTable'] = algorithmTable
+      dicOutput['statiscalDfTexTable'] = statiscalDfTexTable
       return render(request, 'app/results.html',dicOutput)
 
   return render(request,'app/results.html') 
@@ -165,7 +171,7 @@ def results(request):
 
 def download(request):
 
-    print 'entre...'
+    
     filename = os.path.join(mediafolder,'files.tar')# Select your file here.                                
     wrapper = FileWrapper(file(filename))
     response = HttpResponse(wrapper, 'application/x-tar')

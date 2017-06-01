@@ -1,7 +1,3 @@
-#retornar el estadistico y la comparacion se realiza con el estadistico si es mayor el de uno que el de otro 
-#si el estadistico es mayor de un algoritmo con respecto a otro significa que ese algoritmo tiene mejor rendimiento
-#y el pvalue debe ser < a 0.05 si no son iguales
-
 import scipy.stats as stats
 import numpy as np
 def all_same(items):
@@ -66,10 +62,7 @@ def kruskalWallisTest(nAlgorithms,hyperVolumeList):
 	return kruskal
 
 def leveneTest(nAlgorithms,hyperVolumeList):
-	#stats.levene(algoritmo1,algoritmo2)
-	print 'entre a levene test'
 	levene = []
-	print hyperVolumeList
 	for i in range(nAlgorithms):
 		algorithm = np.array(hyperVolumeList[i])
 		j = i+1
@@ -81,8 +74,6 @@ def leveneTest(nAlgorithms,hyperVolumeList):
 	return levene
 
 def anovaTest(nAlgorithms,hyperVolumeList):
-	print 'entre a anova...'
-	#stats.f_oneway(algoritmo1,algoritmo2)
 	anova = []
 	for i in range(nAlgorithms):
 		algorithm = np.array(hyperVolumeList[i])
@@ -101,15 +92,8 @@ def welchTest(nAlgorithms,hyperVolumeList):
 	mean =  calculeMean(hyperVolumeList)	#calcular medias
 	variance = calculeVariance(hyperVolumeList)	#calcular varianzas
 	welch = []
-	
-	'''for i,value in enumerate(hyperVolumeList):
-		algorithm = np.array(hyperVolumeList[i])
-		average.append()
-		variance.append(algorithm.var())'''
 	equalAverage = all_same(mean)
 	if sameAverage == True :
-		#misma media se hace el test de welch asi:
-		#stats.ttest_ind(algoritmo1,algoritmo2)
 		for i,v in range(nAlgorithms):
 			algorithm = np.array(hyperVolumeList[i])
 			j =i+1

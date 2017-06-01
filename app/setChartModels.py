@@ -31,4 +31,14 @@ def setMaxChart(dfMax,idConfiguration):
 	modeList = []
 	for i,v in enumerate(dfMax):
 		modeList.append(v.to_dict())
-	cModels.modelMaxCharts(idConfiguration,modeList) 
+	cModels.modelMaxCharts(idConfiguration,modeList)
+
+def setStatisticalDfTex(statisticalDf,idConfiguration):
+	modeList = []
+	modeList.append(statisticalDf.to_dict())
+	cModels.modelStatisticalDfTex(idConfiguration,modeList)
+
+def setStatisticalDfTxt(statisticalDf,idConfiguration):
+	modeList = []
+	modeList.append(statisticalDf.to_dict())
+	cModels.modelStatisticalDfTxt(idConfiguration,modeList)

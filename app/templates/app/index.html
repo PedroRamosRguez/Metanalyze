@@ -8,8 +8,10 @@
   </head>
   <body>
     <header>{% include "app/header.html"%}</header>
-    <main class="container center" id="main">      
-      <img src="{% static "image/logo.png" %}">
+    <main class="container center" id="main"> 
+      <div class="logo left" id="logo" style="margin-left:100px;margin-top:20px;">     
+        <img src="{% static "image/logo.png" %}">
+      </div>
       <!--style="width:304px;height:228px;"-->
       <div class="container center configuration">
         {% include "app/main.html" %}

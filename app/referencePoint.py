@@ -13,12 +13,10 @@ def referencePointCalculation(dicAlg,referencePoint):
 				for x,value in enumerate(vvv):
 					maxX = float(value[0])
 					maxY = float(value[1])
-					print 'maxX =%f'%maxX
-					print 'maxY =%f'%maxY
 					if maxX > referencePoint[0]:
 						referencePoint[0] = maxX
 					if maxY > referencePoint[1]:
 						referencePoint[1] = maxY
-				print referencePoint
+				
 	 #referencePoint = val
 	return referencePoint

@@ -47,6 +47,7 @@ def parse(idConfiguration):
 			tar = tarfile.open(dir+str(fileName))
 			for member in tar.getmembers():
 				fileList.append(member)
+			
 			sortedByFilename = sortFiles(fileList)
 			fileSorted.append(sortedByFilename)
 			
@@ -175,14 +176,18 @@ def parse(idConfiguration):
 		for i in range(int(getConfiguration.nAlgorithms)):
 			algorithm_names.append(str(getAlgorithms[i]['algorithm']))
 
-
+		print 'llego'
+		print value
+		print len(value)
       	statisticDftex = statisticDataframetex(algorithm_names,value,meanAlgorithms,medianAlgorithms)
+      	print 'peto...'
       	statisticDftxt = statisticDataframetxt(algorithm_names,value,meanAlgorithms,medianAlgorithms)
       	statisticDfhtml = statisticDataframeHtml(algorithm_names,value,meanAlgorithms,medianAlgorithms)
-
+      	print 'llegue...'
       	setStatisticalDfTex(statisticDftex,idConfiguration)
       	setStatisticalDfTxt(statisticDftxt,idConfiguration)
       	setStatisticalDfHtml(statisticDfhtml,idConfiguration)
+      	print 'hola'
       	filename = os.path.join(mediafolder,'statisticalResults.tex')
         template = r'''\documentclass[preview]{{standalone}}
                     \usepackage{{booktabs}}

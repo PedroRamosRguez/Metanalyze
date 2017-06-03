@@ -60,92 +60,100 @@ def sortMinDataframe(dic):
 	df.columns = ['Step','Min']
 	return df
 #crea el dataframe de resultados estadisticos para ficheros latex
-def statisticDataframetex(algorithm_names,value,meanAlgorithms,medianAlgorithms):
-	statisticDftex = pd.DataFrame(index=algorithm_names,columns=algorithm_names)
-	for i,v in enumerate(value):
-  		j=i+1
-  		statisticDftex.set_value(algorithm_names[i],algorithm_names[i],'$\leftrightarrow$')
-  		statisticDftex.set_value(algorithm_names[j],algorithm_names[j],'$\leftrightarrow$')
-  		if(v[1] < 0.05):
-  			#statisticDftex.set_value(algorithm_names[i],algorithm_names[i],u'\u2194')
-  			if meanAlgorithms[i] > meanAlgorithms[j] and medianAlgorithms[i] < medianAlgorithms[j]:
-  				#caso especial se inserta un asterisco
-  				statisticDftex.set_value(algorithm_names[i],algorithm_names[j],'*')
-  				statisticDftex.set_value(algorithm_names[j],algorithm_names[i],'*')
-  			elif meanAlgorithms[i] < meanAlgorithms[j] and medianAlgorithms[i] > medianAlgorithms[j]:
-  				#caso especial se inserta un asterisco
-  				statisticDftex.set_value(algorithm_names[i],algorithm_names[j],'*')
-  				statisticDftex.set_value(algorithm_names[j],algorithm_names[i],'*')
-  			elif medianAlgorithms[i] < medianAlgorithms[j]:
-  				#algoritmo1 mejor que algoritmo2
-  				statisticDftex.set_value(algorithm_names[i],algorithm_names[j],'$\uparrow$')
-  				statisticDftex.set_value(algorithm_names[j],algorithm_names[i],'$\downarrow$')
-  			elif medianAlgorithms[i] > medianAlgorithms[j]:
-  				#algoritmo1 peor que algoritmo2
-  				statisticDftex.set_value(algorithm_names[i],algorithm_names[j],'$\downarrow$')
-  				statisticDftex.set_value(algorithm_names[j],algorithm_names[i],'$\uparrow$')
-  		else:
-  			#no existen diferencias
-  			statisticDftex.set_value(algorithm_names[i],algorithm_names[j],'$\leftrightarrow$')
-  			statisticDftex.set_value(algorithm_names[j],algorithm_names[i],'$\leftrightarrow$')
-  	return statisticDftex
 
+def statisticDataframetex(algorithm_names,value,meanAlgorithms,medianAlgorithms):
+  statisticDftex = pd.DataFrame(index=algorithm_names,columns=algorithm_names)
+  for i,v in enumerate(value):
+    j=i+1
+    while j < int(len(algorithm_names)):
+      statisticDftex.set_value(algorithm_names[i],algorithm_names[i],'$\leftrightarrow$')
+      statisticDftex.set_value(algorithm_names[j],algorithm_names[j],'$\leftrightarrow$')
+      if(v[1] < 0.05):
+        #statisticDftex.set_value(algorithm_names[i],algorithm_names[i],u'\u2194')
+        if meanAlgorithms[i] > meanAlgorithms[j] and medianAlgorithms[i] < medianAlgorithms[j]:
+          #caso especial se inserta un asterisco
+          statisticDftex.set_value(algorithm_names[i],algorithm_names[j],'*')
+          statisticDftex.set_value(algorithm_names[j],algorithm_names[i],'*')
+        elif meanAlgorithms[i] < meanAlgorithms[j] and medianAlgorithms[i] > medianAlgorithms[j]:
+          #caso especial se inserta un asterisco
+          statisticDftex.set_value(algorithm_names[i],algorithm_names[j],'*')
+          statisticDftex.set_value(algorithm_names[j],algorithm_names[i],'*')
+        elif medianAlgorithms[i] < medianAlgorithms[j]:
+          #algoritmo1 mejor que algoritmo2
+          statisticDftex.set_value(algorithm_names[i],algorithm_names[j],'$\uparrow$')
+          statisticDftex.set_value(algorithm_names[j],algorithm_names[i],'$\downarrow$')
+        elif medianAlgorithms[i] > medianAlgorithms[j]:
+          #algoritmo1 peor que algoritmo2
+          statisticDftex.set_value(algorithm_names[i],algorithm_names[j],'$\downarrow$')
+          statisticDftex.set_value(algorithm_names[j],algorithm_names[i],'$\uparrow$')
+      else:
+        #no existen diferencias
+        statisticDftex.set_value(algorithm_names[i],algorithm_names[j],'$\leftrightarrow$')
+        statisticDftex.set_value(algorithm_names[j],algorithm_names[i],'$\leftrightarrow$')
+      j+=1
+  return statisticDftex
 #crea el dataframe de resultados estadisticos para ficheros txt
+
+  		
 def statisticDataframetxt(algorithm_names,value,meanAlgorithms,medianAlgorithms):
-	statisticDftxt = pd.DataFrame(index=algorithm_names,columns=algorithm_names)
-	for i,v in enumerate(value):
-  		j=i+1
-  		statisticDftxt.set_value(algorithm_names[i],algorithm_names[i],'=')
-  		statisticDftxt.set_value(algorithm_names[j],algorithm_names[j],'=')
-  		if(v[1] < 0.05):
-  			#statisticDftex.set_value(algorithm_names[i],algorithm_names[i],u'\u2194')
-  			if meanAlgorithms[i] > meanAlgorithms[j] and medianAlgorithms[i] < medianAlgorithms[j]:
-  				#caso especial se inserta un asterisco
-  				statisticDftxt.set_value(algorithm_names[i],algorithm_names[j],'*')
-  				statisticDftxt.set_value(algorithm_names[j],algorithm_names[i],'*')
-  			elif meanAlgorithms[i] < meanAlgorithms[j] and medianAlgorithms[i] > medianAlgorithms[j]:
-  				#caso especial se inserta un asterisco
-  				statisticDftxt.set_value(algorithm_names[i],algorithm_names[j],'*')
-  				statisticDftxt.set_value(algorithm_names[j],algorithm_names[i],'*')
-  			elif medianAlgorithms[i] < medianAlgorithms[j]:
-  				#algoritmo1 mejor que algoritmo2
-  				statisticDftxt.set_value(algorithm_names[i],algorithm_names[j],'+')
-  				statisticDftxt.set_value(algorithm_names[j],algorithm_names[i],'-')
-  			elif medianAlgorithms[i] > medianAlgorithms[j]:
-  				#algoritmo1 peor que algoritmo2
-  				statisticDftxt.set_value(algorithm_names[i],algorithm_names[j],'-')
-  				statisticDftxt.set_value(algorithm_names[j],algorithm_names[i],'+')
-  		else:
-  			#no existen diferencias
-  			statisticDftxt.set_value(algorithm_names[i],algorithm_names[j],'=')
-  			statisticDftxt.set_value(algorithm_names[j],algorithm_names[i],'=')
-  	return statisticDftxt
+  statisticDftxt = pd.DataFrame(index=algorithm_names,columns=algorithm_names)
+  for i,v in enumerate(value):
+    j=i+1
+    while j < int(len(algorithm_names)):
+      statisticDftxt.set_value(algorithm_names[i],algorithm_names[i],'=')
+      statisticDftxt.set_value(algorithm_names[j],algorithm_names[j],'=')
+      if(v[1] < 0.05):
+        #statisticDftex.set_value(algorithm_names[i],algorithm_names[i],u'\u2194')
+        if meanAlgorithms[i] > meanAlgorithms[j] and medianAlgorithms[i] < medianAlgorithms[j]:
+          #caso especial se inserta un asterisco
+          statisticDftxt.set_value(algorithm_names[i],algorithm_names[j],'*')
+          statisticDftxt.set_value(algorithm_names[j],algorithm_names[i],'*')
+        elif meanAlgorithms[i] < meanAlgorithms[j] and medianAlgorithms[i] > medianAlgorithms[j]:
+          #caso especial se inserta un asterisco
+          statisticDftxt.set_value(algorithm_names[i],algorithm_names[j],'*')
+          statisticDftxt.set_value(algorithm_names[j],algorithm_names[i],'*')
+        elif medianAlgorithms[i] < medianAlgorithms[j]:
+          #algoritmo1 mejor que algoritmo2
+          statisticDftxt.set_value(algorithm_names[i],algorithm_names[j],'+')
+          statisticDftxt.set_value(algorithm_names[j],algorithm_names[i],'-')
+        elif medianAlgorithms[i] > medianAlgorithms[j]:
+          #algoritmo1 peor que algoritmo2
+          statisticDftxt.set_value(algorithm_names[i],algorithm_names[j],'-')
+          statisticDftxt.set_value(algorithm_names[j],algorithm_names[i],'+')
+      else:
+        #no existen diferencias
+        statisticDftxt.set_value(algorithm_names[i],algorithm_names[j],'=')
+        statisticDftxt.set_value(algorithm_names[j],algorithm_names[i],'=')
+      j+=1
+  return statisticDftxt
 
 def statisticDataframeHtml(algorithm_names,value,meanAlgorithms,medianAlgorithms):
   statisticDfhtml = pd.DataFrame(index=algorithm_names,columns=algorithm_names)
   for i,v in enumerate(value):
       j=i+1
-      statisticDfhtml.set_value(algorithm_names[i],algorithm_names[i],u'\u2194')
-      statisticDfhtml.set_value(algorithm_names[j],algorithm_names[j],u'\u2194')
-      if(v[1] < 0.05):
-        if meanAlgorithms[i] > meanAlgorithms[j] and medianAlgorithms[i] < medianAlgorithms[j]:
-          #caso especial se inserta un asterisco
-          statisticDfhtml.set_value(algorithm_names[i],algorithm_names[j],'*')
-          statisticDfhtml.set_value(algorithm_names[j],algorithm_names[i],'*')
-        elif meanAlgorithms[i] < meanAlgorithms[j] and medianAlgorithms[i] > medianAlgorithms[j]:
-          #caso especial se inserta un asterisco
-          statisticDfhtml.set_value(algorithm_names[i],algorithm_names[j],'*')
-          statisticDfhtml.set_value(algorithm_names[j],algorithm_names[i],'*')
-        elif medianAlgorithms[i] < medianAlgorithms[j]:
-          #algoritmo1 mejor que algoritmo2
-          statisticDfhtml.set_value(algorithm_names[i],algorithm_names[j],u'\u2191')
-          statisticDfhtml.set_value(algorithm_names[j],algorithm_names[i],u'\u2193')
-        elif medianAlgorithms[i] > medianAlgorithms[j]:
-          #algoritmo1 peor que algoritmo2
-          statisticDfhtml.set_value(algorithm_names[i],algorithm_names[j],u'\u2193')
-          statisticDfhtml.set_value(algorithm_names[j],algorithm_names[i],u'\u2191')
-      else:
-        #no existen diferencias
-        statisticDfhtml.set_value(algorithm_names[i],algorithm_names[j],u'\u2194')
-        statisticDfhtml.set_value(algorithm_names[j],algorithm_names[i],u'\u2194')
+      while j < int(len(algorithm_names)):
+        statisticDfhtml.set_value(algorithm_names[i],algorithm_names[i],u'\u2194')
+        statisticDfhtml.set_value(algorithm_names[j],algorithm_names[j],u'\u2194')
+        if(v[1] < 0.05):
+          if meanAlgorithms[i] > meanAlgorithms[j] and medianAlgorithms[i] < medianAlgorithms[j]:
+            #caso especial se inserta un asterisco
+            statisticDfhtml.set_value(algorithm_names[i],algorithm_names[j],'*')
+            statisticDfhtml.set_value(algorithm_names[j],algorithm_names[i],'*')
+          elif meanAlgorithms[i] < meanAlgorithms[j] and medianAlgorithms[i] > medianAlgorithms[j]:
+            #caso especial se inserta un asterisco
+            statisticDfhtml.set_value(algorithm_names[i],algorithm_names[j],'*')
+            statisticDfhtml.set_value(algorithm_names[j],algorithm_names[i],'*')
+          elif medianAlgorithms[i] < medianAlgorithms[j]:
+            #algoritmo1 mejor que algoritmo2
+            statisticDfhtml.set_value(algorithm_names[i],algorithm_names[j],u'\u2191')
+            statisticDfhtml.set_value(algorithm_names[j],algorithm_names[i],u'\u2193')
+          elif medianAlgorithms[i] > medianAlgorithms[j]:
+            #algoritmo1 peor que algoritmo2
+            statisticDfhtml.set_value(algorithm_names[i],algorithm_names[j],u'\u2193')
+            statisticDfhtml.set_value(algorithm_names[j],algorithm_names[i],u'\u2191')
+        else:
+          #no existen diferencias
+          statisticDfhtml.set_value(algorithm_names[i],algorithm_names[j],u'\u2194')
+          statisticDfhtml.set_value(algorithm_names[j],algorithm_names[i],u'\u2194')
+        j+=1
   return statisticDfhtml

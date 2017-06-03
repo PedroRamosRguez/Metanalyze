@@ -13,7 +13,7 @@ def modelConfiguration(form,request):
 	config.bound = request.POST['bound']
 	#config.test = request.POST['test']
 	config.metric = request.POST['metric']
-	config.anova = form.cleaned_data['anova']
+	config.statisticTest = form.cleaned_data['anova']
 	config.evaluation = form.cleaned_data['evaluation']
 	config.save()
 	return config.id

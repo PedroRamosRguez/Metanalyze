@@ -28,7 +28,7 @@ class ListField(models.TextField):
 # Create your models here.
 class Configuration(models.Model):
   nAlgorithms = models.CharField(max_length = 100) #Numero de algoritmos
-  test =  ListField()#models.CharField(max_length = 100)        #Almacena los tests estadisticos que se realizaran
+  #test =  ListField()#models.CharField(max_length = 100)        #Almacena los tests estadisticos que se realizaran
   nObjectives = models.CharField(max_length = 100)  #Numero de objetivos que se utiliza para el analisis del algoritmo
   nExecutions = models.CharField(max_length = 100) #Numero de ejecuciones realizadas para las pruebas del algoritmo
   step = models.CharField(max_length = 100)        #Numero del paso del analisis del algoritmo. Ej; cada 200

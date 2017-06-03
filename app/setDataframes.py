@@ -1,5 +1,5 @@
 import pandas as pd
-import sys
+import sympy
 from collections import OrderedDict
 def mainDataFrame(dictHvAlg):
 	df = []
@@ -64,8 +64,8 @@ def statisticDataframetex(algorithm_names,value,meanAlgorithms,medianAlgorithms)
 	statisticDftex = pd.DataFrame(index=algorithm_names,columns=algorithm_names)
 	for i,v in enumerate(value):
   		j=i+1
-  		statisticDftex.set_value(algorithm_names[i],algorithm_names[i],'\ leftrightarrow')
-  		statisticDftex.set_value(algorithm_names[j],algorithm_names[j],'\ leftrightarrow')
+  		statisticDftex.set_value(algorithm_names[i],algorithm_names[i],'$\leftrightarrow$')
+  		statisticDftex.set_value(algorithm_names[j],algorithm_names[j],'$\leftrightarrow$')
   		if(v[1] < 0.05):
   			#statisticDftex.set_value(algorithm_names[i],algorithm_names[i],u'\u2194')
   			if meanAlgorithms[i] > meanAlgorithms[j] and medianAlgorithms[i] < medianAlgorithms[j]:
@@ -78,17 +78,16 @@ def statisticDataframetex(algorithm_names,value,meanAlgorithms,medianAlgorithms)
   				statisticDftex.set_value(algorithm_names[j],algorithm_names[i],'*')
   			elif medianAlgorithms[i] < medianAlgorithms[j]:
   				#algoritmo1 mejor que algoritmo2
-  				statisticDftex.set_value(algorithm_names[i],algorithm_names[j],'\ uparrow')
-  				statisticDftex.set_value(algorithm_names[j],algorithm_names[i],'\ downarrow')
+  				statisticDftex.set_value(algorithm_names[i],algorithm_names[j],'$\uparrow$')
+  				statisticDftex.set_value(algorithm_names[j],algorithm_names[i],'$\downarrow$')
   			elif medianAlgorithms[i] > medianAlgorithms[j]:
   				#algoritmo1 peor que algoritmo2
-  				statisticDftex.set_value(algorithm_names[i],algorithm_names[j],'\ downarrow')
-  				statisticDftex.set_value(algorithm_names[j],algorithm_names[i],'\ uparrow')
+  				statisticDftex.set_value(algorithm_names[i],algorithm_names[j],'$\downarrow$')
+  				statisticDftex.set_value(algorithm_names[j],algorithm_names[i],'$\uparrow$')
   		else:
   			#no existen diferencias
-  			statisticDftex.set_value(algorithm_names[i],algorithm_names[j],'\ leftrightarrow')
-  			statisticDftex.set_value(algorithm_names[j],algorithm_names[i],'\ leftrightarrow')
-	
+  			statisticDftex.set_value(algorithm_names[i],algorithm_names[j],'$\leftrightarrow$')
+  			statisticDftex.set_value(algorithm_names[j],algorithm_names[i],'$\leftrightarrow$')
   	return statisticDftex
 
 #crea el dataframe de resultados estadisticos para ficheros txt

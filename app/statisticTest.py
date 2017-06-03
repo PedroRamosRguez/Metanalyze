@@ -59,6 +59,7 @@ def kruskalWallisTest(nAlgorithms,hyperVolumeList):
 			kruskal.append(kruskalTest)
 			print kruskal
 			j +=1
+	
 	return kruskal
 
 def leveneTest(nAlgorithms,hyperVolumeList):

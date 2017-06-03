@@ -175,11 +175,12 @@ def parse(idConfiguration):
 		for i in range(int(getConfiguration.nAlgorithms)):
 			algorithm_names.append(str(getAlgorithms[i]['algorithm']))
 
+
       	statisticDftex = statisticDataframetex(algorithm_names,value,meanAlgorithms,medianAlgorithms)
       	statisticDftxt = statisticDataframetxt(algorithm_names,value,meanAlgorithms,medianAlgorithms)
       	setStatisticalDfTex(statisticDftex,idConfiguration)
       	setStatisticalDfTxt(statisticDftxt,idConfiguration)
-      	print 'llego'
+
       	filename = os.path.join(mediafolder,'statisticalResults.tex')
         template = r'''\documentclass[preview]{{standalone}}
                     \usepackage{{booktabs}}
@@ -189,9 +190,8 @@ def parse(idConfiguration):
                     \end{{tabular}}
                     \end{{document}}
                     '''
-        #no genera el latex con los unicodes..
-        print statisticDftex.to_latex()
+        
         with open(filename, 'wb') as f:
-          f.write(template.format(statisticDftex.to_latex()))
+          f.write(template.format(statisticDftex.to_latex(escape=False)))
         subprocess.call(['pdflatex','-output-directory='+str(mediafolder),filename])
-      	#crear el fichero txt...
+      	

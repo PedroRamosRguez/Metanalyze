@@ -130,7 +130,7 @@ def statisticDataframeHtml(algorithm_names,value,meanAlgorithms,medianAlgorithms
       if(v[1] < 0.05):
         if meanAlgorithms[i] > meanAlgorithms[j] and medianAlgorithms[i] < medianAlgorithms[j]:
           #caso especial se inserta un asterisco
-          sstatisticDfhtml.set_value(algorithm_names[i],algorithm_names[j],'*')
+          statisticDfhtml.set_value(algorithm_names[i],algorithm_names[j],'*')
           statisticDfhtml.set_value(algorithm_names[j],algorithm_names[i],'*')
         elif meanAlgorithms[i] < meanAlgorithms[j] and medianAlgorithms[i] > medianAlgorithms[j]:
           #caso especial se inserta un asterisco
@@ -142,7 +142,7 @@ def statisticDataframeHtml(algorithm_names,value,meanAlgorithms,medianAlgorithms
           statisticDfhtml.set_value(algorithm_names[j],algorithm_names[i],u'\u2193')
         elif medianAlgorithms[i] > medianAlgorithms[j]:
           #algoritmo1 peor que algoritmo2
-          sstatisticDfhtml.set_value(algorithm_names[i],algorithm_names[j],u'\u2193')
+          statisticDfhtml.set_value(algorithm_names[i],algorithm_names[j],u'\u2193')
           statisticDfhtml.set_value(algorithm_names[j],algorithm_names[i],u'\u2191')
       else:
         #no existen diferencias

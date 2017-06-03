@@ -1,4 +1,4 @@
-from .models import Algorithms,Configuration,ChartsModel,MinAvgMaxChartModel,MinChartModel,AvgChartModel,MaxChartModel,StatisticDataframeTex,StatisticDataframeTxt
+from .models import Algorithms,Configuration,ChartsModel,MinAvgMaxChartModel,MinChartModel,AvgChartModel,MaxChartModel,StatisticDataframeTex,StatisticDataframeTxt,StatisticDataframeHtml
 #metodo que crea el modelo de la configuracion de los algoritmos
 def modelConfiguration(form,request):
 	#PONER LA CREACION DEL MODELO DE CONFIGURACION EN UN METODO
@@ -54,10 +54,14 @@ def modelMaxCharts(idConfiguration,listValues):
 def modelStatisticalDfTex(idConfiguration,listValues):
 	statisticalDfTex = StatisticDataframeTex.objects.create(configuration_id=idConfiguration)
 	statisticalDfTex.listValues = listValues
-	print 'lo guardo'
 	statisticalDfTex.save()
+
 def modelStatisticalDfTxt(idConfiguration,listValues):
 	statisticalDfTxt= StatisticDataframeTxt.objects.create(configuration_id=idConfiguration)
 	statisticalDfTxt.listValues = listValues
-	print 'lo guardo'
 	statisticalDfTxt.save()
+
+def modelStatisticalDfHtml(idConfiguration,listValues):
+	statisticalDfHtml= StatisticDataframeHtml.objects.create(configuration_id=idConfiguration)
+	statisticalDfHtml.listValues = listValues
+	statisticalDfHtml.save()

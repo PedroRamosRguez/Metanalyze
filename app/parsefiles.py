@@ -8,7 +8,7 @@ from sortFiles import sortFiles
 from parse import parseFiles,parseZipFiles
 from referencePoint import referencePointInit,referencePointCalculation
 from setChartModels import setChart,setMinAvgMaxChart,setMinChart,setAvgChart,setMaxChart,setStatisticalDfTex,setStatisticalDfTxt,setStatisticalDfHtml
-from setDataframes import mainDataFrame,minAvgMaxDataFrame,minDataFrame,avgDataFrame,maxDataFrame,statisticDataframetex,statisticDataframetxt,statisticDataframehtml
+from setDataframes import mainDataFrame,minAvgMaxDataFrame,minDataFrame,avgDataFrame,maxDataFrame,statisticDataframetex,statisticDataframetxt,statisticDataframeHtml
 from statisticTest import calculeMean,calculeMedian,shapiroWilkTest,kruskalWallisTest,leveneTest,anovaTest,welchTest,pvalueMajor,pvalueMinor
 import pandas as pd
 import scipy.stats as stats
@@ -178,7 +178,8 @@ def parse(idConfiguration):
 
       	statisticDftex = statisticDataframetex(algorithm_names,value,meanAlgorithms,medianAlgorithms)
       	statisticDftxt = statisticDataframetxt(algorithm_names,value,meanAlgorithms,medianAlgorithms)
-      	statisticDfhtml = statisticDataframehtml(algorithm_names,value,meanAlgorithms,medianAlgorithms)
+      	statisticDfhtml = statisticDataframeHtml(algorithm_names,value,meanAlgorithms,medianAlgorithms)
+
       	setStatisticalDfTex(statisticDftex,idConfiguration)
       	setStatisticalDfTxt(statisticDftxt,idConfiguration)
       	setStatisticalDfHtml(statisticDfhtml,idConfiguration)

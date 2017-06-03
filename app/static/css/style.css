@@ -7,3 +7,7 @@ body {
   main {
     flex: 1 0 auto;
   }
+
+ div.statisticTable td{
+  	font-size: 30px;
+  }

@@ -66,6 +66,7 @@ def results(request):
       algorithm_names.append(getAlgorithms[i]['algorithm'])
     if 'table' in str(getConfiguration.dataOutput):
       data = dataModel.listValues
+      print getConfiguration.statisticTest
       if str(getConfiguration.statisticTest) == 'si':
         statisticDfTex = StatisticDataframeTex.objects.filter().latest('id')
         statisticDfTxt = StatisticDataframeTxt.objects.filter().latest('id')

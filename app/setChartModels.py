@@ -42,3 +42,8 @@ def setStatisticalDfTxt(statisticalDf,idConfiguration):
 	modeList = []
 	modeList.append(statisticalDf.to_dict())
 	cModels.modelStatisticalDfTxt(idConfiguration,modeList)
+
+def setStatisticalDfHtml(statisticalDf,idConfiguration):
+	modeList = []
+	modeList.append(statisticalDf.to_dict())
+	cModels.modelStatisticalDfHtml(idConfiguration,modeList)

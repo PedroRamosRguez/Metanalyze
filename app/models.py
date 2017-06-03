@@ -75,3 +75,7 @@ class StatisticDataframeTex(models.Model):
 class StatisticDataframeTxt(models.Model):
   listValues = ListField()
   configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)
+
+class StatisticDataframeHtml(models.Model):
+  listValues = ListField()
+  configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)

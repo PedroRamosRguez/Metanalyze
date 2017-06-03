@@ -12,7 +12,7 @@ import parsefiles as parse
 import pandas as pd
 import subprocess
 from .forms import AlgorithmForm
-from .models import  Algorithms,Configuration,ChartsModel,MinAvgMaxChartModel,MinChartModel,AvgChartModel,MaxChartModel,StatisticDataframeTex,StatisticDataframeTxt
+from .models import  Algorithms,Configuration,ChartsModel,MinAvgMaxChartModel,MinChartModel,AvgChartModel,MaxChartModel,StatisticDataframeTex,StatisticDataframeTxt,StatisticDataframeHtml
 #libreria de graficos charts
 from charts import MinChart,AvgChart,MaxChart,MinAvgMaxChart
 from setDataframes import sortAvgDataframe,sortMaxDataframe,sortMinDataframe
@@ -66,14 +66,15 @@ def results(request):
       algorithm_names.append(getAlgorithms[i]['algorithm'])
     if 'table' in str(getConfiguration.dataOutput):
       data = dataModel.listValues
-      statisticDfTex = StatisticDataframeTex.objects.filter().latest('id')
-      statisticDfTxt = StatisticDataframeTxt.objects.filter().latest('id')
-      dataStatisticDftex = statisticDfTex.listValues
-      dataStatisticDftxt = statisticDfTxt.listValues
-      statisticalDfTex = pd.DataFrame.from_dict(dataStatisticDftex[0])
-      statisticalDfTxt = pd.DataFrame.from_dict(dataStatisticDftxt[0])
-      statiscalDfTexTable = statisticalDfTex.to_html()
-      statiscalDfTxtTable = statisticalDfTxt.to_html()
+      if str(getConfiguration.statisticTest) == 'si':
+        statisticDfTex = StatisticDataframeTex.objects.filter().latest('id')
+        statisticDfTxt = StatisticDataframeTxt.objects.filter().latest('id')
+        statisticDfHtml = StatisticDataframeHtml.objects.filter().latest('id')
+        dataStatisticDftex = statisticDfTex.listValues
+        dataStatisticDftxt = statisticDfTxt.listValues
+        dataStatisticDfhtml = statisticDfHtml.listValues
+        statisticalDfHtml = pd.DataFrame.from_dict(dataStatisticDfhtml[0])
+        statiscalDfHtmlTable = statisticalDfHtml.to_html()
       df = []
       #print data
       
@@ -143,8 +144,7 @@ def results(request):
       #eliminar todos menos el tar...
       #os.delete(join(str(mediafolder),r'^results\s*\w*.\w*'))
       algorithmTable = zip(algorithm_names,html_table)
-      statisticTableTex = statiscalDfTexTable
-      statisticTableTxt = statiscalDfTxtTable
+      statisticTableHtml = statiscalDfHtmlTable
     dicOutput = {}
     if len(getConfiguration.bound) == 3:
       dicOutput['minavgmax_chart'] = MinAvgMaxChart
@@ -159,12 +159,11 @@ def results(request):
       return render(request, 'app/results.html',dicOutput)
     elif str(getConfiguration.dataOutput) == 'table':
       #salida de datos table
-      print statiscalDfTexTable
-      return render(request,'app/results.html',{'algorithmTable':algorithmTable,'statiscalDfTexTable':statiscalDfTexTable,'statiscalDfTxtTable':statiscalDfTxtTable}) 
+      return render(request,'app/results.html',{'algorithmTable':algorithmTable,'statiscalDfHtmlTable':statisticTableHtml}) 
     else:
       #salida de datos plot y table
       dicOutput['algorithmTable'] = algorithmTable
-      dicOutput['statiscalDfTexTable'] = statiscalDfTexTable
+      dicOutput['statiscalDfHtmlTable'] = statisticTableHtml
       return render(request, 'app/results.html',dicOutput)
 
   return render(request,'app/results.html') 

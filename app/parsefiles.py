@@ -141,15 +141,13 @@ def parse(idConfiguration):
 	
 	#obtener los nombres de los algoritmos para crear un df con las comparaciones...
 	algorithm_names = []
-	tests = getConfiguration.test
 	
 	for i in range(int(getConfiguration.nAlgorithms)):
 		algorithm_names.append(getAlgorithms[i]['algorithm'])
 
-
-	
 	if str(getConfiguration.statisticTest) == 'si':
 		#se realizara cada uno de los test...
+		print 'entre'
 		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
 		shapiroWilktest = pvalueMajor(shapiroWilk)
 

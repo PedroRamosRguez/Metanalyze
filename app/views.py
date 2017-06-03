@@ -32,6 +32,7 @@ def results(request):
     print 'es un post de pruebatemplate..'
     form = AlgorithmForm(request.POST)
     #convierte a array de diccionarios los valores que se obtienen.
+    print form.errors
     dictAlgorithms= ast.literal_eval(request.POST.get('algorithms'))
     #array para guardar el nombre de los ficheros que se suban para insertarlos al modelo.
     fileNames = []

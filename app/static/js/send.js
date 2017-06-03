@@ -27,7 +27,7 @@ $("#formulario").submit(() =>{
     formData.append('csrfmiddlewaretoken',csrftoken)
     formData.append('nAlgorithms',document.getElementById('nAlgorithms').value)
     formData.append('algorithms',JSON.stringify(alg))
-    formData.append('anova',$('input[name=anova]:checked').val())
+    formData.append('statisticTest',$('input[name=statisticTest]:checked').val())
     //formData.append('test',JSON.stringify($('#test').val()))
     formData.append('dataOutput',$('input[name=dataOutput]:checked').val())
     if ($('input[name=evaluation]:checked').val() == undefined){

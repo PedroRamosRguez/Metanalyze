@@ -36,7 +36,7 @@ class Configuration(models.Model):
   dataOutput = models.CharField(max_length = 100)   #Formato de salida de datos despues de realizar el analisis(grafico,tabla o ambas)
   bound =  ListField()#models.CharField(max_length = 100)        #Guardara la opcion de calcular en la metrica: minimo, media o maximo
   metric =  ListField()#models.CharField(max_length = 100)       # Guarda la metrica o metricas que se analizaran
-  anova = models.CharField(max_length = 2)
+  statisticTest = models.CharField(max_length = 2)
   evaluation = models.CharField(max_length = 100)     #guarda el titulo del ejex del grafico
 # Mirar el paquete jsonfield para la insercion de valores en el modelo tipo json
 class Algorithms(models.Model):

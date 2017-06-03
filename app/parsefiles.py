@@ -148,7 +148,7 @@ def parse(idConfiguration):
 
 
 	
-	if str(getConfiguration.anova) == 'si':
+	if str(getConfiguration.statisticTest) == 'si':
 		#se realizara cada uno de los test...
 		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
 		shapiroWilktest = pvalueMajor(shapiroWilk)

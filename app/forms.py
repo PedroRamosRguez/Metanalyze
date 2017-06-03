@@ -6,7 +6,7 @@ class AlgorithmForm(forms.Form):
         ('plot', 'Plot'),
         ('table-plot', 'Table and Plot'),
     )
-    CHOICES_anova =(
+    CHOICES_astatisticTest =(
         ('si','Si'),
         ('no','No')
     )
@@ -41,5 +41,5 @@ class AlgorithmForm(forms.Form):
 
     stopCondition = forms.CharField(widget = forms.TextInput(attrs= {'id': 'stopCondition','name': 'stopCondition',
         'placeholder': 'Insert the stop condition'}),required=True)
-    anova = forms.ChoiceField(widget=forms.RadioSelect(attrs = {'class': 'with-gap dataOutput'}),choices=CHOICES_anova, required=True)
+    statisticTest = forms.ChoiceField(widget=forms.RadioSelect(attrs = {'class': 'with-gap dataOutput'}),choices=CHOICES_statisticTest, required=True)
     evaluation = forms.ChoiceField(widget=forms.RadioSelect(attrs = {'class': 'with-gap dataOutput'}),choices=CHOICES_evaluations,required=False)

@@ -147,7 +147,6 @@ def parse(idConfiguration):
 
 	if str(getConfiguration.statisticTest) == 'si':
 		#se realizara cada uno de los test...
-		print 'entre'
 		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
 		shapiroWilktest = pvalueMajor(shapiroWilk)
 

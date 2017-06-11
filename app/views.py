@@ -53,7 +53,7 @@ def results(request):
       
       return HttpResponse('archivos subidos...')
     else:
-      print('estoy en el else...')
+      print('else...')
       #mostrar un render de error 500
       #mostrar algun error o algo..
   else:
@@ -131,7 +131,7 @@ def results(request):
         template = r'''\documentclass[preview]{{standalone}}
                     \usepackage{{booktabs}}
                     \begin{{document}}
-                    \begin{{tabular}}{{|c|c|c|c|c|}}
+                    \begin{{tabular}}{{|c|c|c|c|}}
                     {}
                     \end{{tabular}}
                     \end{{document}}

@@ -7,7 +7,7 @@ class AlgorithmForm(forms.Form):
         ('table-plot', 'Table and Plot'),
     )
     CHOICES_statisticTest =(
-        ('si','Si'),
+        ('yes','Si'),
         ('no','No')
     )
     CHOICES_evaluations =(

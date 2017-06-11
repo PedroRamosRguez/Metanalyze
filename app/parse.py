@@ -1,4 +1,4 @@
-import tarfile,re
+import tarfile,re,os
 import numpy as np
 def parseFiles(tar,i,dicAlg,member,getConfiguration):
 	for j,file in enumerate(member):
@@ -34,7 +34,8 @@ def parseFiles(tar,i,dicAlg,member,getConfiguration):
 					while indexObjectives < 0:
 						solution.append(Data[indexObjectives])
 						indexObjectives +=1
-
+						#introducir aqui en el fichero de texto las soluciones...
+						#ejemplo para introducir en el fichero
 					dicAlg[str(i)][str(j)][step].append(solution)
 					#para comprobar el hiervolumen poner aqui en una lista los resultados...
 	#print dicAlg

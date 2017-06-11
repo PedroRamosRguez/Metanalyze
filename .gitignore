@@ -5,3 +5,12 @@
 *.sqlite3
 
 migrations/
+
+#book folder
+_book
+
+#node_modules folder
+node_modules
+
+#.publish folder from deploy
+.publish

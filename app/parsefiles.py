@@ -145,7 +145,7 @@ def parse(idConfiguration):
 	for i in range(int(getConfiguration.nAlgorithms)):
 		algorithm_names.append(getAlgorithms[i]['algorithm'])
 
-	if str(getConfiguration.statisticTest) == 'si':
+	if str(getConfiguration.statisticTest) == 'yes':
 		#se realizara cada uno de los test...
 		shapiroWilk = shapiroWilkTest(int(getConfiguration.nAlgorithms),hyperVolumeList)
 		shapiroWilktest = pvalueMajor(shapiroWilk)

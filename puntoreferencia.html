@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Formularios en Django · GitBook</title>
+        <title>Punto de referencia · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -57,8 +57,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="formulario.html" />
     
+    <link rel="prev" href="hipervolumen.html" />
     
 
     </head>
@@ -243,7 +243,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.4.1" data-path="djangoForm.html">
+        <li class="chapter " data-level="1.4.1" data-path="djangoForm.html">
             
                 <a href="djangoForm.html">
             
@@ -444,7 +444,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.7.1.1" data-path="puntoreferencia.html">
+        <li class="chapter active" data-level="1.7.1.1" data-path="puntoreferencia.html">
             
                 <a href="puntoreferencia.html">
             
@@ -665,7 +665,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Formularios en Django</a>
+        <a href="." >Punto de referencia</a>
     </h1>
 </div>
 
@@ -680,27 +680,33 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="djangoform">DjangoForm</h2>
-<p>Django form es una API incluida en Django para la creaci&#xF3;n de formularios. </p>
-<p>El uso de formularios en aplicaciones webs es algo fundamental para el correcto funcionamiento de la misma, por tanto, para la creaci&#xF3;n de formularios en aplicaciones Django basta con utilizar esta API importando el m&#xF3;dulo <em>forms</em> de Django <code>from django import forms</code>.</p>
-<p>Una vez se importa este m&#xF3;dulo, es posible generar cualquier elemento que se utilice en un formulario (campos de texto, listas desplegables, radio buttons, checkbox, etc).</p>
-<p>El siguiente ejemplo, es el que se muestra <a href="https://docs.djangoproject.com/en/1.11/topics/forms/" target="_blank">en la documentaci&#xF3;n de Django</a> para introducirse en la creaci&#xF3;n de formularios utilizando la API de Django.</p>
-<h3 id="formulario-en-la-template">Formulario en la template</h3>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/your-name/&quot;</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;post&quot;</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;your_name&quot;</span>&gt;</span>Your name: <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;your_name&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;your_name&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;{{ current_name }}&quot;</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;OK&quot;</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
-</code></pre>
-<h3 id="formulario-creado-con-django-form">Formulario creado con Django Form</h3>
-<p><code>forms.py</code></p>
-<pre><code class="lang-python"><span class="hljs-keyword">from</span> django <span class="hljs-keyword">import</span> forms
+                                <h2 id="punto-de-referencia">Punto de referencia</h2>
+<p>Para realizar el c&#xE1;lculo del hipervolumen, es necesario calcular un punto de referencia. En esta ocasi&#xF3;n, para la obtenci&#xF3;n del punto de referencia se ha realizado mediante el c&#xE1;lculo del peor punto de la coordenada <strong>x</strong> y la peor coordenada del eje <strong>y</strong>. Este punto de referencia, ser&#xE1; el mismo para todos los algoritmos ya que al ser el peor punto de todos es el m&#xE1;s aconsejable poner como punto de referencia.</p>
+<p>Para realizar este c&#xE1;lculo, se necesita pasar el diccionario donde se guarda el contenido de las soluciones de los diferentes algoritmos y la lista donde se almacenar&#xE1; el punto de referencia. La lista del punto de referencia, se ha inicializado a 0 anteriormente dependiendo del n&#xFA;mero de objetivos que se haya introducido en la configuraci&#xF3;n de la ejecuci&#xF3;n de los diferentes algoritmos.</p>
+<p><code>referencePoint.py</code></p>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">referencePointInit</span><span class="hljs-params">(nAlgorithms,nObjectives)</span>:</span>
+    counter = <span class="hljs-number">0</span>
+      referencePoint = []
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(nObjectives):
+        referencePoint.append(<span class="hljs-number">0</span>)
+    <span class="hljs-keyword">return</span> referencePoint
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NameForm</span><span class="hljs-params">(forms.Form)</span>:</span>
-    your_name = forms.CharField(label=<span class="hljs-string">&apos;Your name&apos;</span>, max_length=<span class="hljs-number">100</span>)
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">referencePointCalculation</span><span class="hljs-params">(dicAlg,referencePoint)</span>:</span>
+    <span class="hljs-keyword">for</span> k,v <span class="hljs-keyword">in</span> sorted(dicAlg.iteritems()):
+        <span class="hljs-keyword">for</span> execution,executionvalue <span class="hljs-keyword">in</span> sorted(v.iteritems()):
+            <span class="hljs-keyword">for</span> step,stepvalue <span class="hljs-keyword">in</span> sorted(executionvalue.iteritems()):
+                <span class="hljs-keyword">for</span> x,value <span class="hljs-keyword">in</span> enumerate(stepvalue):
+                    maxX = float(value[<span class="hljs-number">0</span>])
+                    maxY = float(value[<span class="hljs-number">1</span>])
+                    <span class="hljs-keyword">if</span> maxX &gt; referencePoint[<span class="hljs-number">0</span>]:
+                        referencePoint[<span class="hljs-number">0</span>] = maxX
+                    <span class="hljs-keyword">if</span> maxY &gt; referencePoint[<span class="hljs-number">1</span>]:
+                        referencePoint[<span class="hljs-number">1</span>] = maxY
+
+     <span class="hljs-comment">#referencePoint = val</span>
+    <span class="hljs-keyword">return</span> referencePoint
 </code></pre>
-<p>Con la creaci&#xF3;n del formulario en Django mediante el uso de Django Form y la creaci&#xF3;n del template, es posible mostrar con una interfaz sencilla y entendible para el usuario de que debe rellenar el campo con su nombre.</p>
-<p>Al ser una petici&#xF3;n <em>post</em>, en el lado servidor se debe aceptar el formulario, para ello, django form posee de una funci&#xF3;n llamada <strong>is_valid()</strong>. Esta funci&#xF3;n debe devolver <em>True</em> para permitir la introducci&#xF3;n de los datos en el formulario y continuar con la ejecuci&#xF3;n de la aplicaci&#xF3;n.</p>
+<p>Este m&#xE9;todo es cambiable ya que en esta ocasi&#xF3;n s&#xF3;lo se tienen en cuenta coordenadas m&#xE1;ximas para dos objetivos.</p>
 
                                 
                                 </section>
@@ -728,10 +734,10 @@
 
             
                 
-                
-                <a href="formulario.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Formulario de la aplicación">
-                    <i class="fa fa-angle-right"></i>
+                <a href="hipervolumen.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Hipervolumen">
+                    <i class="fa fa-angle-left"></i>
                 </a>
+                
                 
             
         
@@ -740,7 +746,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Formularios en Django","level":"1.4.1","depth":2,"next":{"title":"Formulario de la aplicación","level":"1.4.2","depth":2,"path":"formulario.md","ref":"./formulario.md","articles":[]},"previous":{"title":"Formulario","level":"1.4","depth":1,"ref":"","articles":[{"title":"Formularios en Django","level":"1.4.1","depth":2,"path":"djangoForm.md","ref":"./djangoForm.md","articles":[]},{"title":"Formulario de la aplicación","level":"1.4.2","depth":2,"path":"formulario.md","ref":"./formulario.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"djangoForm.md","mtime":"2017-06-12T09:49:59.304Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-12T11:33:57.149Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Punto de referencia","level":"1.7.1.1","depth":3,"next":{"title":"Tests Estadísticos","level":"1.8","depth":1,"ref":"","articles":[{"title":"Cálculo de medias","level":"1.8.1","depth":2,"ref":"","articles":[]},{"title":"Cálculo de medianas","level":"1.8.2","depth":2,"ref":"","articles":[]},{"title":"Test de Shapiro Wilk","level":"1.8.3","depth":2,"ref":"","articles":[]},{"title":"Test de Kruskal Wallis","level":"1.8.4","depth":2,"ref":"","articles":[]},{"title":"Test de Levene","level":"1.8.5","depth":2,"ref":"","articles":[]},{"title":"Test de Anova","level":"1.8.6","depth":2,"ref":"","articles":[]},{"title":"Test de Welch","level":"1.8.7","depth":2,"ref":"","articles":[]}]},"previous":{"title":"Hipervolumen","level":"1.7.1","depth":2,"path":"hipervolumen.md","ref":"./hipervolumen.md","articles":[{"title":"Punto de referencia","level":"1.7.1.1","depth":3,"path":"puntoreferencia.md","ref":"./puntoreferencia.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"puntoreferencia.md","mtime":"2017-06-12T11:32:38.870Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-12T11:33:57.149Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Metanalyze · GitBook</title>
+        <title>Formulario de la aplicación · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -58,6 +58,8 @@
 
     
     
+    <link rel="prev" href="djangoForm.html" />
+    
 
     </head>
     <body>
@@ -85,7 +87,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -254,7 +256,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="formulario.html">
+        <li class="chapter active" data-level="1.4.2" data-path="formulario.html">
             
                 <a href="formulario.html">
             
@@ -676,7 +678,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Metanalyze</a>
+        <a href="." >Formulario de la aplicación</a>
     </h1>
 </div>
 
@@ -691,10 +693,31 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="metanalyze">Metanalyze</h2>
-<p>Herramienta desarrollada mediante el framework <a href="https://www.djangoproject.com/" target="_blank">Django</a> para la realizaci&#xF3;n del <strong>Trabajo de fin de Grado</strong> del Grado de Ingenier&#xED;a Inform&#xE1;tica en la Universidad de La Laguna (ULL).</p>
-<h2 id="autor-de-la-aplicaci&#xF3;n">Autor de la aplicaci&#xF3;n</h2>
-<p><a href="http://alu0100505078.github.io/" target="_blank">Pedro Manuel Ramos Rodr&#xED;guez</a></p>
+                                <h2 id="creaci&#xF3;n-del-formulario-de-la-aplicaci&#xF3;n">Creaci&#xF3;n del formulario de la aplicaci&#xF3;n</h2>
+<p>Para crear el formulario que se muestra en la pantalla de inicio, se cre&#xF3; la clase <code>class AlgorithmForm(forms.Form):</code> la cual utiliza la clase Form de la API de Django. Para poder utilizar la Django Form, es necesario importar el m&#xF3;dulo ya que si no dar&#xE1; un error <code>from django import forms</code></p>
+<p>Para crear las opciones de los diferentes <strong>radio buttons</strong> que posee el formulario, se crearon de la siguiente forma:</p>
+<pre><code class="lang-python">CHOICES_dataOutput = (
+        (<span class="hljs-string">&apos;table&apos;</span>, <span class="hljs-string">&apos;Table&apos;</span>),
+        (<span class="hljs-string">&apos;plot&apos;</span>, <span class="hljs-string">&apos;Plot&apos;</span>),
+        (<span class="hljs-string">&apos;table-plot&apos;</span>, <span class="hljs-string">&apos;Table and Plot&apos;</span>),
+    )
+    CHOICES_statisticTest =(
+        (<span class="hljs-string">&apos;yes&apos;</span>,<span class="hljs-string">&apos;yes&apos;</span>),
+        (<span class="hljs-string">&apos;no&apos;</span>,<span class="hljs-string">&apos;No&apos;</span>)
+    )
+    CHOICES_evaluations =(
+        (<span class="hljs-string">&apos;Number_of_evaluation&apos;</span>,<span class="hljs-string">&apos;Number of evaluation&apos;</span>),
+        (<span class="hljs-string">&apos;Time&apos;</span>,<span class="hljs-string">&apos;Time&apos;</span>)
+    )
+</code></pre>
+<p>Gracias a la API de Django Form que posee el framework, es posible generar de esta manera tan f&#xE1;cil las opciones que se deseen en un radio button.</p>
+<p>Para generar el radio button como tal y se muestre en nuestro formulario es necesario configurarlo. Para configurar por ejemplo el de <strong>statisticTest</strong>, se realiz&#xF3; de la siguiente manera:</p>
+<p><code>statisticTest = forms.ChoiceField(widget=forms.RadioSelect(attrs = {&apos;class&apos;: &apos;with-gap dataOutput&apos;}),choices=CHOICES_statisticTest, required=True)</code></p>
+<p>Esto lo que permite hacer es crear un radio button con el nombre statisticTest, el cual mediante el uso de <code>forms.ChoiceField(widget=forms.RadioSelect</code> se le dice a la API que es un bot&#xF3;n tipo radio y mediante los atributos que se le a&#xF1;aden con <code>attrs = {&apos;class&apos;: &apos;with-gap dataOutput&apos;}),choices=CHOICES_statisticTest, required=True)</code> se crea con el nombre de cierta clase y con las elecciones que se configuraron anteriormente en <strong>CHOICES_statisticTest</strong> y adem&#xE1;s, con el uso de <em>required=True</em> se exige que este campo se debe rellenar obligaroriamente.</p>
+<p>Para la creaci&#xF3;n del campo de texto idAlgorithm, se realiz&#xF3; de la siguiente manera:</p>
+<p><code>idAlgorithm = forms.CharField(widget = forms.TextInput(attrs={&apos;id&apos;:&apos;idAlgorithm&apos;,
+        &apos;placeholder&apos;:&apos;Introduce the identificator for this algorithm&apos;,&apos;oninput&apos;:&apos;configureAlgorithm()&apos;}),required=False)</code></p>
+<p>Esto crea un campo de texto con el identificador <em>idAlgorithm</em> con el placeholder <code>Introduce the identificator for this algorithm</code> y con un evento oninput el cual llama a una funci&#xF3;n de un fichero <em>Javascript</em> llamada configureAlgorithm. </p>
 
                                 
                                 </section>
@@ -722,6 +745,10 @@
 
             
                 
+                <a href="djangoForm.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Formularios en Django">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
                 
             
         
@@ -730,7 +757,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Metanalyze","level":"1.1","depth":1,"next":{"title":"Despliegue gitbook","level":"1.2","depth":1,"ref":"","articles":[{"title":"Gulp","level":"1.2.1","depth":2,"ref":"","articles":[]},{"title":"Gh-pages","level":"1.2.2","depth":2,"ref":"","articles":[]},{"title":"Gulp-gh-pages","level":"1.2.3","depth":2,"ref":"","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2017-06-11T18:40:38.141Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-12T10:31:06.596Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Formulario de la aplicación","level":"1.4.2","depth":2,"next":{"title":"Modelos","level":"1.5","depth":1,"ref":"","articles":[{"title":"Modelos en Django","level":"1.5.1","depth":2,"path":"djangoModel.md","ref":"./djangoModel.md","articles":[]},{"title":"Modelo Configuration","level":"1.5.2","depth":2,"path":"configurationModel.md","ref":"./configurationModel.md","articles":[]},{"title":"Modelo Algorithms","level":"1.5.3","depth":2,"path":"algorithmsModel.md","ref":"./algorithmsModel.md","articles":[]},{"title":"Modelos de Gráficos","level":"1.5.4","depth":2,"path":"chartModel.md","ref":"./chartModel.md","articles":[]},{"title":"Modelos de resultados estadísticos","level":"1.5.5","depth":2,"path":"statisticModel.md","ref":"./statisticModel.md","articles":[]},{"title":"Creación de objetos de modelos","level":"1.5.6","depth":2,"path":"instanceModel.md","ref":"instanceModel.md","articles":[]}]},"previous":{"title":"Formularios en Django","level":"1.4.1","depth":2,"path":"djangoForm.md","ref":"./djangoForm.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"formulario.md","mtime":"2017-06-12T09:42:50.060Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-12T10:31:06.596Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

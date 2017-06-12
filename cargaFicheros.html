@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Metanalyze · GitBook</title>
+        <title>Carga de Ficheros · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -57,6 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="modelos.html" />
+    
+    
+    <link rel="prev" href="ejecucion.html" />
     
 
     </head>
@@ -85,7 +89,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -196,7 +200,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.3" data-path="cargaFicheros.html">
+        <li class="chapter active" data-level="1.3.3" data-path="cargaFicheros.html">
             
                 <a href="cargaFicheros.html">
             
@@ -676,7 +680,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Metanalyze</a>
+        <a href="." >Carga de Ficheros</a>
     </h1>
 </div>
 
@@ -691,11 +695,43 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="metanalyze">Metanalyze</h2>
-<p>Herramienta desarrollada mediante el framework <a href="https://www.djangoproject.com/" target="_blank">Django</a> para la realizaci&#xF3;n del <strong>Trabajo de fin de Grado</strong> del Grado de Ingenier&#xED;a Inform&#xE1;tica en la Universidad de La Laguna (ULL).</p>
-<h2 id="autor-de-la-aplicaci&#xF3;n">Autor de la aplicaci&#xF3;n</h2>
-<p><a href="http://alu0100505078.github.io/" target="_blank">Pedro Manuel Ramos Rodr&#xED;guez</a></p>
+                                <h3 id="carga-de-ficheros">Carga de ficheros</h3>
+<p>Para cargar los ficheros json, se utiliza un archivo .py para cada fichero Json cargado  y mediante la configuraci&#xF3;n de context_processors en <code>setting.py</code> se puede cargar en cualquier template la variable que se retorne. Esto es muy &#xFA;til para poder cargar de manera din&#xE1;mica en las templates sin tener que configurar nada el usuario.</p>
+<ul>
+<li>A&#xF1;adir en setting.py esa l&#xED;nea<code>&apos;DIRS&apos;: [os.path.join(BASE_DIR, &apos;app/templates&apos;)],</code></li>
+</ul>
+<p>Esto permitir&#xE1; decirle que use el context processors que se encuentra en la app de nuestro proyecto.</p>
+<ul>
+<li><p>A&#xF1;adir adem&#xE1;s en option</p>
+<pre><code>OPTIONS&apos;: {
+      &apos;context_processors&apos;: [
+          &apos;django.template.context_processors.debug&apos;,
+          &apos;django.template.context_processors.request&apos;,
+          &apos;django.contrib.auth.context_processors.auth&apos;,
+          &apos;django.contrib.messages.context_processors.messages&apos;,
+          &apos;app.cargaJsonTest.jsonTest&apos;,
+          &apos;app.cargaJsonAlgoritmos.jsonAlgoritmo&apos;,
+      ],
+  },
+</code></pre><p>Para cargar los ficheros estt&#xE1;ticos <code>como css o archivos javascript</code> se realiz&#xF3; una configuraci&#xF3;n en el archivo <strong>settings.py</strong> del proyecto.
+La configuraci&#xF3;n realizada es la siguiente:</p>
+</li>
+<li><p>Crear una carpeta llamada static dentro de la carpeta del proyecto <code>app/static/</code></p>
+</li>
+<li><p>A&#xF1;adir en setting.py la <code>STATIC_URL = &apos;/static/&apos;</code> que se realiza para poder cargar los ficheros que se encuentren en la carpeta <strong>Static</strong></p>
+</li>
+<li><p>El siguiente paso es a&#xF1;adir el directorio de los ficheros est&#xE1;ticos, es decir, la ruta donde se cargar&#xE1;n esos ficheros que se encontrar&#xE1;n en la carpeta <strong>static</strong>. En este caso, la carpeta estar&#xE1; dentro del directorio de nuestra aplicaci&#xF3;n que hemos llamado app. Adem&#xE1;s, para poder realizar la carga de ficheros est&#xE1;ticos desde nuestras templates mediante el comando  load static (utiliz&#xE1;ndolo entre {} y % antes y al final) se debe poner la static root <code>STATIC_ROOT = os.path.join(BASE_DIR, &apos;app/staticfiles&apos;)</code> que cargar&#xE1; los ficheros est&#xE1;ticos mediante la ruta actual que se guarda en la variable <code>BASE_DIR</code> y se le a&#xF1;ade la ruta <code>app/staticfiles</code></p>
+</li>
+</ul>
+<pre><code>STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, &apos;app/static&apos;),
+)
 
+STATIC_ROOT = os.path.join(BASE_DIR, &apos;app/staticfiles&apos;)
+</code></pre><p>Para la creaci&#xF3;n de la carpeta media y aceptar la subida de ficheros al servidor, hay que realizar una configuraci&#xF3;n previa dentro del proyecto en s&#xED;. La configuraci&#xF3;n realizada es la siguiente:</p>
+<pre><code>MEDIA_ROOT = os.path.join(BASE_DIR,&apos;app/media&apos;)
+MEDIA_URL = &apos;/media/&apos;
+</code></pre>
                                 
                                 </section>
                             
@@ -722,6 +758,14 @@
 
             
                 
+                <a href="ejecucion.html" class="navigation navigation-prev " aria-label="Previous page: Ejecución de la aplicación">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="modelos.html" class="navigation navigation-next " aria-label="Next page: Crear modelos y registrarlos">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -730,7 +774,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Metanalyze","level":"1.1","depth":1,"next":{"title":"Despliegue gitbook","level":"1.2","depth":1,"ref":"","articles":[{"title":"Gulp","level":"1.2.1","depth":2,"ref":"","articles":[]},{"title":"Gh-pages","level":"1.2.2","depth":2,"ref":"","articles":[]},{"title":"Gulp-gh-pages","level":"1.2.3","depth":2,"ref":"","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2017-06-11T18:40:38.141Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-12T10:31:06.596Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Carga de Ficheros","level":"1.3.3","depth":2,"next":{"title":"Crear modelos y registrarlos","level":"1.3.4","depth":2,"path":"modelos.md","ref":"./modelos.md","articles":[]},"previous":{"title":"Ejecución de la aplicación","level":"1.3.2","depth":2,"path":"ejecucion.md","ref":"./ejecucion.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"cargaFicheros.md","mtime":"2017-06-11T18:57:52.379Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-12T10:31:06.596Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Metanalyze · GitBook</title>
+        <title>Crear modelos y registrarlos · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -58,6 +58,8 @@
 
     
     
+    <link rel="prev" href="cargaFicheros.html" />
+    
 
     </head>
     <body>
@@ -85,7 +87,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -209,7 +211,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.4" data-path="modelos.html">
+        <li class="chapter active" data-level="1.3.4" data-path="modelos.html">
             
                 <a href="modelos.html">
             
@@ -676,7 +678,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Metanalyze</a>
+        <a href="." >Crear modelos y registrarlos</a>
     </h1>
 </div>
 
@@ -691,10 +693,33 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="metanalyze">Metanalyze</h2>
-<p>Herramienta desarrollada mediante el framework <a href="https://www.djangoproject.com/" target="_blank">Django</a> para la realizaci&#xF3;n del <strong>Trabajo de fin de Grado</strong> del Grado de Ingenier&#xED;a Inform&#xE1;tica en la Universidad de La Laguna (ULL).</p>
-<h2 id="autor-de-la-aplicaci&#xF3;n">Autor de la aplicaci&#xF3;n</h2>
-<p><a href="http://alu0100505078.github.io/" target="_blank">Pedro Manuel Ramos Rodr&#xED;guez</a></p>
+                                <h3 id="a&#xF1;adir-los-modelos-y-registrarlos">A&#xF1;adir los modelos y registrarlos</h3>
+<p>Para el registro de los modelos creados en la aplicaci&#xF3;n y poder guardar datos en la base de datos se deben seguir una serie de pasos:</p>
+<ul>
+<li><p>A&#xF1;adir a setting.py en <code>INSTALLED_APPS</code> la localizaci&#xF3;n de los modelos, en caso de que sea en el directorio de la aplicaci&#xF3;n, a&#xF1;adir el nombre de la aplicaci&#xF3;n </p>
+<pre><code>INSTALLED_APPS = (
+  &apos;django.contrib.admin&apos;,
+  &apos;django.contrib.auth&apos;,
+  &apos;django.contrib.contenttypes&apos;,
+  &apos;django.contrib.sessions&apos;,
+  &apos;django.contrib.messages&apos;,
+  &apos;django.contrib.staticfiles&apos;,
+  &apos;app&apos;,
+)
+</code></pre></li>
+<li><p>EL siguiente paso&apos;ser&#xE1; introducir una serie de comandos para realizar la migraci&#xF3;n y creaci&#xF3;n de las tablas sql:</p>
+<ul>
+<li><code>python manage.py makemigrations [nombre que se a&#xF1;adi&#xF3; en settings.py]</code></li>
+<li><code>python manage.py sqlmigrate [nombre que se a&#xF1;adi&#xF3; en settings.py] 000X</code></li>
+<li><code>python manage.py migrate</code></li>
+</ul>
+</li>
+<li><p>Finalmente,se debe registrar el o los modelos creados. Para el registro de los modelos, se debe a&#xF1;adir en admin.py las siguientes l&#xED;neas:</p>
+<pre><code>  from .models import nombreModelo1,nombreModelo2
+  admin.site.register(nombreModelo1)
+  admin.site.register(nombreModelo2)
+</code></pre></li>
+</ul>
 
                                 
                                 </section>
@@ -722,6 +747,10 @@
 
             
                 
+                <a href="cargaFicheros.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Carga de Ficheros">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
                 
             
         
@@ -730,7 +759,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Metanalyze","level":"1.1","depth":1,"next":{"title":"Despliegue gitbook","level":"1.2","depth":1,"ref":"","articles":[{"title":"Gulp","level":"1.2.1","depth":2,"ref":"","articles":[]},{"title":"Gh-pages","level":"1.2.2","depth":2,"ref":"","articles":[]},{"title":"Gulp-gh-pages","level":"1.2.3","depth":2,"ref":"","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2017-06-11T18:40:38.141Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-12T10:31:06.596Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Crear modelos y registrarlos","level":"1.3.4","depth":2,"next":{"title":"Formulario","level":"1.4","depth":1,"ref":"","articles":[{"title":"Formularios en Django","level":"1.4.1","depth":2,"path":"djangoForm.md","ref":"./djangoForm.md","articles":[]},{"title":"Formulario de la aplicación","level":"1.4.2","depth":2,"path":"formulario.md","ref":"./formulario.md","articles":[]}]},"previous":{"title":"Carga de Ficheros","level":"1.3.3","depth":2,"path":"cargaFicheros.md","ref":"./cargaFicheros.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"modelos.md","mtime":"2017-06-11T18:45:43.107Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-12T10:31:06.596Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Metanalyze · GitBook</title>
+        <title>Modelos en Django · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -57,6 +57,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="configurationModel.html" />
+    
     
 
     </head>
@@ -85,7 +87,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -286,7 +288,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.5.1" data-path="djangoModel.html">
+        <li class="chapter active" data-level="1.5.1" data-path="djangoModel.html">
             
                 <a href="djangoModel.html">
             
@@ -676,7 +678,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Metanalyze</a>
+        <a href="." >Modelos en Django</a>
     </h1>
 </div>
 
@@ -691,10 +693,30 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="metanalyze">Metanalyze</h2>
-<p>Herramienta desarrollada mediante el framework <a href="https://www.djangoproject.com/" target="_blank">Django</a> para la realizaci&#xF3;n del <strong>Trabajo de fin de Grado</strong> del Grado de Ingenier&#xED;a Inform&#xE1;tica en la Universidad de La Laguna (ULL).</p>
-<h2 id="autor-de-la-aplicaci&#xF3;n">Autor de la aplicaci&#xF3;n</h2>
-<p><a href="http://alu0100505078.github.io/" target="_blank">Pedro Manuel Ramos Rodr&#xED;guez</a></p>
+                                <h2 id="djangomodel">DjangoModel</h2>
+<p>Para la creci&#xF3;n de modelos, Django posee en su API otra potente herramienta para guardar los datos en un gestor de base de datos que se tenga configurado. Por defecto, si el usuario no introduce ning&#xFA;n gestor de base de datos, se utilizar&#xE1; por defecto el que viene integrado en Django <em>sqlite</em></p>
+<ul>
+<li>Cada modelo en Django es una subclase de la clase <code>django.db.models.Model</code></li>
+<li>Cada atributo del modelo es un campo de la base de datos</li>
+<li>Con estos pasos y lo explicado anteriormente en la secci&#xF3;n <a href="modelos.html">Crear modelos y registrarlos</a> es posible crear modelos de nuestra aplicaci&#xF3;n web en Django gracias a la potente API que posee para ello.</li>
+</ul>
+<p>A continuaci&#xF3;n, se muestra un ejemplo sencillo que se puede encontrar en la <a href="https://docs.djangoproject.com/en/1.11/topics/db/models/" target="_blank">documentaci&#xF3;n del uso de modelos en Django</a>.</p>
+<p><code>models.py</code></p>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> django.db <span class="hljs-keyword">import</span> models
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span><span class="hljs-params">(models.Model)</span>:</span>
+    first_name = models.CharField(max_length=<span class="hljs-number">30</span>)
+    last_name = models.CharField(max_length=<span class="hljs-number">30</span>)
+</code></pre>
+<p><strong>first_name</strong> y <strong>last_name</strong> son campos del modelo. El tipo de dato de los modelos, se define mediante el uso de <code>models.CharField(max_length=30)</code> el cual quiere decir que ser&#xE1; un campo de texto con una m&#xE1;xima longitud de 30 caracteres.</p>
+<p>Este modelo creado, generar&#xE1; la tabla que se muestra a continuaci&#xF3;n.</p>
+<pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> myapp_person (
+    <span class="hljs-string">&quot;id&quot;</span> <span class="hljs-built_in">serial</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+    <span class="hljs-string">&quot;first_name&quot;</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">30</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+    <span class="hljs-string">&quot;last_name&quot;</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">30</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
+);
+</code></pre>
+<p>El nombre de la tabla se genera autom&#xE1;ticamente por el nombre de la clase. Adem&#xE1;s, cada modelo posee un identificador que ser&#xE1; su clave primaria y es autoincremental.</p>
 
                                 
                                 </section>
@@ -723,6 +745,10 @@
             
                 
                 
+                <a href="configurationModel.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Modelo Configuration">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
             
         
     </div>
@@ -730,7 +756,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Metanalyze","level":"1.1","depth":1,"next":{"title":"Despliegue gitbook","level":"1.2","depth":1,"ref":"","articles":[{"title":"Gulp","level":"1.2.1","depth":2,"ref":"","articles":[]},{"title":"Gh-pages","level":"1.2.2","depth":2,"ref":"","articles":[]},{"title":"Gulp-gh-pages","level":"1.2.3","depth":2,"ref":"","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2017-06-11T18:40:38.141Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-12T10:31:06.596Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Modelos en Django","level":"1.5.1","depth":2,"next":{"title":"Modelo Configuration","level":"1.5.2","depth":2,"path":"configurationModel.md","ref":"./configurationModel.md","articles":[]},"previous":{"title":"Modelos","level":"1.5","depth":1,"ref":"","articles":[{"title":"Modelos en Django","level":"1.5.1","depth":2,"path":"djangoModel.md","ref":"./djangoModel.md","articles":[]},{"title":"Modelo Configuration","level":"1.5.2","depth":2,"path":"configurationModel.md","ref":"./configurationModel.md","articles":[]},{"title":"Modelo Algorithms","level":"1.5.3","depth":2,"path":"algorithmsModel.md","ref":"./algorithmsModel.md","articles":[]},{"title":"Modelos de Gráficos","level":"1.5.4","depth":2,"path":"chartModel.md","ref":"./chartModel.md","articles":[]},{"title":"Modelos de resultados estadísticos","level":"1.5.5","depth":2,"path":"statisticModel.md","ref":"./statisticModel.md","articles":[]},{"title":"Creación de objetos de modelos","level":"1.5.6","depth":2,"path":"instanceModel.md","ref":"instanceModel.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"djangoModel.md","mtime":"2017-06-12T10:02:46.282Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-12T10:31:06.596Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

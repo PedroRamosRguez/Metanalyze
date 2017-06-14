@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Modelos de resultados estadísticos · GitBook</title>
+        <title>Generación de colores · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="instanceModel.md" />
+    <link rel="next" href="etiquetas.html" />
     
     
-    <link rel="prev" href="chartModel.html" />
+    <link rel="prev" href="django-jchart.html" />
     
 
     </head>
@@ -342,7 +342,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.5.5" data-path="statisticModel.html">
+        <li class="chapter " data-level="1.5.5" data-path="statisticModel.html">
             
                 <a href="statisticModel.html">
             
@@ -593,7 +593,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.9.1" data-path="colores.html">
+        <li class="chapter active" data-level="1.9.1" data-path="colores.html">
             
                 <a href="colores.html">
             
@@ -667,7 +667,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Modelos de resultados estadísticos</a>
+        <a href="." >Generación de colores</a>
     </h1>
 </div>
 
@@ -682,19 +682,29 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="modelos-para-la-escritura-de-resultados-estad&#xED;sticos">Modelos para la escritura de resultados estad&#xED;sticos</h2>
-<p>Este modelo, est&#xE1; dividido en varios modelos diferenciando el tipo de fichero donde se escribir&#xE1;n los resultados de los tests estad&#xED;sticos.</p>
-<ul>
-<li>StatisticDataframeTex</li>
-<li>StatisticDataframeTxt</li>
-<li>StatisticDataframeHtml</li>
-</ul>
-<p>Como los resultados estad&#xED;sticos se muestran con una serie de iconos, para mostrarlos en los diferentes formatos de salida se debe utilizar una codificaci&#xF3;n diferente, por tanto, para tener mayor control se cre&#xF3; un modelo para cada tipo de salida de datos.</p>
-<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StatisticDataframeTex</span><span class="hljs-params">(models.Model)</span>:</span>
-    listValues = ListField()
-    configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)
+                                <h2 id="generaci&#xF3;n-de-los-colores-de-los-gr&#xE1;ficos-creados">Generaci&#xF3;n de los colores de los gr&#xE1;ficos creados.</h2>
+<p>Para asignarle colores a los gr&#xE1;ficos generados por la librer&#xED;a <em>Django-jchart</em>, es necesario crear un array con el color rgb y la transparencia del color a&#xF1;adido. Un ejemplo de asignaci&#xF3;n de color a un gr&#xE1;fico ser&#xED;a el siguiente:</p>
+<pre><code class="lang-python">colors = [
+            rgba(<span class="hljs-number">255</span>, <span class="hljs-number">99</span>, <span class="hljs-number">132</span>, <span class="hljs-number">0.2</span>),
+            rgba(<span class="hljs-number">54</span>, <span class="hljs-number">162</span>, <span class="hljs-number">235</span>, <span class="hljs-number">0.2</span>),
+            rgba(<span class="hljs-number">255</span>, <span class="hljs-number">206</span>, <span class="hljs-number">86</span>, <span class="hljs-number">0.2</span>),
+            rgba(<span class="hljs-number">75</span>, <span class="hljs-number">192</span>, <span class="hljs-number">192</span>, <span class="hljs-number">0.2</span>),
+            rgba(<span class="hljs-number">153</span>, <span class="hljs-number">102</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.2</span>),
+            rgba(<span class="hljs-number">255</span>, <span class="hljs-number">159</span>, <span class="hljs-number">64</span>, <span class="hljs-number">0.2</span>)
+        ]
 </code></pre>
-<p>Los modelos est&#xE1;n compuesto por la clave for&#xE1;nea al identificador de la configuraci&#xF3;n y una lista de valores donde se guardar&#xE1;n los s&#xED;mbolos de los resultados de los test estad&#xED;sticos.</p>
+<p>Debido a que la utilizaci&#xF3;n de la aplicaci&#xF3;n permite un uso din&#xE1;mico del n&#xFA;mero de algoritmos a analizar y comparar, se gener&#xF3; una funci&#xF3;n la cual generaba&apos;colores de manera aleatoria. Esta manera, no restring&#xED;a en ning&#xFA;n momento el n&#xFA;mero de colores a crear sino que ser&#xED;a din&#xE1;mico. El c&#xF3;digo utilizado para esta tarea es el siguiente:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> jchart.config <span class="hljs-keyword">import</span> rgba
+<span class="hljs-keyword">from</span> random <span class="hljs-keyword">import</span> randint,uniform
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">colors</span><span class="hljs-params">()</span>:</span>
+    r = randint(<span class="hljs-number">0</span>,<span class="hljs-number">255</span>)
+    g = randint(<span class="hljs-number">0</span>,<span class="hljs-number">255</span>)
+    b = randint(<span class="hljs-number">0</span>,<span class="hljs-number">255</span>)
+    alpha = uniform(<span class="hljs-number">0.5</span>,<span class="hljs-number">1</span>)
+    color = <span class="hljs-string">&apos;rgba(&apos;</span>+str(r)+<span class="hljs-string">&apos;,&apos;</span>+str(g)+<span class="hljs-string">&apos;,&apos;</span>+str(b)+<span class="hljs-string">&apos;,&apos;</span>+str(alpha)+<span class="hljs-string">&apos;)&apos;</span>
+    <span class="hljs-keyword">return</span> color
+</code></pre>
+<p>Esta funci&#xF3;n, devuelve en formato cadena un color rgba aleatorio y lo guardar&#xE1; en un array utilizado para este fin.</p>
 
                                 
                                 </section>
@@ -722,12 +732,12 @@
 
             
                 
-                <a href="chartModel.html" class="navigation navigation-prev " aria-label="Previous page: Modelos de Gráficos">
+                <a href="django-jchart.html" class="navigation navigation-prev " aria-label="Previous page: Gráficos">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="instanceModel.md" class="navigation navigation-next " aria-label="Next page: Creación de objetos de modelos">
+                <a href="etiquetas.html" class="navigation navigation-next " aria-label="Next page: Generación de etiquetas">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -738,7 +748,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Modelos de resultados estadísticos","level":"1.5.5","depth":2,"next":{"title":"Creación de objetos de modelos","level":"1.5.6","depth":2,"path":"instanceModel.md","ref":"instanceModel.md","articles":[]},"previous":{"title":"Modelos de Gráficos","level":"1.5.4","depth":2,"path":"chartModel.md","ref":"./chartModel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"statisticModel.md","mtime":"2017-06-12T10:30:32.936Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-14T17:03:56.717Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Generación de colores","level":"1.9.1","depth":2,"next":{"title":"Generación de etiquetas","level":"1.9.2","depth":2,"path":"etiquetas.md","ref":"./etiquetas.md","articles":[]},"previous":{"title":"Gráficos","level":"1.9","depth":1,"path":"django-jchart.md","ref":"./django-jchart.md","articles":[{"title":"Generación de colores","level":"1.9.1","depth":2,"path":"colores.md","ref":"./colores.md","articles":[]},{"title":"Generación de etiquetas","level":"1.9.2","depth":2,"path":"etiquetas.md","ref":"./etiquetas.md","articles":[]},{"title":"Obtención de datos","level":"1.9.3","depth":2,"path":"resultados.md","ref":"./resultados.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"colores.md","mtime":"2017-06-14T16:37:08.128Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-14T17:03:56.717Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

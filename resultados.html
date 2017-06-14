@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Modelos de resultados estadísticos · GitBook</title>
+        <title>Obtención de datos · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -57,10 +57,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="instanceModel.md" />
     
-    
-    <link rel="prev" href="chartModel.html" />
+    <link rel="prev" href="etiquetas.html" />
     
 
     </head>
@@ -342,7 +340,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.5.5" data-path="statisticModel.html">
+        <li class="chapter " data-level="1.5.5" data-path="statisticModel.html">
             
                 <a href="statisticModel.html">
             
@@ -619,7 +617,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.3" data-path="resultados.html">
+        <li class="chapter active" data-level="1.9.3" data-path="resultados.html">
             
                 <a href="resultados.html">
             
@@ -667,7 +665,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Modelos de resultados estadísticos</a>
+        <a href="." >Obtención de datos</a>
     </h1>
 </div>
 
@@ -682,19 +680,114 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="modelos-para-la-escritura-de-resultados-estad&#xED;sticos">Modelos para la escritura de resultados estad&#xED;sticos</h2>
-<p>Este modelo, est&#xE1; dividido en varios modelos diferenciando el tipo de fichero donde se escribir&#xE1;n los resultados de los tests estad&#xED;sticos.</p>
+                                <h2 id="obtenci&#xF3;n-de-los-datos-y-retorno-del-gr&#xE1;fico">Obtenci&#xF3;n de los datos y retorno del gr&#xE1;fico</h2>
+<p>Para crear el gr&#xE1;fico, no basta s&#xF3;lo con generar un color y las etiquetas pertinentes de los ejes de coordenadas, para poder generar el gr&#xE1;fico y retornarlo al lado cliente, hay que realizar una serie de tareas. El orden para la generaci&#xF3;n del gr&#xE1;fico es el siguiente:</p>
 <ul>
-<li>StatisticDataframeTex</li>
-<li>StatisticDataframeTxt</li>
-<li>StatisticDataframeHtml</li>
+<li>Crear la clase del gr&#xE1;fico</li>
+<li>Crear un m&#xE9;todo <em>get_datasets</em></li>
+<li>Crear un m&#xE9;todo <em>get_labels</em></li>
 </ul>
-<p>Como los resultados estad&#xED;sticos se muestran con una serie de iconos, para mostrarlos en los diferentes formatos de salida se debe utilizar una codificaci&#xF3;n diferente, por tanto, para tener mayor control se cre&#xF3; un modelo para cada tipo de salida de datos.</p>
-<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StatisticDataframeTex</span><span class="hljs-params">(models.Model)</span>:</span>
-    listValues = ListField()
-    configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)
+<p>Una vez se realiza estas tres operaciones, es necesario retornar el objeto creado con la siguiente estructura:</p>
+<pre><code class="lang-python">
+<span class="hljs-keyword">from</span> jchart <span class="hljs-keyword">import</span> Chart
+<span class="hljs-keyword">from</span> jchart.config <span class="hljs-keyword">import</span> Axes, DataSet, rgba
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BarChart</span><span class="hljs-params">(Chart)</span>:</span>
+    chart_type = <span class="hljs-string">&apos;bar&apos;</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_labels</span><span class="hljs-params">(self, **kwargs)</span>:</span>
+        <span class="hljs-keyword">return</span> [<span class="hljs-string">&quot;January&quot;</span>, <span class="hljs-string">&quot;February&quot;</span>, <span class="hljs-string">&quot;March&quot;</span>, <span class="hljs-string">&quot;April&quot;</span>,
+                <span class="hljs-string">&quot;May&quot;</span>, <span class="hljs-string">&quot;June&quot;</span>, <span class="hljs-string">&quot;July&quot;</span>]
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_datasets</span><span class="hljs-params">(self, **kwargs)</span>:</span>
+        data = [<span class="hljs-number">10</span>, <span class="hljs-number">15</span>, <span class="hljs-number">29</span>, <span class="hljs-number">30</span>, <span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">22</span>]
+        colors = [
+            rgba(<span class="hljs-number">255</span>, <span class="hljs-number">99</span>, <span class="hljs-number">132</span>, <span class="hljs-number">0.2</span>),
+            rgba(<span class="hljs-number">54</span>, <span class="hljs-number">162</span>, <span class="hljs-number">235</span>, <span class="hljs-number">0.2</span>),
+            rgba(<span class="hljs-number">255</span>, <span class="hljs-number">206</span>, <span class="hljs-number">86</span>, <span class="hljs-number">0.2</span>),
+            rgba(<span class="hljs-number">75</span>, <span class="hljs-number">192</span>, <span class="hljs-number">192</span>, <span class="hljs-number">0.2</span>),
+            rgba(<span class="hljs-number">153</span>, <span class="hljs-number">102</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.2</span>),
+            rgba(<span class="hljs-number">255</span>, <span class="hljs-number">159</span>, <span class="hljs-number">64</span>, <span class="hljs-number">0.2</span>)
+        ]
+
+        <span class="hljs-keyword">return</span> [DataSet(label=<span class="hljs-string">&apos;Bar Chart&apos;</span>,
+                        data=data,
+                        borderWidth=<span class="hljs-number">1</span>,
+                        backgroundColor=colors,
+                        borderColor=colors)]
 </code></pre>
-<p>Los modelos est&#xE1;n compuesto por la clave for&#xE1;nea al identificador de la configuraci&#xF3;n y una lista de valores donde se guardar&#xE1;n los s&#xED;mbolos de los resultados de los test estad&#xED;sticos.</p>
+<h2 id="retorno-de-datos-en-metanalyze">Retorno de datos en MetAnalyze</h2>
+<p>Para la generaci&#xF3;n de los gr&#xE1;ficos en <strong>MetAnalyze</strong> ha sido necesario realizar algunos cambios en la generaci&#xF3;n de los gr&#xE1;ficos:</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MinChart</span><span class="hljs-params">(Chart)</span>:</span>
+    getConfiguration = Configuration.objects.filter().latest(<span class="hljs-string">&apos;id&apos;</span>)
+
+    chart_type = <span class="hljs-string">&apos;line&apos;</span>
+    scales = {
+        <span class="hljs-string">&apos;yAxes&apos;</span>: [{<span class="hljs-string">&apos;scaleLabel&apos;</span>:{<span class="hljs-string">&apos;display&apos;</span>:<span class="hljs-keyword">True</span>,<span class="hljs-string">&apos;labelString&apos;</span>:<span class="hljs-string">&apos;Hypervolume&apos;</span>,<span class="hljs-string">&apos;fontSize&apos;</span>:int(<span class="hljs-number">15</span>)}}],
+        <span class="hljs-string">&apos;xAxes&apos;</span> : [{<span class="hljs-string">&apos;scaleLabel&apos;</span>:{<span class="hljs-string">&apos;display&apos;</span>:<span class="hljs-keyword">True</span>,<span class="hljs-string">&apos;labelString&apos;</span>:str(getConfiguration.evaluation),<span class="hljs-string">&apos;fontSize&apos;</span>:int(<span class="hljs-number">20</span>)}}]
+
+    }
+
+    title = {
+        <span class="hljs-string">&apos;display&apos;</span>: <span class="hljs-keyword">True</span>,
+        <span class="hljs-string">&apos;text&apos;</span>: <span class="hljs-string">&apos;Evolution of Minimum Hypervolume&apos;</span>,
+        <span class="hljs-string">&apos;fontSize&apos;</span>: <span class="hljs-number">20</span>,
+    }
+    legend = {
+        <span class="hljs-string">&apos;display&apos;</span>: <span class="hljs-keyword">True</span>,
+        <span class="hljs-string">&apos;position&apos;</span>: <span class="hljs-string">&apos;right&apos;</span>
+    }
+    responsive = <span class="hljs-keyword">True</span>
+
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_datasets</span><span class="hljs-params">(self,*args)</span>:</span>
+        getConfiguration = Configuration.objects.filter().latest(<span class="hljs-string">&apos;id&apos;</span>)
+        algorithm_names = []
+        getAlgorithms = Algorithms.objects.filter(configuration__id=getConfiguration.id).values().distinct()
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(int(getConfiguration.nAlgorithms)):
+            algorithm_names.append(getAlgorithms[i][<span class="hljs-string">&apos;algorithm&apos;</span>])
+        dataModel = MinChartModel.objects.filter().latest(<span class="hljs-string">&apos;id&apos;</span>)
+        data = dataModel.listValues
+        chartReturned = []
+        data_scatter = dataset(data)
+        borderColor = []
+        <span class="hljs-keyword">for</span> i,v <span class="hljs-keyword">in</span> enumerate(data_scatter):
+            borderColor.append(colors.colors())
+
+        <span class="hljs-keyword">for</span> i,v <span class="hljs-keyword">in</span> enumerate(data_scatter):
+            chartReturned.append(DataSet(type=<span class="hljs-string">&apos;line&apos;</span>,label=<span class="hljs-string">&apos;Min &apos;</span>+str(algorithm_names[i]),showLine=<span class="hljs-keyword">True</span>,data=v, 
+                borderColor=borderColor[i],fill=<span class="hljs-keyword">False</span>))
+        <span class="hljs-keyword">return</span> chartReturned
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_labels</span><span class="hljs-params">(self,*args, **kwargs)</span>:</span>
+
+        dataModel = MinChartModel.objects.filter().latest(<span class="hljs-string">&apos;id&apos;</span>)
+        data = dataModel.listValues
+        labelsChart=labels(data)
+        <span class="hljs-keyword">return</span> labelsChart
+</code></pre>
+<p>Debido a que los datos que se reciben no son est&#xE1;ticos es decir, no siempre se recibir&#xE1;n a comparar 2 algoritmos, ni 3 sino que pueden ser 2,3 &#xF3; 4, fue necesario realizar una serie de cambios para la generaci&#xF3;n de diferentes colores y la obtenci&#xF3;n de las etiquetas. Adem&#xE1;s, debido a que el nombre de los algoritmos tampoco ser&#xE1; el mismo, fue necesario realizar cambios a la hora de retornar el gr&#xE1;fico generado.</p>
+<h2 id="renderizaci&#xF3;n-de-los-gr&#xE1;ficos">Renderizaci&#xF3;n de los gr&#xE1;ficos</h2>
+<p>Para renderizar los gr&#xE1;ficos, hay que realizar una configuraci&#xF3;n tanto en el lado servidor como en lado cliente.</p>
+<h3 id="configuraci&#xF3;n-en-el-lado-servidor">Configuraci&#xF3;n en el lado servidor</h3>
+<p>Para retornar los gr&#xE1;ficos desde el lado servidor, hay que importar los diferentes gr&#xE1;ficos que se han creado:</p>
+<p><code>from charts import MinChart,AvgChart,MaxChart,MinAvgMaxChart</code></p>
+<p>Una vez importados los diferentes gr&#xE1;ficos creados, se debe retornar cada componente como un diccionario</p>
+<p><code>dicOutput = {}</code>
+<code>dicOutput[&apos;minavgmax_chart&apos;] = MinAvgMaxChart</code>
+<code>return render(request, &apos;app/results.html&apos;,dicOutput)</code></p>
+<h3 id="configuraci&#xF3;n-en-el-lado-cliente">Configuraci&#xF3;n en el lado cliente</h3>
+<p>Como el gr&#xE1;fico generado se recibe como un objeto canvas, es necesario a&#xF1;adir en la plantilla <em>HTML</em> la posibilidad de recibir este tipo de objeto.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;row&quot;</span> &gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col s12&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">br</span>/&gt;</span>{{min_chart.as_html}}
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn waves-effect waves-light indigo darken-3&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;action&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;saveMinChart-btn&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;material-icons right&quot;</span>&gt;</span>send<span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>Save Minimum Bound Chart
+          <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span>/&gt;</span>
+</code></pre>
 
                                 
                                 </section>
@@ -722,14 +815,10 @@
 
             
                 
-                <a href="chartModel.html" class="navigation navigation-prev " aria-label="Previous page: Modelos de Gráficos">
+                <a href="etiquetas.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Generación de etiquetas">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="instanceModel.md" class="navigation navigation-next " aria-label="Next page: Creación de objetos de modelos">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -738,7 +827,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Modelos de resultados estadísticos","level":"1.5.5","depth":2,"next":{"title":"Creación de objetos de modelos","level":"1.5.6","depth":2,"path":"instanceModel.md","ref":"instanceModel.md","articles":[]},"previous":{"title":"Modelos de Gráficos","level":"1.5.4","depth":2,"path":"chartModel.md","ref":"./chartModel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"statisticModel.md","mtime":"2017-06-12T10:30:32.936Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-14T17:03:56.717Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Obtención de datos","level":"1.9.3","depth":2,"previous":{"title":"Generación de etiquetas","level":"1.9.2","depth":2,"path":"etiquetas.md","ref":"./etiquetas.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"resultados.md","mtime":"2017-06-14T17:03:45.328Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-14T17:03:56.717Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

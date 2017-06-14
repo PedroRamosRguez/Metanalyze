@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Modelos de resultados estadísticos · GitBook</title>
+        <title>Generación de etiquetas · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="instanceModel.md" />
+    <link rel="next" href="resultados.html" />
     
     
-    <link rel="prev" href="chartModel.html" />
+    <link rel="prev" href="colores.html" />
     
 
     </head>
@@ -342,7 +342,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.5.5" data-path="statisticModel.html">
+        <li class="chapter " data-level="1.5.5" data-path="statisticModel.html">
             
                 <a href="statisticModel.html">
             
@@ -606,7 +606,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9.2" data-path="etiquetas.html">
+        <li class="chapter active" data-level="1.9.2" data-path="etiquetas.html">
             
                 <a href="etiquetas.html">
             
@@ -667,7 +667,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Modelos de resultados estadísticos</a>
+        <a href="." >Generación de etiquetas</a>
     </h1>
 </div>
 
@@ -682,19 +682,34 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="modelos-para-la-escritura-de-resultados-estad&#xED;sticos">Modelos para la escritura de resultados estad&#xED;sticos</h2>
-<p>Este modelo, est&#xE1; dividido en varios modelos diferenciando el tipo de fichero donde se escribir&#xE1;n los resultados de los tests estad&#xED;sticos.</p>
-<ul>
-<li>StatisticDataframeTex</li>
-<li>StatisticDataframeTxt</li>
-<li>StatisticDataframeHtml</li>
-</ul>
-<p>Como los resultados estad&#xED;sticos se muestran con una serie de iconos, para mostrarlos en los diferentes formatos de salida se debe utilizar una codificaci&#xF3;n diferente, por tanto, para tener mayor control se cre&#xF3; un modelo para cada tipo de salida de datos.</p>
-<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StatisticDataframeTex</span><span class="hljs-params">(models.Model)</span>:</span>
-    listValues = ListField()
-    configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)
+                                <h2 id="generaci&#xF3;n-de-etiquetas-de-lso-gr&#xE1;ficos-creados">Generaci&#xF3;n de etiquetas de lso gr&#xE1;ficos creados</h2>
+<p>Para mostrar los datos en el eje de coordenadas X del gr&#xE1;fico, es necesario asignar una etiqueta para la cual se le asignar&#xE1; un valor. En la librer&#xED;a <em>Django-jchart</em> al igual que con la generaci&#xF3;n de colores de los gr&#xE1;ficos, esta acci&#xF3;n se hace de la misma manera, es decir, crear un array con el valor de cada etiqueta. Nuevamente, debido al uso de la aplicaci&#xF3;n, esta acci&#xF3;n podr&#xED;a limitar el correcto funcionamiento de la aplicaci&#xF3;n y por consecuente la generaci&#xF3;n del gr&#xE1;fico. Para ello, se realic&#xF3; otra funci&#xF3;n la cual generaba las etiquetas seg&#xFA;n los datos proporcionados por el usuario al realizar el experimento.</p>
+<h3 id="generaci&#xF3;n-de-etiquetas-en-django-jchart">Generaci&#xF3;n de etiquetas en Django-jchart</h3>
+<pre><code class="lang-python">
+ <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_labels</span><span class="hljs-params">(self, **kwargs)</span>:</span>
+        <span class="hljs-keyword">return</span> [<span class="hljs-string">&quot;Red&quot;</span>, <span class="hljs-string">&quot;Green&quot;</span>, <span class="hljs-string">&quot;Yellow&quot;</span>, <span class="hljs-string">&quot;Grey&quot;</span>, <span class="hljs-string">&quot;Blue&quot;</span>]
 </code></pre>
-<p>Los modelos est&#xE1;n compuesto por la clave for&#xE1;nea al identificador de la configuraci&#xF3;n y una lista de valores donde se guardar&#xE1;n los s&#xED;mbolos de los resultados de los test estad&#xED;sticos.</p>
+<h3 id="funci&#xF3;n-creada-de-generaci&#xF3;n-de-etiquetas">Funci&#xF3;n creada de generaci&#xF3;n de etiquetas</h3>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">labels</span><span class="hljs-params">(data)</span>:</span>
+    labelsChart = []
+    <span class="hljs-keyword">for</span> i,v <span class="hljs-keyword">in</span> enumerate(data):
+         listValues = []
+         <span class="hljs-keyword">for</span> algorithm,values <span class="hljs-keyword">in</span> sorted(v.iteritems()):
+            <span class="hljs-keyword">for</span> step,stepvalues <span class="hljs-keyword">in</span> sorted(values.iteritems()):
+                listValues.append(str(step))
+                listValues.sort(key=int)
+    labelsChart= listValues
+    <span class="hljs-keyword">return</span> labelsChart
+</code></pre>
+<p>Esta funci&#xF3;n, recibe el diccionario con los valores del hipervolumen de cada algoritmo. Una vez se recorre cada algoritmo, se obtienen los pasos del algoritmo y se ordenan para mostrar las etiquetas en el orden correcto. Una vez se realiza esta acci&#xF3;n, se retorna la lista con las etiquetas de los pasos.</p>
+<h3 id="funci&#xF3;n-getlabels-creada">Funci&#xF3;n getlabels creada</h3>
+<pre><code class="lang-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_labels</span><span class="hljs-params">(self,*args, **kwargs)</span>:</span>
+
+    dataModel = MinChartModel.objects.filter().latest(<span class="hljs-string">&apos;id&apos;</span>)
+    data = dataModel.listValues
+    labelsChart=labels(data)
+    <span class="hljs-keyword">return</span> labelsChart
+</code></pre>
 
                                 
                                 </section>
@@ -722,12 +737,12 @@
 
             
                 
-                <a href="chartModel.html" class="navigation navigation-prev " aria-label="Previous page: Modelos de Gráficos">
+                <a href="colores.html" class="navigation navigation-prev " aria-label="Previous page: Generación de colores">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="instanceModel.md" class="navigation navigation-next " aria-label="Next page: Creación de objetos de modelos">
+                <a href="resultados.html" class="navigation navigation-next " aria-label="Next page: Obtención de datos">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -738,7 +753,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Modelos de resultados estadísticos","level":"1.5.5","depth":2,"next":{"title":"Creación de objetos de modelos","level":"1.5.6","depth":2,"path":"instanceModel.md","ref":"instanceModel.md","articles":[]},"previous":{"title":"Modelos de Gráficos","level":"1.5.4","depth":2,"path":"chartModel.md","ref":"./chartModel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"statisticModel.md","mtime":"2017-06-12T10:30:32.936Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-14T17:03:56.717Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Generación de etiquetas","level":"1.9.2","depth":2,"next":{"title":"Obtención de datos","level":"1.9.3","depth":2,"path":"resultados.md","ref":"./resultados.md","articles":[]},"previous":{"title":"Generación de colores","level":"1.9.1","depth":2,"path":"colores.md","ref":"./colores.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"etiquetas.md","mtime":"2017-06-14T16:47:41.106Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-14T17:03:56.717Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

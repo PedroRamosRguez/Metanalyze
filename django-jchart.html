@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Modelos de resultados estadísticos · GitBook</title>
+        <title>Gráficos · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="instanceModel.md" />
+    <link rel="next" href="colores.html" />
     
     
-    <link rel="prev" href="chartModel.html" />
+    <link rel="prev" href="welch.html" />
     
 
     </head>
@@ -342,7 +342,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.5.5" data-path="statisticModel.html">
+        <li class="chapter " data-level="1.5.5" data-path="statisticModel.html">
             
                 <a href="statisticModel.html">
             
@@ -579,7 +579,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9" data-path="django-jchart.html">
+        <li class="chapter active" data-level="1.9" data-path="django-jchart.html">
             
                 <a href="django-jchart.html">
             
@@ -667,7 +667,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Modelos de resultados estadísticos</a>
+        <a href="." >Gráficos</a>
     </h1>
 </div>
 
@@ -682,19 +682,45 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="modelos-para-la-escritura-de-resultados-estad&#xED;sticos">Modelos para la escritura de resultados estad&#xED;sticos</h2>
-<p>Este modelo, est&#xE1; dividido en varios modelos diferenciando el tipo de fichero donde se escribir&#xE1;n los resultados de los tests estad&#xED;sticos.</p>
-<ul>
-<li>StatisticDataframeTex</li>
-<li>StatisticDataframeTxt</li>
-<li>StatisticDataframeHtml</li>
-</ul>
-<p>Como los resultados estad&#xED;sticos se muestran con una serie de iconos, para mostrarlos en los diferentes formatos de salida se debe utilizar una codificaci&#xF3;n diferente, por tanto, para tener mayor control se cre&#xF3; un modelo para cada tipo de salida de datos.</p>
-<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StatisticDataframeTex</span><span class="hljs-params">(models.Model)</span>:</span>
-    listValues = ListField()
-    configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)
+                                <h2 id="librer&#xED;a-django-jchart">Librer&#xED;a Django-jchart</h2>
+<p>Para la generaci&#xF3;n de los resultados en forma de gr&#xE1;ficos se utiliza la librer&#xED;a <a href="https://github.com/matthisk/django-jchart" target="_blank"><em>Django-jchart</em></a>. Esta librer&#xED;a, es una implementaci&#xF3;n en <strong>Python</strong> de la librer&#xED;a <em>ChartJs</em> de <strong>Javascript</strong>. Para la utilizaci&#xF3;n de la librer&#xED;a, es necesario &quot;comunicarle&quot; a Django que utilice este m&#xF3;dulo. Para ello, se a&#xF1;adi&#xF3; en la configuraci&#xF3;n de <strong>Django</strong> en el apartado <em>INSTALLED_APPS=</em> el m&#xF3;dulo de jchart.</p>
+<pre><code class="lang-python">INSTALLED_APPS = (
+    <span class="hljs-string">&apos;django.contrib.admin&apos;</span>,
+    <span class="hljs-string">&apos;django.contrib.auth&apos;</span>,
+    <span class="hljs-string">&apos;django.contrib.contenttypes&apos;</span>,
+    <span class="hljs-string">&apos;django.contrib.sessions&apos;</span>,
+    <span class="hljs-string">&apos;django.contrib.messages&apos;</span>,
+    <span class="hljs-string">&apos;django.contrib.staticfiles&apos;</span>,
+    <span class="hljs-string">&apos;app&apos;</span>,
+    <span class="hljs-string">&apos;jchart&apos;</span>,
+)
 </code></pre>
-<p>Los modelos est&#xE1;n compuesto por la clave for&#xE1;nea al identificador de la configuraci&#xF3;n y una lista de valores donde se guardar&#xE1;n los s&#xED;mbolos de los resultados de los test estad&#xED;sticos.</p>
+<p>Y en el lado cliente, se debe a&#xF1;adir el siguiente script:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<p>Una vez se ha a&#xF1;adido en la configuraci&#xF3;n la introducci&#xF3;n de la librer&#xED;a, hay que crear un fichero con la importaci&#xF3;n de <em>Django-jchart</em> y los componentes que se vayan a utilizar de la librer&#xED;a.</p>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> jchart <span class="hljs-keyword">import</span> Chart
+<span class="hljs-keyword">from</span> jchart.config <span class="hljs-keyword">import</span> DataSet,Axes,Legend
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MinChart</span><span class="hljs-params">(Chart)</span>:</span>
+chart_type = <span class="hljs-string">&apos;line&apos;</span>
+    scales = {
+        <span class="hljs-string">&apos;yAxes&apos;</span>: [{<span class="hljs-string">&apos;scaleLabel&apos;</span>:{<span class="hljs-string">&apos;display&apos;</span>:<span class="hljs-keyword">True</span>,<span class="hljs-string">&apos;labelString&apos;</span>:<span class="hljs-string">&apos;Hypervolume&apos;</span>,<span class="hljs-string">&apos;fontSize&apos;</span>:int(<span class="hljs-number">15</span>)}}],
+        <span class="hljs-string">&apos;xAxes&apos;</span> : [{<span class="hljs-string">&apos;scaleLabel&apos;</span>:{<span class="hljs-string">&apos;display&apos;</span>:<span class="hljs-keyword">True</span>,<span class="hljs-string">&apos;labelString&apos;</span>:str(getConfiguration.evaluation),<span class="hljs-string">&apos;fontSize&apos;</span>:int(<span class="hljs-number">20</span>)}}]
+
+    }
+
+    title = {
+        <span class="hljs-string">&apos;display&apos;</span>: <span class="hljs-keyword">True</span>,
+        <span class="hljs-string">&apos;text&apos;</span>: <span class="hljs-string">&apos;Evolution of Minimum Hypervolume&apos;</span>,
+        <span class="hljs-string">&apos;fontSize&apos;</span>: <span class="hljs-number">20</span>,
+    }
+    legend = {
+        <span class="hljs-string">&apos;display&apos;</span>: <span class="hljs-keyword">True</span>,
+        <span class="hljs-string">&apos;position&apos;</span>: <span class="hljs-string">&apos;right&apos;</span>
+    }
+    responsive = <span class="hljs-keyword">True</span>
+</code></pre>
+<p>En este peque&#xF1;o c&#xF3;digo, se ha creado una clase para la creaci&#xF3;n del gr&#xE1;fico con la evoluci&#xF3;n del hipervolumen m&#xED;nimo el cual se ha configurado el eje de coordenadas x e y, el t&#xED;tulo que aparece en la parte superior del gr&#xE1;fico, la aparici&#xF3;n y la colocaci&#xF3;n de la leyenda y la posibilidad de que el gr&#xE1;fico sea responsivo.</p>
 
                                 
                                 </section>
@@ -722,12 +748,12 @@
 
             
                 
-                <a href="chartModel.html" class="navigation navigation-prev " aria-label="Previous page: Modelos de Gráficos">
+                <a href="welch.html" class="navigation navigation-prev " aria-label="Previous page: Test de Welch">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="instanceModel.md" class="navigation navigation-next " aria-label="Next page: Creación de objetos de modelos">
+                <a href="colores.html" class="navigation navigation-next " aria-label="Next page: Generación de colores">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -738,7 +764,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Modelos de resultados estadísticos","level":"1.5.5","depth":2,"next":{"title":"Creación de objetos de modelos","level":"1.5.6","depth":2,"path":"instanceModel.md","ref":"instanceModel.md","articles":[]},"previous":{"title":"Modelos de Gráficos","level":"1.5.4","depth":2,"path":"chartModel.md","ref":"./chartModel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"statisticModel.md","mtime":"2017-06-12T10:30:32.936Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-14T17:03:56.717Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Gráficos","level":"1.9","depth":1,"next":{"title":"Generación de colores","level":"1.9.1","depth":2,"path":"colores.md","ref":"./colores.md","articles":[]},"previous":{"title":"Test de Welch","level":"1.8.7","depth":2,"path":"welch.md","ref":"./welch.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"django-jchart.md","mtime":"2017-06-14T16:32:12.771Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-14T17:03:56.717Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

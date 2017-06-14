@@ -8,7 +8,6 @@ Para realizar este cálculo, se necesita pasar el diccionario donde se guarda el
 `referencePoint.py`
 ```python
 def referencePointInit(nAlgorithms,nObjectives):
-	counter = 0
   	referencePoint = []
 	for i in range(nObjectives):
 		referencePoint.append(0)

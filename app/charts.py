@@ -31,7 +31,7 @@ class MinChart(Chart):
         algorithm_names = []
         getAlgorithms = Algorithms.objects.filter(configuration__id=getConfiguration.id).values().distinct()
         for i in range(int(getConfiguration.nAlgorithms)):
-            algorithm_names.append(getAlgorithms[i]['algorithm'])
+            algorithm_names.append(getAlgorithms[i]['idAlgorithm'])
         dataModel = MinChartModel.objects.filter().latest('id')
         data = dataModel.listValues
         chartReturned = []
@@ -76,7 +76,7 @@ class AvgChart(Chart):
         algorithm_names = []
         getAlgorithms = Algorithms.objects.filter(configuration__id=getConfiguration.id).values().distinct()
         for i in range(int(getConfiguration.nAlgorithms)):
-            algorithm_names.append(getAlgorithms[i]['algorithm'])
+            algorithm_names.append(getAlgorithms[i]['idAlgorithm'])
         dataModel = AvgChartModel.objects.filter().latest('id')
         data = dataModel.listValues
         data_scatter = dataset(data)
@@ -121,7 +121,7 @@ class MaxChart(Chart):
         algorithm_names = []
         getAlgorithms = Algorithms.objects.filter(configuration__id=getConfiguration.id).values().distinct()
         for i in range(int(getConfiguration.nAlgorithms)):
-            algorithm_names.append(getAlgorithms[i]['algorithm'])
+            algorithm_names.append(getAlgorithms[i]['idAlgorithm'])
         dataModel = MaxChartModel.objects.filter().latest('id')
         data = dataModel.listValues
         data_scatter = dataset(data)
@@ -166,7 +166,7 @@ class MinAvgMaxChart(Chart):
         algorithm_names = []
         getAlgorithms = Algorithms.objects.filter(configuration__id=getConfiguration.id).values().distinct()
         for i in range(int(getConfiguration.nAlgorithms)):
-            algorithm_names.append(getAlgorithms[i]['algorithm'])
+            algorithm_names.append(getAlgorithms[i]['idAlgorithm'])
         dataModel = MinAvgMaxChartModel.objects.filter().latest('id')
         data = dataModel.listValues
         

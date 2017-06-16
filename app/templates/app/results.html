@@ -19,60 +19,66 @@
 <body >
 	<!--bgcolor="C48F65" probando fondos...
 		bgcolor="578CA9"-->
-	<div class="container center">
-		<div class="row" >
-			<div class="col s12">
-				<br/>{{min_chart.as_html}}
-			</div>
-			
-		</div>
-		<button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveMinChart-btn">
-        	<i class="material-icons right">send</i>Save Minimum Bound Chart
-      	</button><br/>
-		<div class="row" >
+	<header>{% include "app/header.html"%}</header>
+	<main>
+		<div class="container center">
+			<div class="row" >
 				<div class="col s12">
-					<br/>{{avg_chart.as_html}}
+					<br/>{{min_chart.as_html}}
 				</div>
-			
-		</div>
-		<button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveAvgChart-btn">
-        	<i class="material-icons right">send</i>Save Average Bound Chart
-      	</button><br/>
-		<div class="row" >
+				
+			</div>
+			<button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveMinChart-btn">
+	        	<i class="material-icons right">send</i>Save Minimum Bound Chart
+	      	</button><br/>
+			<div class="row" >
+					<div class="col s12">
+						<br/>{{avg_chart.as_html}}
+					</div>
+				
+			</div>
+			<button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveAvgChart-btn">
+	        	<i class="material-icons right">send</i>Save Average Bound Chart
+	      	</button><br/>
+			<div class="row" >
+					<div class="col s12">
+						<br/>{{max_chart.as_html}}
+					</div>
+				
+			</div>
+			<br><button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveMaxChart-btn">
+	        	<i class="material-icons right">send</i>Save Maximum Bound Chart
+	      	</button><br/>
+			<div class="row" >
 				<div class="col s12">
-					<br/>{{max_chart.as_html}}
+					<br/>{{minavgmax_chart.as_html}}
 				</div>
-			
-		</div>
-		<br><button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveMaxChart-btn">
-        	<i class="material-icons right">send</i>Save Maximum Bound Chart
-      	</button><br/>
-		<div class="row" >
-			<div class="col s12">
-				<br/>{{minavgmax_chart.as_html}}
+			</div>
+			<button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveMinAvgMaxChart-btn">
+	        	<i class="material-icons right">send</i>Save Minimum/Average/Maximum Bound Chart
+	      	</button><br/>
+	      	<div class="row">
+	      		<div class="col s12">
+	      			
+	      		</div>
+	      	</div>
+			<div class="row" >
+				<div class="col s12">
+					<br><a class="btn waves-effect waves-light indigo darken-3" type="button" name="action" href="/download" download>Download Table Results</a><br/>
+					<div class="statisticTable" id="statisticTable">
+						{{statiscalDfHtmlTable | safe}}
+					</div>
+					{% for algorithm,table in algorithmTable %}
+						{{algorithm}} 
+		 				{{ table | safe }}
+					{%endfor%}
+				</div>
 			</div>
 		</div>
-		<button class="btn waves-effect waves-light indigo darken-3" type="button" name="action" id="saveMinAvgMaxChart-btn">
-        	<i class="material-icons right">send</i>Save Minimum/Average/Maximum Bound Chart
-      	</button><br/>
-      	<div class="row">
-      		<div class="col s12">
-      			
-      		</div>
-      	</div>
-		<div class="row" >
-			<div class="col s12">
-				<br><a class="btn waves-effect waves-light indigo darken-3" type="button" name="action" href="/download" download>Download Table Results</a><br/>
-				<div class="statisticTable" id="statisticTable">
-					{{statiscalDfHtmlTable | safe}}
-				</div>
-				{% for algorithm,table in algorithmTable %}
-					{{algorithm}} 
-	 				{{ table | safe }}
-				{%endfor%}
-			</div>
-		</div>
-	</div>
+	</main>
+	<footer class="page-footer grey darken-3">
+      {% include "app/footer.html" %}
+    </footer>
 	<!--Import jQuery before materialize.js-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- Compiled and minified JavaScript -->

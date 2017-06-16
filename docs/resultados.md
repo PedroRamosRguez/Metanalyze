@@ -124,3 +124,7 @@ Como el gráfico generado se recibe como un objeto canvas, es necesario añadir 
         	<i class="material-icons right">send</i>Save Minimum Bound Chart
       	</button><br/>
 ```
+
+## Resultados obtenidos del experimento
+
+![Resultado Average](./images/AvgChart.png)

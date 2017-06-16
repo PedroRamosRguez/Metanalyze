@@ -26,3 +26,16 @@ Esta tarea es una tarea que se llama deploy la cual actualizará la rama gh-page
 ```bash
 gulp deploy
 ```
+
+```bash
+[13:01:34] Using gulpfile ~/Documentos/repos/appTFG/gulpfile.js
+[13:01:34] Starting 'deploy'...
+[13:01:34] [gh-pages] Cloning repo
+[13:01:34] [gh-pages] Checkout branch `gh-pages`
+[13:01:34] [gh-pages] Updating repository
+[13:01:37] [gh-pages] Copying files to repository
+[13:01:38] [gh-pages] Adding 37 files.
+[13:01:38] [gh-pages] Committing "Update 2017-06-16T12:01:34.139Z"
+[13:01:38] [gh-pages] Pushing to remote.
+[13:01:42] Finished 'deploy' after 8.83 s
+```

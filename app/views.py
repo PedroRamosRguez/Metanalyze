@@ -5,7 +5,7 @@ from django.shortcuts import render,render_to_response
 from django.core.servers.basehttp import FileWrapper
 from django.core.files import File
 from collections import OrderedDict
-import os,ast,tarfile,sys
+import os,ast,tarfile
 import createModels as cModels
 import uploadFiles as uFiles
 import parsefiles as parse

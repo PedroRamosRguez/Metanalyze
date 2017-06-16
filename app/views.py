@@ -67,7 +67,7 @@ def results(request):
     if 'table' in str(getConfiguration.dataOutput):
       data = dataModel.listValues
       print getConfiguration.statisticTest
-      if str(getConfiguration.statisticTest) == 'si':
+      if str(getConfiguration.statisticTest) == 'yes':
         statisticDfTex = StatisticDataframeTex.objects.filter().latest('id')
         statisticDfTxt = StatisticDataframeTxt.objects.filter().latest('id')
         statisticDfHtml = StatisticDataframeHtml.objects.filter().latest('id')

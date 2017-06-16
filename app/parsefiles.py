@@ -195,3 +195,5 @@ def parse(idConfiguration):
           f.write(template.format(statisticDftex.to_latex(escape=False)))
         subprocess.call(['pdflatex','-output-directory='+str(mediafolder),filename])
       	
+      	txtfilename = os.path.join(mediafolder,'statisticalResults.txt')
+      	statisticDftxt.to_csv(txtfilename, header=statisticDftxt.columns.values, index=True, sep=' ', mode='a')

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Modelos de Gráficos · GitBook</title>
+        <title>Gulp · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -57,10 +57,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="statisticModel.html" />
+    <link rel="next" href="gh-pages.html" />
     
-    
-    <link rel="prev" href="algorithmsModel.html" />
     
 
     </head>
@@ -116,7 +114,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.2.1" data-path="gulp.html">
+        <li class="chapter active" data-level="1.2.1" data-path="gulp.html">
             
                 <a href="gulp.html">
             
@@ -329,7 +327,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.5.4" data-path="chartModel.html">
+        <li class="chapter " data-level="1.5.4" data-path="chartModel.html">
             
                 <a href="chartModel.html">
             
@@ -725,7 +723,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Modelos de Gráficos</a>
+        <a href="." >Gulp</a>
     </h1>
 </div>
 
@@ -740,20 +738,14 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="modelos-para-los-diferentes-gr&#xE1;ficos-creados">Modelos para los diferentes gr&#xE1;ficos creados</h2>
-<p>Este modelo, est&#xE1; dividido en varios modelos diferenciando el tipo de gr&#xE1;fico que se mostrar&#xE1; al usuario. Los nombres de los modelos son los siguientes:</p>
+                                <h2 id="&#xBF;qu&#xE9;-es-gulp">&#xBF;Qu&#xE9; es gulp?</h2>
+<p>Gulp es una herramienta de automatizaci&#xF3;n de tareas escrito en Javascript para Node.js. Al contrario que otros sistemas de automatizaci&#xF3;n como <a href="http://gruntjs.com/" target="_blank">Grunt</a>, Gulp hace uso del m&#xF3;dulo <a href="https://nodejs.org/api/stream.html" target="_blank">Stream</a> de Node.js para poder concatenar tareas usando tuber&#xED;as. Normalmente los automatizadores de tareas escriben los cambios al disco despu&#xE9;s de cada tarea, lo que provoca retardo cuando manejamos muchos ficheros. La ventaja de usar tuber&#xED;as, es que estos ficheros no pasan por el disco, sino que se pasan de tuber&#xED;a en tuber&#xED;a, lo que aumenta la velocidad a la que se ejecutan las tareas.</p>
+<p>Para utilizar gulp y crear las tareas de automatizaci&#xF3;n es necesario crear antes un fichero llamado <code>gulpfile.js</code></p>
 <ul>
-<li>MinAvgMaxChartModel</li>
-<li>MinChartModel</li>
-<li>AvgChartModel</li>
-<li>MaxChartModel</li>
+<li><a href="http://gulpjs.com/" target="_blank">P&#xE1;gina web de Gulp</a></li>
+<li><a href="https://github.com/gulpjs/gulp" target="_blank">Repositorio en Github</a></li>
+<li><a href="https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md" target="_blank">Documentaci&#xF3;n</a></li>
 </ul>
-<p>En caso de que el usuario seleccione la salida de datos como gr&#xE1;fico, se tendr&#xE1; en cuenta qu&#xE9; tipo de rendimiento de hipervolumen seleccion&#xF3; el usuario. En caso de que seleccione <em>m&#xED;nimo</em>,<em>media</em> y <em>m&#xE1;ximo</em> se utilizar&#xE1; el modelo <code>MinAvgMaxChartModel</code> para crear el gr&#xE1;fico con todos los resultados. Mientras que el resto de modelos, se utilizar&#xE1; exclusivamente si el usuario selecciona la opci&#xF3;n correspondiente al c&#xE1;lculo del rendimiento del hipervolumen.</p>
-<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ChartsModel</span><span class="hljs-params">(models.Model)</span>:</span>
-    listValues = ListField()
-    configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)
-</code></pre>
-<p>Los modelos est&#xE1;n compuesto por la clave for&#xE1;nea al identificador de la configuraci&#xF3;n y una lista de valores donde se guardar&#xE1;n los datos de los gr&#xE1;ficos.</p>
 
                                 
                                 </section>
@@ -781,12 +773,8 @@
 
             
                 
-                <a href="algorithmsModel.html" class="navigation navigation-prev " aria-label="Previous page: Modelo Algorithms">
-                    <i class="fa fa-angle-left"></i>
-                </a>
                 
-                
-                <a href="statisticModel.html" class="navigation navigation-next " aria-label="Next page: Modelos de resultados estadísticos">
+                <a href="gh-pages.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Gh-pages">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -797,7 +785,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Modelos de Gráficos","level":"1.5.4","depth":2,"next":{"title":"Modelos de resultados estadísticos","level":"1.5.5","depth":2,"path":"statisticModel.md","ref":"./statisticModel.md","articles":[]},"previous":{"title":"Modelo Algorithms","level":"1.5.3","depth":2,"path":"algorithmsModel.md","ref":"./algorithmsModel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chartModel.md","mtime":"2017-06-12T10:26:19.679Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-16T12:00:30.818Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Gulp","level":"1.2.1","depth":2,"next":{"title":"Gh-pages","level":"1.2.2","depth":2,"path":"gh-pages.md","ref":"./gh-pages.md","articles":[]},"previous":{"title":"Despliegue gitbook","level":"1.2","depth":1,"ref":"","articles":[{"title":"Gulp","level":"1.2.1","depth":2,"path":"gulp.md","ref":"./gulp.md","articles":[]},{"title":"Gh-pages","level":"1.2.2","depth":2,"path":"gh-pages.md","ref":"./gh-pages.md","articles":[]},{"title":"Gulp-gh-pages","level":"1.2.3","depth":2,"path":"gulp-gh-pages.md","ref":"./gulp-gh-pages.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"gulp.md","mtime":"2017-06-16T11:54:20.760Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-16T12:00:30.818Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

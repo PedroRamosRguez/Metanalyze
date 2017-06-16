@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Modelos de Gráficos · GitBook</title>
+        <title>Generación ficheros txt · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -57,10 +57,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="statisticModel.html" />
     
-    
-    <link rel="prev" href="algorithmsModel.html" />
+    <link rel="prev" href="ficheroslatex.html" />
     
 
     </head>
@@ -329,7 +327,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.5.4" data-path="chartModel.html">
+        <li class="chapter " data-level="1.5.4" data-path="chartModel.html">
             
                 <a href="chartModel.html">
             
@@ -677,7 +675,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.3" data-path="ficherostxt.html">
+        <li class="chapter active" data-level="1.10.3" data-path="ficherostxt.html">
             
                 <a href="ficherostxt.html">
             
@@ -725,7 +723,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Modelos de Gráficos</a>
+        <a href="." >Generación ficheros txt</a>
     </h1>
 </div>
 
@@ -740,20 +738,41 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="modelos-para-los-diferentes-gr&#xE1;ficos-creados">Modelos para los diferentes gr&#xE1;ficos creados</h2>
-<p>Este modelo, est&#xE1; dividido en varios modelos diferenciando el tipo de gr&#xE1;fico que se mostrar&#xE1; al usuario. Los nombres de los modelos son los siguientes:</p>
+                                <h2 id="generaci&#xF3;n-de-ficheros-txt">Generaci&#xF3;n de ficheros txt</h2>
+<p>Para la generaci&#xF3;n de los resultados del hipervolumen por paso de cada algoritmo, se realiza de una manera m&#xE1;s simple. En esta ocasi&#xF3;n, lo que se realiza es convertir a texto y a&#xF1;adirle a la cadena a insertar en el fichero un formato e ir insertando los valores de las celdas del <em>DataFrame</em>. Los pasos ser&#xED;an los siguientes:</p>
 <ul>
-<li>MinAvgMaxChartModel</li>
-<li>MinChartModel</li>
-<li>AvgChartModel</li>
-<li>MaxChartModel</li>
+<li>A partir del conjunto de datos del algorimo i&#xE9;simo, obtener los valores de las columnas</li>
+<li>Recorrer las filas del <em>DataFrame</em></li>
+<li>Crear una cadena con un formato inicial</li>
+<li>Insertar en la cadena el valor de la columna</li>
+<li>Insertar los valores de las filas seguido de espacios</li>
+<li>Finalmente, entre paso y paso a&#xF1;adir un salto de l&#xED;nea</li>
 </ul>
-<p>En caso de que el usuario seleccione la salida de datos como gr&#xE1;fico, se tendr&#xE1; en cuenta qu&#xE9; tipo de rendimiento de hipervolumen seleccion&#xF3; el usuario. En caso de que seleccione <em>m&#xED;nimo</em>,<em>media</em> y <em>m&#xE1;ximo</em> se utilizar&#xE1; el modelo <code>MinAvgMaxChartModel</code> para crear el gr&#xE1;fico con todos los resultados. Mientras que el resto de modelos, se utilizar&#xE1; exclusivamente si el usuario selecciona la opci&#xF3;n correspondiente al c&#xE1;lculo del rendimiento del hipervolumen.</p>
-<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ChartsModel</span><span class="hljs-params">(models.Model)</span>:</span>
-    listValues = ListField()
-    configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)
+<p>Formato final del fichero txt con el c&#xE1;culo del hipervolumen m&#xED;nimo, medio y m&#xE1;ximo</p>
+<pre><code>200 0.79439511239 0.998543022631 0.0 
+400 0.895777258487 0.999075300315 0.342524938889
+.
+.
+30000 0.999202223859 0.999987945215 0.99151801094
+</code></pre><p>C&#xF3;digo para generar ficheros con extensi&#xF3;n <em>.txt</em></p>
+<pre><code class="lang-python"><span class="hljs-keyword">for</span> i,v <span class="hljs-keyword">in</span> enumerate(df):
+        columns = df[i].columns.values
+        stringFormat = str(algorithm_names[i])+<span class="hljs-string">&apos;Results&apos;</span>+<span class="hljs-string">&apos;\n&apos;</span>
+        <span class="hljs-keyword">for</span> index,row <span class="hljs-keyword">in</span> df[i].iterrows():
+          stringFormat = str(index)+<span class="hljs-string">&apos; &apos;</span>
+          <span class="hljs-keyword">for</span> j,v <span class="hljs-keyword">in</span> enumerate(columns):
+            stringFormat = stringFormat + str(row[str(v)])+<span class="hljs-string">&apos; &apos;</span>
+          stringFormat = stringFormat + <span class="hljs-string">&apos;\n&apos;</span>
+          <span class="hljs-keyword">with</span> open(os.path.join(mediafolder,str(algorithm_names[i])+<span class="hljs-string">&apos;.txt&apos;</span>), <span class="hljs-string">&apos;a&apos;</span>) <span class="hljs-keyword">as</span> myfile:
+            myfile.write(str(stringFormat))
 </code></pre>
-<p>Los modelos est&#xE1;n compuesto por la clave for&#xE1;nea al identificador de la configuraci&#xF3;n y una lista de valores donde se guardar&#xE1;n los datos de los gr&#xE1;ficos.</p>
+<p>Se generar&#xE1; un fichero txt por cada uno de los algoritmos a comparar.</p>
+<h2 id="fichero-txt-con-resultados-estad&#xED;sticos">Fichero txt con resultados estad&#xED;sticos</h2>
+<p>Para la creci&#xF3;n del fichero de texto con los resultados obtenidos de la comparaci&#xF3;n entre diferentes metaheur&#xED;sticas se realiza de la siguiente manera:</p>
+<pre><code class="lang-python">txtfilename = os.path.join(mediafolder,<span class="hljs-string">&apos;statisticalResults.txt&apos;</span>)
+          statisticDftxt.to_csv(txtfilename, header=statisticDftxt.columns.values, index=<span class="hljs-keyword">True</span>, sep=<span class="hljs-string">&apos; &apos;</span>, mode=<span class="hljs-string">&apos;a&apos;</span>)
+</code></pre>
+<p>El nombre del fichero ser&#xE1; <em>statisticalResults.txt</em> en la carpeta media. El siguiente paso ser&#xE1; mediante la funci&#xF3;n <code>to_csv()</code> que posee <strong>Pandas</strong> generar el fichero en concreto. La configuraci&#xF3;n que se le ha pasado es la de a&#xF1;adir en los encabezados las columnas del dataframe y mediante la orden <code>index=True</code> se le dice a la funci&#xF3;n que a&#xF1;ada tambi&#xE9;n los valores de las filas.</p>
 
                                 
                                 </section>
@@ -781,14 +800,10 @@
 
             
                 
-                <a href="algorithmsModel.html" class="navigation navigation-prev " aria-label="Previous page: Modelo Algorithms">
+                <a href="ficheroslatex.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Generación ficheros latex y pdf">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="statisticModel.html" class="navigation navigation-next " aria-label="Next page: Modelos de resultados estadísticos">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -797,7 +812,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Modelos de Gráficos","level":"1.5.4","depth":2,"next":{"title":"Modelos de resultados estadísticos","level":"1.5.5","depth":2,"path":"statisticModel.md","ref":"./statisticModel.md","articles":[]},"previous":{"title":"Modelo Algorithms","level":"1.5.3","depth":2,"path":"algorithmsModel.md","ref":"./algorithmsModel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chartModel.md","mtime":"2017-06-12T10:26:19.679Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-16T12:00:30.818Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Generación ficheros txt","level":"1.10.3","depth":2,"previous":{"title":"Generación ficheros latex y pdf","level":"1.10.2","depth":2,"path":"ficheroslatex.md","ref":"./ficheroslatex.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"ficherostxt.md","mtime":"2017-06-16T11:41:32.066Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-16T12:00:30.818Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

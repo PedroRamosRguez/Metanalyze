@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Modelos de Gráficos · GitBook</title>
+        <title>Gulp-gh-pages · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -57,10 +57,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="statisticModel.html" />
     
-    
-    <link rel="prev" href="algorithmsModel.html" />
+    <link rel="prev" href="gh-pages.html" />
     
 
     </head>
@@ -142,7 +140,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3" data-path="gulp-gh-pages.html">
+        <li class="chapter active" data-level="1.2.3" data-path="gulp-gh-pages.html">
             
                 <a href="gulp-gh-pages.html">
             
@@ -329,7 +327,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.5.4" data-path="chartModel.html">
+        <li class="chapter " data-level="1.5.4" data-path="chartModel.html">
             
                 <a href="chartModel.html">
             
@@ -725,7 +723,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Modelos de Gráficos</a>
+        <a href="." >Gulp-gh-pages</a>
     </h1>
 </div>
 
@@ -740,20 +738,24 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="modelos-para-los-diferentes-gr&#xE1;ficos-creados">Modelos para los diferentes gr&#xE1;ficos creados</h2>
-<p>Este modelo, est&#xE1; dividido en varios modelos diferenciando el tipo de gr&#xE1;fico que se mostrar&#xE1; al usuario. Los nombres de los modelos son los siguientes:</p>
-<ul>
-<li>MinAvgMaxChartModel</li>
-<li>MinChartModel</li>
-<li>AvgChartModel</li>
-<li>MaxChartModel</li>
-</ul>
-<p>En caso de que el usuario seleccione la salida de datos como gr&#xE1;fico, se tendr&#xE1; en cuenta qu&#xE9; tipo de rendimiento de hipervolumen seleccion&#xF3; el usuario. En caso de que seleccione <em>m&#xED;nimo</em>,<em>media</em> y <em>m&#xE1;ximo</em> se utilizar&#xE1; el modelo <code>MinAvgMaxChartModel</code> para crear el gr&#xE1;fico con todos los resultados. Mientras que el resto de modelos, se utilizar&#xE1; exclusivamente si el usuario selecciona la opci&#xF3;n correspondiente al c&#xE1;lculo del rendimiento del hipervolumen.</p>
-<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ChartsModel</span><span class="hljs-params">(models.Model)</span>:</span>
-    listValues = ListField()
-    configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)
+                                <h2 id="&#xBF;qu&#xE9;-es-gulp-gh-pages">&#xBF;Qu&#xE9; es gulp-gh-pages?</h2>
+<p>Gulp-gh-pages es un paquete que permite automatizar la tarea de desplegar a la <a href="gh-pages.html">gh-pages</a> el contenido de un directorio.</p>
+<h2 id="instalaci&#xF3;n-de-gulp-gh-pages">Instalaci&#xF3;n de gulp-gh-pages</h2>
+<p>Para instalar el plugin de gulp que automatice el despliegue a las github pages, es necesario instalar como dependencia el plugin. Para ello se instalar&#xE1; mediante el gestor de paquetes <a href="https://www.npmjs.org" target="_blank">NPM</a>
+<code>npm install --save-dev gulp-gh-pages</code>.</p>
+<h2 id="tarea-para-desplegar-el-gitbook-realizado">Tarea para desplegar el gitbook realizado</h2>
+<p>Para automatizar el gitbook del proyecto creado a la gh-pages, es necesario crear una tarea. A continuaci&#xF3;n, se detalla el c&#xF3;digo de la tarea para realizar el despliegue del gitbook.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;gulp&apos;</span>);
+<span class="hljs-keyword">const</span> deploy = <span class="hljs-built_in">require</span> (<span class="hljs-string">&apos;gulp-gh-pages&apos;</span>);
+
+gulp.task(<span class="hljs-string">&apos;deploy&apos;</span>,()=&gt;{
+  <span class="hljs-keyword">return</span> gulp.src(<span class="hljs-string">&quot;./docs/_book/**/*&quot;</span>)
+  .pipe(deploy())
+})
 </code></pre>
-<p>Los modelos est&#xE1;n compuesto por la clave for&#xE1;nea al identificador de la configuraci&#xF3;n y una lista de valores donde se guardar&#xE1;n los datos de los gr&#xE1;ficos.</p>
+<p>Esta tarea es una tarea que se llama deploy la cual actualizar&#xE1; la rama gh-pages del proyecto con el contenido de la carpeta <code>docs/_book</code> con la introducci&#xF3;n de los ficheros de manera recursiva. Para el correcto funcionamiento de la tarea, es necesario que anteriormente se haya generado el gitbook. Para utilizar la tarea y realizar el despliegue es necesario acceder a la carpeta donde se encuentra el fichero gulpfile e introducir en consola el siguiente comando:</p>
+<pre><code class="lang-bash">gulp deploy
+</code></pre>
 
                                 
                                 </section>
@@ -781,14 +783,10 @@
 
             
                 
-                <a href="algorithmsModel.html" class="navigation navigation-prev " aria-label="Previous page: Modelo Algorithms">
+                <a href="gh-pages.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Gh-pages">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="statisticModel.html" class="navigation navigation-next " aria-label="Next page: Modelos de resultados estadísticos">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -797,7 +795,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Modelos de Gráficos","level":"1.5.4","depth":2,"next":{"title":"Modelos de resultados estadísticos","level":"1.5.5","depth":2,"path":"statisticModel.md","ref":"./statisticModel.md","articles":[]},"previous":{"title":"Modelo Algorithms","level":"1.5.3","depth":2,"path":"algorithmsModel.md","ref":"./algorithmsModel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chartModel.md","mtime":"2017-06-12T10:26:19.679Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-16T12:00:30.818Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Gulp-gh-pages","level":"1.2.3","depth":2,"next":{"title":"Introducción a Django","level":"1.3","depth":1,"ref":"","articles":[{"title":"Creación de proyecto y app ","level":"1.3.1","depth":2,"path":"introduccion.md","ref":"./introduccion.md","articles":[]},{"title":"Ejecución de la aplicación","level":"1.3.2","depth":2,"path":"ejecucion.md","ref":"./ejecucion.md","articles":[]},{"title":"Carga de Ficheros","level":"1.3.3","depth":2,"path":"cargaFicheros.md","ref":"./cargaFicheros.md","articles":[]},{"title":"Crear modelos y registrarlos","level":"1.3.4","depth":2,"path":"modelos.md","ref":"./modelos.md","articles":[]}]},"previous":{"title":"Gh-pages","level":"1.2.2","depth":2,"path":"gh-pages.md","ref":"./gh-pages.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"gulp-gh-pages.md","mtime":"2017-06-16T12:00:23.325Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-16T12:00:30.818Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

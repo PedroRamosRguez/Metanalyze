@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Modelos de Gráficos · GitBook</title>
+        <title>Generación ficheros latex y pdf · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="statisticModel.html" />
+    <link rel="next" href="ficherostxt.html" />
     
     
-    <link rel="prev" href="algorithmsModel.html" />
+    <link rel="prev" href="tablas.html" />
     
 
     </head>
@@ -329,7 +329,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.5.4" data-path="chartModel.html">
+        <li class="chapter " data-level="1.5.4" data-path="chartModel.html">
             
                 <a href="chartModel.html">
             
@@ -664,7 +664,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="ficheroslatex.html">
+        <li class="chapter active" data-level="1.10.2" data-path="ficheroslatex.html">
             
                 <a href="ficheroslatex.html">
             
@@ -725,7 +725,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Modelos de Gráficos</a>
+        <a href="." >Generación ficheros latex y pdf</a>
     </h1>
 </div>
 
@@ -740,20 +740,53 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="modelos-para-los-diferentes-gr&#xE1;ficos-creados">Modelos para los diferentes gr&#xE1;ficos creados</h2>
-<p>Este modelo, est&#xE1; dividido en varios modelos diferenciando el tipo de gr&#xE1;fico que se mostrar&#xE1; al usuario. Los nombres de los modelos son los siguientes:</p>
+                                <h2 id="creaci&#xF3;n-de-ficheros-latex">Creaci&#xF3;n de ficheros latex</h2>
+<p>Para guardar los datos del hipervolumen por paso de cada algoritmo en un fichero <em>Latex</em>, lo que se ha realizado es lo siguientes pasos:</p>
 <ul>
-<li>MinAvgMaxChartModel</li>
-<li>MinChartModel</li>
-<li>AvgChartModel</li>
-<li>MaxChartModel</li>
+<li>Generar una plantilla de fichero <em>Latex</em>.</li>
+<li>Transformar el <em>DataFrame</em> de resultados de hipervolumen por paso de cada algoritmo a latex mediante el uso de la funci&#xF3;n de <strong>Pandas</strong> <code>DataFrame.to_latex()</code>.</li>
+<li>Escribir en la plantilla de fichero creada el contenido del <code>DataFrame.to_latex()</code>.</li>
+<li>Utilizar el m&#xF3;dulo <em>subprocess</em> para generar el fichero <em>Latex</em> y <em>Pdf</em> con los resultados del algoritmo en concreto.</li>
 </ul>
-<p>En caso de que el usuario seleccione la salida de datos como gr&#xE1;fico, se tendr&#xE1; en cuenta qu&#xE9; tipo de rendimiento de hipervolumen seleccion&#xF3; el usuario. En caso de que seleccione <em>m&#xED;nimo</em>,<em>media</em> y <em>m&#xE1;ximo</em> se utilizar&#xE1; el modelo <code>MinAvgMaxChartModel</code> para crear el gr&#xE1;fico con todos los resultados. Mientras que el resto de modelos, se utilizar&#xE1; exclusivamente si el usuario selecciona la opci&#xF3;n correspondiente al c&#xE1;lculo del rendimiento del hipervolumen.</p>
-<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ChartsModel</span><span class="hljs-params">(models.Model)</span>:</span>
-    listValues = ListField()
-    configuration = models.ForeignKey(Configuration,on_delete=models.CASCADE)
+<pre><code class="lang-python">filename = os.path.join(mediafolder,str(algorithm_names[i])+<span class="hljs-string">&apos;results&apos;</span>+<span class="hljs-string">&apos;.tex&apos;</span>)
+        template = <span class="hljs-string">r&apos;&apos;&apos;\documentclass[preview]{{standalone}}
+                    \usepackage{{booktabs}}
+                    \begin{{document}}
+                    \begin{{tabular}}{{|c|c|c|c|}}
+                    {}
+                    \end{{tabular}}
+                    \end{{document}}
+                    &apos;&apos;&apos;</span>
+        <span class="hljs-keyword">with</span> open(filename, <span class="hljs-string">&apos;wb&apos;</span>) <span class="hljs-keyword">as</span> f:
+          f.write(template.format(df[i].to_latex()))
+        subprocess.call([<span class="hljs-string">&apos;pdflatex&apos;</span>,<span class="hljs-string">&apos;-output-directory=&apos;</span>+str(mediafolder),filename])
+<span class="hljs-keyword">with</span> open(filename, <span class="hljs-string">&apos;wb&apos;</span>) <span class="hljs-keyword">as</span> f:
+          f.write(template.format(df[i].to_latex()))
+        subprocess.call([<span class="hljs-string">&apos;pdflatex&apos;</span>,<span class="hljs-string">&apos;-output-directory=&apos;</span>+str(mediafolder),filename])
 </code></pre>
-<p>Los modelos est&#xE1;n compuesto por la clave for&#xE1;nea al identificador de la configuraci&#xF3;n y una lista de valores donde se guardar&#xE1;n los datos de los gr&#xE1;ficos.</p>
+<h2 id="creaci&#xF3;n-ficheros-latex-con-los-resultados-estad&#xED;sticos">Creaci&#xF3;n ficheros Latex con los resultados estad&#xED;sticos</h2>
+<p>En esta ocasi&#xF3;n tambi&#xE9;n se siguen los mismos pasos.</p>
+<ul>
+<li>Generar una plantilla de fichero <em>Latex</em>.</li>
+<li>Transformar el <em>DataFrame</em> de resultados de hipervolumen por paso de cada algoritmo a latex mediante el uso de la funci&#xF3;n de <strong>Pandas</strong> <code>DataFrame.to_latex()</code>.</li>
+<li>Escribir en la plantilla de fichero creada el contenido del <code>DataFrame.to_latex()</code>.</li>
+<li>Utilizar el m&#xF3;dulo <em>subprocess</em> para generar el fichero <em>Latex</em> y <em>Pdf</em> con los resultados del algoritmo en concreto.</li>
+</ul>
+<pre><code class="lang-python">filename = os.path.join(mediafolder,<span class="hljs-string">&apos;statisticalResults.tex&apos;</span>)
+        template = <span class="hljs-string">r&apos;&apos;&apos;\documentclass[preview]{{standalone}}
+                    \usepackage{{booktabs}}
+                    \begin{{document}}
+                    \begin{{tabular}}{{|c|c|c|}}
+                    {}
+                    \end{{tabular}}
+                    \end{{document}}
+                    &apos;&apos;&apos;</span>
+
+        <span class="hljs-keyword">with</span> open(filename, <span class="hljs-string">&apos;wb&apos;</span>) <span class="hljs-keyword">as</span> f:
+          f.write(template.format(statisticDftex.to_latex(escape=<span class="hljs-keyword">False</span>)))
+        subprocess.call([<span class="hljs-string">&apos;pdflatex&apos;</span>,<span class="hljs-string">&apos;-output-directory=&apos;</span>+str(mediafolder),filename])
+</code></pre>
+<p>En esta ocasi&#xF3;n, lo &#xFA;nico diferente es la utilizaci&#xF3;n de <code>escape=False</code> en la llamada a la funci&#xF3;n <code>statisticDftex.to_latex()</code> ya que al utilizar s&#xED;mbolos como <code>\</code> es necesario pasarle esta opci&#xF3;n ya que sino al convertir el fichero a latex, lee este s&#xED;mbolo y lo transforma a formato texto introduci&#xE9;ndolo como <code>backslash</code> y no se generar&#xED;a correctamente el s&#xED;mbolo utilizado.</p>
 
                                 
                                 </section>
@@ -781,12 +814,12 @@
 
             
                 
-                <a href="algorithmsModel.html" class="navigation navigation-prev " aria-label="Previous page: Modelo Algorithms">
+                <a href="tablas.html" class="navigation navigation-prev " aria-label="Previous page: Generación de tablas">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="statisticModel.html" class="navigation navigation-next " aria-label="Next page: Modelos de resultados estadísticos">
+                <a href="ficherostxt.html" class="navigation navigation-next " aria-label="Next page: Generación ficheros txt">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -797,7 +830,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Modelos de Gráficos","level":"1.5.4","depth":2,"next":{"title":"Modelos de resultados estadísticos","level":"1.5.5","depth":2,"path":"statisticModel.md","ref":"./statisticModel.md","articles":[]},"previous":{"title":"Modelo Algorithms","level":"1.5.3","depth":2,"path":"algorithmsModel.md","ref":"./algorithmsModel.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chartModel.md","mtime":"2017-06-12T10:26:19.679Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-16T12:00:30.818Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Generación ficheros latex y pdf","level":"1.10.2","depth":2,"next":{"title":"Generación ficheros txt","level":"1.10.3","depth":2,"path":"ficherostxt.md","ref":"./ficherostxt.md","articles":[]},"previous":{"title":"Generación de tablas","level":"1.10.1","depth":2,"path":"tablas.md","ref":"./tablas.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"ficheroslatex.md","mtime":"2017-06-16T10:21:54.231Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-16T12:00:30.818Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

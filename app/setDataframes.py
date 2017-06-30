@@ -68,7 +68,7 @@ def statisticDataframetex(algorithm_names,value,meanAlgorithms,medianAlgorithms)
     while j < int(len(algorithm_names)):
       statisticDftex.set_value(algorithm_names[i],algorithm_names[i],'$\leftrightarrow$')
       statisticDftex.set_value(algorithm_names[j],algorithm_names[j],'$\leftrightarrow$')
-      if(v[1] < 0.05):
+      if v[1] < 0.05:
         #statisticDftex.set_value(algorithm_names[i],algorithm_names[i],u'\u2194')
         if meanAlgorithms[i] > meanAlgorithms[j] and medianAlgorithms[i] < medianAlgorithms[j]:
           #caso especial se inserta un asterisco
@@ -102,7 +102,7 @@ def statisticDataframetxt(algorithm_names,value,meanAlgorithms,medianAlgorithms)
     while j < int(len(algorithm_names)):
       statisticDftxt.set_value(algorithm_names[i],algorithm_names[i],'=')
       statisticDftxt.set_value(algorithm_names[j],algorithm_names[j],'=')
-      if(v[1] < 0.05):
+      if v[1] < 0.05:
         #statisticDftex.set_value(algorithm_names[i],algorithm_names[i],u'\u2194')
         if meanAlgorithms[i] > meanAlgorithms[j] and medianAlgorithms[i] < medianAlgorithms[j]:
           #caso especial se inserta un asterisco
@@ -134,7 +134,7 @@ def statisticDataframeHtml(algorithm_names,value,meanAlgorithms,medianAlgorithms
       while j < int(len(algorithm_names)):
         statisticDfhtml.set_value(algorithm_names[i],algorithm_names[i],u'\u2194')
         statisticDfhtml.set_value(algorithm_names[j],algorithm_names[j],u'\u2194')
-        if(v[1] < 0.05):
+        if v[1] < 0.05:
           if meanAlgorithms[i] > meanAlgorithms[j] and medianAlgorithms[i] < medianAlgorithms[j]:
             #caso especial se inserta un asterisco
             statisticDfhtml.set_value(algorithm_names[i],algorithm_names[j],'*')

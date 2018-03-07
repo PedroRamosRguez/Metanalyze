@@ -51,7 +51,3 @@ $("#saveMinAvgMaxChart-btn").click(()=>{
   		saveAs(blob,'MinAvgMaxChart.png')
 	})
 })
-/*
-Para mergear todos, seguir este ejemplo...
-http://stackoverflow.com/questions/29187029/save-multiple-canvas-as-one-image-make-website-like-picframe
-*/

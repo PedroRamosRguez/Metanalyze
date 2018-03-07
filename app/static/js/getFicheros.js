@@ -4,7 +4,7 @@ const fileInput = $('#file');
 $('#introduceAlgorithm').click(() =>{
   let formData = new FormData();
   formData.append('file', $('#file')[0].files[0]);
-  ficheros.push(formData)
+  ficheros.push(formData);
 
 });
 

@@ -4,13 +4,20 @@ from .models import Configuration,Algorithms,ChartsModel,MinAvgMaxChartModel,Min
 from labelsChart import labels
 from dataSet import dataset,datasetMinAvgMax
 import getColors as colors
+
+def get_latests_config():
+    try:
+        return Configuration.objects.filter().latest('id')
+    except Configuration.DoesNotExist:
+        return {}
+
 class MinChart(Chart):
-    getConfiguration = Configuration.objects.filter().latest('id')
-  
+    last_config = get_latests_config()
+    evaluation = last_config.evaluation if last_config else 'Por determinar'
     chart_type = 'line'
     scales = {
         'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hypervolume','fontSize':int(15)}}],
-        'xAxes' : [{'scaleLabel':{'display':True,'labelString':str(getConfiguration.evaluation),'fontSize':int(20)}}]
+        'xAxes' : [{'scaleLabel':{'display':True,'labelString':evaluation,'fontSize':int(20)}}]
         
     }
 
@@ -27,10 +34,10 @@ class MinChart(Chart):
     
 
     def get_datasets(self,*args):
-        getConfiguration = Configuration.objects.filter().latest('id')
+        last_config = get_latests_config()
         algorithm_names = []
-        getAlgorithms = Algorithms.objects.filter(configuration__id=getConfiguration.id).values().distinct()
-        for i in range(int(getConfiguration.nAlgorithms)):
+        getAlgorithms = Algorithms.objects.filter(configuration__id=last_config.id).values().distinct()
+        for i in range(int(last_config.nAlgorithms)):
             algorithm_names.append(getAlgorithms[i]['idAlgorithm'])
         dataModel = MinChartModel.objects.filter().latest('id')
         data = dataModel.listValues
@@ -53,11 +60,12 @@ class MinChart(Chart):
         return labelsChart
 
 class AvgChart(Chart):
-    getConfiguration = Configuration.objects.filter().latest('id')
+    last_config = get_latests_config()
+    evaluation = last_config.evaluation if last_config else 'Por determinar'
     chart_type = 'line'
     scales = {
         'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hypervolume','fontSize':int(15)}}],
-        'xAxes' : [{'scaleLabel':{'display':True,'labelString':str(getConfiguration.evaluation),'fontSize':int(20)}}]
+        'xAxes' : [{'scaleLabel':{'display':True,'labelString':evaluation,'fontSize':int(20)}}]
         
     }
     title = {
@@ -72,10 +80,10 @@ class AvgChart(Chart):
     responsive = True
     
     def get_datasets(self,*args):
-        getConfiguration = Configuration.objects.filter().latest('id')
+        last_config = get_latests_config()
         algorithm_names = []
-        getAlgorithms = Algorithms.objects.filter(configuration__id=getConfiguration.id).values().distinct()
-        for i in range(int(getConfiguration.nAlgorithms)):
+        getAlgorithms = Algorithms.objects.filter(configuration__id=last_config.id).values().distinct()
+        for i in range(int(last_config.nAlgorithms)):
             algorithm_names.append(getAlgorithms[i]['idAlgorithm'])
         dataModel = AvgChartModel.objects.filter().latest('id')
         data = dataModel.listValues
@@ -98,11 +106,12 @@ class AvgChart(Chart):
         return labelsChart
 
 class MaxChart(Chart):
-    getConfiguration = Configuration.objects.filter().latest('id')
+    last_config = get_latests_config()
+    evaluation = last_config.evaluation if last_config else 'Por determinar'
     chart_type = 'line'
     scales = {
         'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hypervolume','fontSize':int(15)}}],
-        'xAxes' : [{'scaleLabel':{'display':True,'labelString':str(getConfiguration.evaluation),'fontSize':int(20)}}]
+        'xAxes' : [{'scaleLabel':{'display':True,'labelString':evaluation,'fontSize':int(20)}}]
         
     }
     title = {
@@ -117,10 +126,10 @@ class MaxChart(Chart):
     responsive = True
     
     def get_datasets(self,*args):
-        getConfiguration = Configuration.objects.filter().latest('id')
+        last_config = get_latests_config()
         algorithm_names = []
-        getAlgorithms = Algorithms.objects.filter(configuration__id=getConfiguration.id).values().distinct()
-        for i in range(int(getConfiguration.nAlgorithms)):
+        getAlgorithms = Algorithms.objects.filter(configuration__id=last_config.id).values().distinct()
+        for i in range(int(last_config.nAlgorithms)):
             algorithm_names.append(getAlgorithms[i]['idAlgorithm'])
         dataModel = MaxChartModel.objects.filter().latest('id')
         data = dataModel.listValues
@@ -142,11 +151,12 @@ class MaxChart(Chart):
         return labelsChart 
 
 class MinAvgMaxChart(Chart):
-    getConfiguration = Configuration.objects.filter().latest('id')
+    last_config = get_latests_config()
+    evaluation = last_config.evaluation if last_config else 'Por determinar'
     chart_type = 'line'
     scales = {
         'yAxes': [{'scaleLabel':{'display':True,'labelString':'Hypervolume','fontSize':int(15)}}],
-        'xAxes' : [{'scaleLabel':{'display':True,'labelString':str(getConfiguration.evaluation),'fontSize':int(20)}}]
+        'xAxes' : [{'scaleLabel':{'display':True,'labelString':evaluation,'fontSize':int(20)}}]
         
     }
     title = {
@@ -162,10 +172,10 @@ class MinAvgMaxChart(Chart):
     
     def get_datasets(self,*args):
         
-        getConfiguration = Configuration.objects.filter().latest('id')
+        last_config = get_latests_config()
         algorithm_names = []
-        getAlgorithms = Algorithms.objects.filter(configuration__id=getConfiguration.id).values().distinct()
-        for i in range(int(getConfiguration.nAlgorithms)):
+        getAlgorithms = Algorithms.objects.filter(configuration__id=last_config.id).values().distinct()
+        for i in range(int(last_config.nAlgorithms)):
             algorithm_names.append(getAlgorithms[i]['idAlgorithm'])
         dataModel = MinAvgMaxChartModel.objects.filter().latest('id')
         data = dataModel.listValues

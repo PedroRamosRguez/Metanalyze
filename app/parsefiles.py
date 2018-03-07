@@ -190,7 +190,6 @@ def parse(idConfiguration):
                     \end{{tabular}}
                     \end{{document}}
                     '''
-        
         with open(filename, 'wb') as f:
           f.write(template.format(statisticDftex.to_latex(escape=False)))
         subprocess.call(['pdflatex','-output-directory='+str(mediafolder),filename])

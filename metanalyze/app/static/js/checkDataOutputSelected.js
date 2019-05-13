@@ -1,5 +1,4 @@
 $('input[name=dataOutput]').change( (e) => {
-	console.log($('input[type=  radio][name=dataOutput]:checked').next('span').text().trim());
 	if($('input[name=dataOutput]:checked').next().text().trim() === 'Plot'){
 		console.log('plot elegido')
 		$('#xAxisChart').show();

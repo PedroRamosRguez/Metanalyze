@@ -23,11 +23,11 @@ $("#formulario").submit(() =>{
 	var csrftoken = getCookie('csrftoken');
 	let alg = getAlgorithms();
 	let fich = getFicheros();
-    let formData = new FormData();
+		let formData = new FormData();
     formData.append('csrfmiddlewaretoken',csrftoken);
     formData.append('nAlgorithms',document.getElementById('nAlgorithms').value);
     formData.append('algorithms',JSON.stringify(alg));
-    formData.append('statisticTest',$('input[name=statisticTest]:checked').val());
+    formData.append('statisticTest',$('input[name=statisticTest]:checked').next().text().trim());
     //formData.append('test',JSON.stringify($('#test').val()))
     formData.append('dataOutput',$('input[name=dataOutput]:checked').val());
     if ($('input[name=evaluation]:checked').val() == undefined){

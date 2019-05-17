@@ -22,6 +22,13 @@ class AlgorithmForm(forms.Form):
         ('average','Average'),
         ('maximum','Maximum'),
     )
+    CHOICES_tests = (
+        ('anova','Anova'),
+        ('shapiro-wilk','Shapiro-Wilk'),
+        ('leven','Levene'),
+        ('welch','Welch'),
+        ('kruskal-wallis','Kruskal-Wallis')
+    )
 
     bounds = forms.MultipleChoiceField(widget = forms.CheckboxSelectMultiple,choices = CHOICES_bounds, required = True)
 
@@ -58,3 +65,5 @@ class AlgorithmForm(forms.Form):
 
     stop_condition = forms.CharField(widget = forms.TextInput(attrs= {'id': 'stopCondition','name': 'stopCondition',
         'placeholder': 'Insert the stop condition'}),required=True)
+
+    tests = forms.MultipleChoiceField(widget = forms.CheckboxSelectMultiple,choices = CHOICES_tests, required = True)

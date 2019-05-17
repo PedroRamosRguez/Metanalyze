@@ -75,13 +75,13 @@
                 </label>
             </p>
             {% endfor %}
-          <!--<select multiple id="test">
-            <option value="" disabled selected>Select a statistic test</option>
-            {% for i in test %}
-              <option {{i}}>{{i}}</option>
-            {%endfor%}
-          </select>-->
-
+          
+            <select multiple id="test">
+              <option value="" disabled selected>Select a statistic test</option>
+              {% for test in form.tests %}
+                <option value="{{ test.choice_label }}">{{ test.choice_label }}</option>
+              {% endfor %}
+            </select>
         </div>
       </div>
       <div class="row" >

@@ -4,7 +4,7 @@
   <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" href="{%static "css/materialize.css"%}">
     <link rel="stylesheet" type="text/css" href="{%static "css/style.css"%}">
   </head>
   <body>
@@ -23,9 +23,9 @@
     </footer>
     <!--Import jQuery before materialize.js-->
     <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static "js/jquery_3_1_1.min.js" %}></script>
     <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/javascript" src="{% static "js/materialize_1_0_0.min.js" %}></script>
     <!--Javascript files-->
     <script type="text/javascript" src="{% static "js/addAlgorithm.js" %}"></script>
     <script type="text/javascript" src="{% static "js/checkData.js" %}"></script>

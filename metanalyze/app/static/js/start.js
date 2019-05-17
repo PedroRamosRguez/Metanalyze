@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
  $(document).ready(() =>{
  	/*Función de Jquery de materialize para la carga del multiselect*/
- 	// $('select').material_select();
 	 $('select').formSelect();
  	/* Función de Jquery para la barra de navegación en pantallas pequeñas*/
 	  $('.button-collapse').sidenav();

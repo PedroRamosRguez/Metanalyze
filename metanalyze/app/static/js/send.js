@@ -3,11 +3,11 @@ En la petición, se envían cada uno de los valores que el usuario introdujo en 
 
 //fucion para obtener el csrtoken de django
 getCookie = (name) => {
-  var cookieValue = null;
+  let cookieValue = null;
   if (document.cookie && document.cookie != '') {
-    var cookies = document.cookie.split(';');
+    let cookies = document.cookie.split(';');
 		for (var i = 0; i < cookies.length; i++) {
-			var cookie = jQuery.trim(cookies[i]);
+			let cookie = jQuery.trim(cookies[i]);
 		// Does this cookie string begin with the name we want?
 			if (cookie.substring(0, name.length + 1) == (name + '=')) {
 				cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
@@ -20,7 +20,7 @@ getCookie = (name) => {
 //función Jquery que obtiene los diferentes datos que el usuario introdujo y realiza la petición ajax.
 $("#formulario").submit(() =>{
 	//Prepare csrf token
-	var csrftoken = getCookie('csrftoken');
+	let csrftoken = getCookie('csrftoken');
 	let alg = getAlgorithms();
 	let fich = getFicheros();
 		let formData = new FormData();
@@ -58,13 +58,11 @@ $("#formulario").submit(() =>{
 		data:formData,
 		//si la petición es exitosa realiza la redirección	 
 		success : function(data,textStatus){
-			console.log('exito')
 		  //hace posible la redirección a la vista pruebatemplate...
 		  window.location.href = 'results/'; 
 		},
 		//en caso de que la petición sea errónea, muestra el error de manera detallada.
 		error : function(xhr,errmsg,err) {
-		  console.log('hubo un error');	
  		  console.log(xhr.status + ": " + xhr.responseText); // muestra mejor información del error 
  		}
 	});

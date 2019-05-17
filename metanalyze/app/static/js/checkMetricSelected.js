@@ -2,10 +2,8 @@
 
 $('#metric').change(() => {
   if($('#metric').val().length > 0){
-	//console.log('hay algo seleccionado')
 	 	$('#selectBound').show();
   }else{
     $('#selectBound').hide();
-	//console.log('no hay algo seleccionado')
   }
 })

@@ -1,22 +1,23 @@
-/*Script que oculta algunos elementos de la web cuando se carga...*/
+
+//carga de los eventos de multiple seleccion de checkbox y la barra de navegacion
 document.addEventListener('DOMContentLoaded', function() {
-	var elems = document.querySelectorAll('select');
+	let select = document.querySelectorAll('select');
+	let nav = document.querySelectorAll('.sidenav');
 });
 
  $(document).ready(() =>{
  	/*Función de Jquery de materialize para la carga del multiselect*/
-	 $('select').formSelect();
- 	/* Función de Jquery para la barra de navegación en pantallas pequeñas*/
-	  $('.button-collapse').sidenav();
+	$('select').formSelect();
+	$('.sidenav').sidenav(); 
     $('#introduceAlgoritmo').hide();
     $('#spanErrorInstancia').css('display', 'none');
     $('#spanErrorAlgorithms').css('display', 'none');
     $('#introduceInstancia').hide();
-		$('#insertAlgorithm').hide();
-		$('#algorithmConfiguration').hide();
-		//$('#selectMetric').hide();
-		$('#selectBound').hide();
-		// $('#xAxisChart').hide();
-  })
+    $('#insertAlgorithm').hide();
+    $('#algorithmConfiguration').hide();
+    //$('#selectMetric').hide();
+    $('#selectBound').hide();
+    // $('#xAxisChart').hide();
+})
 
 

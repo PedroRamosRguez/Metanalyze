@@ -8,7 +8,7 @@
           <p class="center">
             <strong>ALGORITHMS</strong>
           </p>
-          {{form.nAlgorithms}}
+          {{form.n_algorithms}}
           <span id="spanErrorAlgorithms">Error,the number of algorithms must be numeric value and be between 1-10</span>
           <button class="btn waves-effect waves-light" type="button" name="action" id="insertAlgorithm" value="insertAlgorithm" >Add Algorithms
             <i class="material-icons right ">send</i>
@@ -16,18 +16,18 @@
           <div id="addAlgorithms">
             <div class="row" id="algorithmConfiguration">
               <div class="input-field center col s10" >
-                {{form.idAlgorithm}}
+                {{form.id_algorithm}}
                 <div class="file-field input-field" id = "testFile">
                   <div class="btn">
                     <span>File</span>
                     {{form.file}}
                   </div>
                   <div class="file-path-wrapper ">
-                  {{form.fileName}}
+                  {{form.file_name}}
                   </div>
                 </div>
               </div>
-              {{form.nVariablesAlgorithm}}
+              {{form.n_variables_algorithm}}
               <button class="btn waves-effect waves-light" type="button" name="action" id="introduceAlgorithm" value="introduceAlgorithm">
                 <i class="material-icons right">send</i>
               </button>
@@ -43,9 +43,9 @@
           </p>
           <select multiple id="metric" >
             <option value="" disabled selected >Select a metric</option>
-            {% for i in metric %}
-              <option {{i}}>{{i}}</option>
-            {%endfor%}
+            {% for metric in form.metrics %}
+              <option value="{{ metric.choice_label }}">{{ metric.choice_label }}</option>
+            {% endfor %}
           </select>
         </div>
         <div class="input-field center col s10" id="selectBound">
@@ -54,9 +54,9 @@
           </p>
           <select multiple id="bound">
             <option value="" disabled selected>Select the bound to be performed</option>
-            {% for i in bound %}
-              <option {{i}}>{{i}}</option>
-            {%endfor%}
+            {% for bound in form.bounds %}
+              <option value="{{ bound.choice_label }}">{{ bound.choice_label}}</option>
+            {% endfor %}
           </select>
         </div>
       </div>
@@ -66,7 +66,7 @@
           <p>
             <strong>DO THE STATISTICAL TEST</strong>
           </p>
-            {% for choice in form.statisticTest %}
+            {% for choice in form.statistic_test %}
             <p>
                 <label>
                      <input class="with-gap" name ="statisticTest" type="radio"/>
@@ -89,17 +89,17 @@
           <p class="center">
             <strong>CONFIGURATION OF EXECUTION</strong>
           </p>
-          {{form.nObjectives}}
-          {{form.nExecutions}}
+          {{form.n_objectives}}
+          {{form.n_executions}}
           {{form.step}}
-          {{form.stopCondition}}
+          {{form.stop_condition}}
         </div>
       </div>
       <div class="row" >
         <div class="col s10">
           <div>
             <p><strong>Select a data output format</strong></p>
-            {% for choice in form.dataOutput %}
+            {% for choice in form.data_output %}
             <p>
                 <label>
                     <input class="with-gap" name ="dataOutput" type="radio"/>
